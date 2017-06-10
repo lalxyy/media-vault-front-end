@@ -19,3 +19,10 @@ npm run build --report
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## Online Website
+- For IPv4
+  - http://media-vault.izlf.site/
+  - http://mv.izlf.site/ (abbreviated)
+- For IPv6
+  - http://mv6.izlf.site/
