@@ -1,9 +1,9 @@
 <template>
-  <el-row></el-row>
+  <router-view></router-view>
 </template>
 
 <script>
-
+  //
 </script>
 
 <style>
