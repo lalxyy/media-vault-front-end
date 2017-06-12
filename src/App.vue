@@ -5,17 +5,24 @@
     </el-menu>
     <el-row>
       <el-col :span="4">
-        <el-menu class="side-menu">
-          <el-menu-item index="0"><i class="el-icon-menu"></i>Home</el-menu-item>
-          <el-submenu index="1">
-            <template slot="title"><i class="el-icon-document"></i>Media Library</template>
-            <el-menu-item index="1-1">TV Shows</el-menu-item>
-            <el-menu-item index="1-2">Movies</el-menu-item>
+        <el-menu class="side-menu" :router="true" default-active="/"
+                 @open="goMediaLibrarySubmenu" @close="goMediaLibrarySubmenu">
+          <el-menu-item index="/"><i class="el-icon-menu"></i>Home
+          </el-menu-item>
+          <el-submenu index="/media-library">
+            <template slot="title">
+              <i class="el-icon-document"></i>Media Library
+            </template>
+            <!--<el-menu-item index="/media-library">All</el-menu-item>-->
+            <el-menu-item index="/media-library/tv-shows">TV Shows
+            </el-menu-item>
+            <el-menu-item index="/media-library/movies">Movies</el-menu-item>
           </el-submenu>
-          <el-menu-item index="2"><i class="el-icon-upload"></i>Upload</el-menu-item>
+          <el-menu-item index="/upload"><i class="el-icon-upload"></i>Upload
+          </el-menu-item>
         </el-menu>
       </el-col>
-      <el-col span="20">
+      <el-col :span="20">
         <div style="padding: 5px">
           <router-view></router-view>
         </div>
@@ -36,8 +43,21 @@
       ElMenu,
       ElRow
     },
-    name: 'app'
-  }
+    name: 'app',
+    data () {
+      return {
+        itemActiveIndex: '/'
+      };
+    },
+    methods: {
+      /**
+       * Go to Entire Library when clicking on sub-menu.
+       */
+      goMediaLibrarySubmenu(index) {
+        this.$router.push(index);
+      }
+    }
+  };
 </script>
 
 <style scoped>
