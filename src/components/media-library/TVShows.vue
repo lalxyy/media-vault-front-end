@@ -3,7 +3,7 @@
     <h2>TV Shows</h2>
     <el-table :data="filterTableData" stripe style="width: 100%">
       <el-table-column prop="title" label="Title" width="300"></el-table-column>
-      <el-table-column label="Episodes" width="50">
+      <el-table-column label="Episodes" width="100">
         <template scope="scope">
           {{scope.row.episodes.length}}
         </template>

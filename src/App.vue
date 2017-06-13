@@ -17,6 +17,8 @@
             <el-menu-item index="/media-library/tv-shows">TV Shows
             </el-menu-item>
             <el-menu-item index="/media-library/movies">Movies</el-menu-item>
+            <el-menu-item index="/media-library/music">Music</el-menu-item>
+            <el-menu-item index="/media-library/photos">Photos</el-menu-item>
           </el-submenu>
           <el-menu-item index="/upload"><i class="el-icon-upload"></i>Upload
           </el-menu-item>
@@ -32,17 +34,7 @@
 </template>
 
 <script>
-  import ElRow from 'element-ui/packages/row/src/row';
-  import ElMenu from '../node_modules/element-ui/packages/menu/src/menu';
-  import ElCol from 'element-ui/packages/col/src/col';
-  import ElMenuItem from '../node_modules/element-ui/packages/menu/src/menu-item';
   export default {
-    components: {
-      ElMenuItem,
-      ElCol,
-      ElMenu,
-      ElRow
-    },
     name: 'app',
     data () {
       return {
