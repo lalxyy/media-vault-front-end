@@ -10,6 +10,11 @@
 </template>
 
 <script>
+  // Title
+  // Type
+  // Total File Size
+  // Operation
+
   export default {
     data () {
       return {

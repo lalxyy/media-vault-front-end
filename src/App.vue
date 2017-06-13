@@ -5,7 +5,7 @@
     </el-menu>
     <el-row>
       <el-col :span="4">
-        <el-menu class="side-menu" :router="true" default-active="/"
+        <el-menu class="side-menu" :router="true"
                  @open="goMediaLibrarySubmenu" @close="goMediaLibrarySubmenu">
           <el-menu-item index="/"><i class="el-icon-menu"></i>Home
           </el-menu-item>

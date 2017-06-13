@@ -1,5 +1,6 @@
 export default [
   {
+    id: 1,
     title: 'Silicon Valley',
     type: 'TVShows',
     episodes: [
@@ -87,6 +88,7 @@ export default [
     ]
   },
   {
+    id: 2,
     title: 'The Big Bang Theory',
     type: 'TVShows',
     episodes: [
@@ -123,6 +125,7 @@ export default [
     ]
   },
   {
+    id: 3,
     title: 'Gone With the Wind',
     type: 'Movies',
     fileURL: '',
@@ -133,6 +136,7 @@ export default [
     }
   },
   {
+    id: 4,
     title: 'A Clockwork Orange',
     type: 'Movies',
     fileURL: '',
@@ -143,6 +147,7 @@ export default [
     }
   },
   {
+    id: 5,
     title: 'The Truman Show',
     type: 'Movies',
     fileURL: '',

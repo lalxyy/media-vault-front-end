@@ -7,6 +7,7 @@ import TVShows from '@/components/media-library/TVShows'
 import AllLibrary from '@/components/media-library/All'
 import MediaLibrary from '@/components/MediaLibrary'
 import Upload from '@/components/Upload'
+import MediaDetails from '@/components/media-library/MediaDetails'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
           path: 'tv-shows',
           name: "TVShows",
           component: TVShows
+        },
+        {
+          path: ':id',
+          name: 'MediaDetails',
+          component: MediaDetails
         }
       ]
     },
