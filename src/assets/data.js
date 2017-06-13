@@ -164,9 +164,11 @@ export default [
       measure: 'GB'
     }
   },
+
+  // TODO Music
   {
-    id: 6,
-    title: '',
+    id: 101,
+    title: 'Test Music Title',
     type: 'Music',
     year: '2008',
     fileURL: '',
@@ -175,5 +177,15 @@ export default [
       size: 10.23,
       measure: 'MB'
     }
+  },
+
+  // TODO Photos
+  {
+    id: 201,
+    title: 'First Photo',
+    type: 'Photos',
+    year: '2010',
+    fileURL: ''
+    // TODO 暂时只是存储单张图片？不是"相册"？（不需要点进去看所有照片）
   }
 ];

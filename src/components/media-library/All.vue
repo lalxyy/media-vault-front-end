@@ -41,9 +41,26 @@
               <i class="el-icon-upload2"></i> Download
             </el-button>
           </template>
-          <!-- Uses `v-else-if` -->
+          <!-- Uses `v-else-if` to show TV shows -->
           <template v-else-if="scope.row.type === 'TVShows'">
-            <el-button size="small" type="primary">Details</el-button>
+            <el-button size="small" type="primary">
+              Details
+            </el-button>
+            <el-button size="small" type="primary">
+              <i class="el-icon-upload2"></i> Download
+            </el-button>
+          </template>
+          <!-- Shows Music-->
+          <template v-else-if="scope.row.type === 'Music'">
+            <el-button size="small" type="primary">
+              <i class="el-icon-upload2"></i> Download
+            </el-button>
+          </template>
+          <!-- Shows Photos-->
+          <template v-else-if="scope.row.type === 'Photos'">
+            <el-button :plain="true" type="info" size="small">
+              Preview
+            </el-button>
           </template>
         </template>
       </el-table-column>
