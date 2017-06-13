@@ -185,7 +185,11 @@ export default [
     title: 'First Photo',
     type: 'Photos',
     year: '2010',
-    fileURL: ''
+    fileURL: '',
+    size: {
+      size: 3.22,
+      measure: 'MB'
+    }
     // TODO 暂时只是存储单张图片？不是"相册"？（不需要点进去看所有照片）
   }
 ];
