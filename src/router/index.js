@@ -1,11 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+// Home
 import Home from '@/components/Home'
+// Media Library Root
+import MediaLibrary from '@/components/MediaLibrary'
+// All Type of Media
+import AllLibrary from '@/components/media-library/All'
+// Each Type of Media
 import Movies from '@/components/media-library/Movies'
 import TVShows from '@/components/media-library/TVShows'
-import AllLibrary from '@/components/media-library/All'
-import MediaLibrary from '@/components/MediaLibrary'
+import Music from '@/components/media-library/Music'
+import Photos from '@/components/media-library/Photos'
+// import OtherVideos from '@/components/media-library/OtherVideos'
+// import OtherAudios from '@/components/media-library/OtherAudios'
+// Functional Pages
 import Upload from '@/components/Upload'
 import MediaDetails from '@/components/media-library/MediaDetails'
 
@@ -38,6 +47,16 @@ export default new Router({
           component: TVShows
         },
         {
+          path: 'music',
+          name: 'Music',
+          component: Music
+        },
+        {
+          path: 'photos',
+          name: 'Photos',
+          component: Photos
+        },
+        {
           path: ':id',
           name: 'MediaDetails',
           component: MediaDetails
@@ -50,4 +69,4 @@ export default new Router({
       component: Upload
     }
   ]
-})
+});

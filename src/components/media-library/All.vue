@@ -21,10 +21,13 @@
           </template>
           <!-- Uses `v-else-if` -->
           <template v-else-if="scope.row.type === 'TVShows'">
-            <!-- TODO Needs to compute the total size of the TV shows-->
+            <!-- Needs to compute the total size of the TV shows-->
             {{computeTotalSize(scope.row.episodes).toFixed(2)}}&nbsp;{{scope.row.episodes[0].size.measure}}
             <!--{{computeTotalSize(scope.row.episodes).toFixed(2)}}&nbsp;{{'GB'}}-->
           </template>
+          <!-- Filter Music -->
+
+          <!-- Filter Photos -->
 
         </template>
       </el-table-column>

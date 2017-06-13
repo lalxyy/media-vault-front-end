@@ -2,18 +2,27 @@
   <div>
     <h2>Movies</h2>
     <el-table :data="filterTableData" stripe style="width: 100%">
+      <!-- Title -->
       <el-table-column prop="title" label="Title" width="300"></el-table-column>
+
+      <!-- Duration -->
       <el-table-column label="Duration" width="200">
         <template scope="scope">
           {{getTimeString(scope.row.time)}}
         </template>
       </el-table-column>
+
+      <!-- Year-->
       <el-table-column prop="year" label="Year" width="100"></el-table-column>
+
+      <!-- File Size-->
       <el-table-column label="File Size" width="100">
         <template scope="scope">
           {{scope.row.size.size}}&nbsp;{{scope.row.size.measure}}
         </template>
       </el-table-column>
+
+      <!-- Available Operations -->
       <el-table-column label="Operations">
         <template scope="scope">
           <el-button size="small" type="primary">
@@ -21,6 +30,7 @@
           </el-button>
         </template>
       </el-table-column>
+
     </el-table>
   </div>
 </template>
