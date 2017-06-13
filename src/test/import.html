@@ -8,5 +8,19 @@
 </head>
 <body>
 
+<div id="app">
+  {{message}}
+</div>
+
+<script>
+  import Vue from "vue/src/core/instance/index";
+  let app = new Vue({
+    el: '#app',
+    data: {
+      message: '!'
+    }
+  });
+</script>
+
 </body>
 </html>
