@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>for import</title>
+
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+  {{message}}
+</div>
+
+<div id="app-2">
+  <span v-bind:title="message">
+    test
+  </span>
+</div>
+
+<div id="app-4">
+  <ol>
+    <li v-for="todo in todos">
+      {{ todo.text }}
+    </li>
+  </ol>
+</div>
+
+<script>
+  import Vue from "vue/src/core/instance/index";
+  let app = new Vue({
+    el: '#app',
+    data: {
+      message: '!'
+    }
+  });
+
+  let app2 = new Vue({
+    el: "#app-2",
+    data: {
+        message: new Date()
+    }
+  });
+
+  let app4 = new Vue({
+    el: '#app-4'
+
+  });
+  // Components
+
+</script>
+
+</body>
+</html>
