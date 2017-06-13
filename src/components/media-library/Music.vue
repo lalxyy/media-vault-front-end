@@ -84,7 +84,6 @@
 
 <script>
   import data from '@/assets/data';
-  mode = 'list'
 
   export default {
     data() {
