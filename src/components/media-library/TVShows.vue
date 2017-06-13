@@ -11,7 +11,7 @@
 
       <el-table-column label="File Size" width="100">
         <template scope="scope">
-          <!-- TODO Needs to compute the total size of the TV shows-->
+          <!-- Needs to compute the total size of the TV shows-->
           {{computeTotalSize(scope.row.episodes).toFixed(2)}}&nbsp;{{scope.row.episodes[0].size.measure}}
         </template>
       </el-table-column>
