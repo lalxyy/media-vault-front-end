@@ -26,3 +26,12 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
   - http://mv.izlf.site/ (abbreviated)
 - For IPv6
   - http://mv6.izlf.site/
+  
+## Media Types
+- Music
+- Other Audio
+- TV Shows
+- Movies
+- Other Videos
+- Photos
+- E-books

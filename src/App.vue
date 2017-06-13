@@ -23,7 +23,7 @@
         </el-menu>
       </el-col>
       <el-col :span="20">
-        <div style="padding: 5px">
+        <div style="padding: 10px">
           <router-view></router-view>
         </div>
       </el-col>
