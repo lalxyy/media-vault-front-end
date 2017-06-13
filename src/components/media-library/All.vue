@@ -29,6 +29,10 @@
 
           <!-- Filter Photos -->
 
+          <!-- Filter Others -->
+          <template v-else>
+            {{scope.row.size.size}}&nbsp;{{scope.row.size.measure}}
+          </template>
         </template>
       </el-table-column>
 
@@ -36,15 +40,19 @@
         <!-- Sets the scope to "scope" -->
         <template scope="scope">
           <!-- Uses `v-if` to judge the type of the operations-->
+          <template v-if="scope.row.type !== 'Music' && scope.row.type !== 'Photos'">
+            <el-button size="small" type="primary" @click="$router.push({name: 'MediaDetails', params: {id: scope.row.id}})">
+              Details
+            </el-button>
+          </template>
           <template v-if="scope.row.type === 'Movies'">
             <el-button size="small" type="primary">
               <i class="el-icon-upload2"></i> Download
             </el-button>
           </template>
-          <!-- Uses `v-else-if` -->
-          <template v-else-if="scope.row.type === 'TVShows'">
-            <el-button size="small" type="primary">Details</el-button>
-          </template>
+          <el-button size="small" type="danger">
+            <i class="el-icon-delete2"></i> Delete
+          </el-button>
         </template>
       </el-table-column>
 

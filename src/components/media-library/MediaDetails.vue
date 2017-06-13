@@ -18,8 +18,19 @@
     </el-row>
 
     <template v-if="exact.type === 'TVShows'">
-      <h3>Episodes List</h3>
+      <el-row>
+        <el-col style="text-align: left" :span="12">
+          <h3>Episodes List</h3>
+        </el-col>
+        <el-col style="text-align: right" :span="12">
+          <div style="margin-top: 19px">
+            Editable <el-switch v-model="tvShowsTableEditable"></el-switch>
+          </div>
+        </el-col>
+      </el-row>
       <el-table :data="exact.episodes" stripe style="width: 100%">
+        <el-table-column v-if="tvShowsTableEditable" type="selection" width="55">
+        </el-table-column>
         <el-table-column prop="season" label="Season" width="100"></el-table-column>
         <el-table-column prop="episode" label="Episode" width="100"></el-table-column>
         <el-table-column label="Duration" width="200">
@@ -61,7 +72,8 @@
     data () {
       return {
         id: parseInt(this.$route.params.id),
-        exact: {}
+        exact: {},
+        tvShowsTableEditable: false
       };
     },
     methods: {
