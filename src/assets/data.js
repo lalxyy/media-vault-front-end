@@ -4,43 +4,152 @@ export default [
     type: 'TVShows',
     episodes: [
       {
-        title: "S01E01",
+        season: 1,
+        episode: 1,
+        year: '2010',
         fileURL: '',
-        size: '1.7 GB'
+        time: 1710, // seconds
+        size: {
+          size: 1.71,
+          measure: 'GB'
+        }
       },
       {
-        title: "S01E02",
+        season: 1,
+        episode: 2,
         fileURL: '',
-        size: '1.7 GB'
+        time: 1710,
+        size: {
+          size: 1.7,
+          measure: 'GB'
+        }
       },
       {
-        title: "S01E03",
+        season: 1,
+        episode: 3,
         fileURL: '',
-        size: '1.7 GB'
+        time: 1710,
+        size: {
+          size: 1.72,
+          measure: 'GB'
+        }
       },
       {
-        title: "S01E04",
+        season: 1,
+        episode: 4,
         fileURL: '',
-        size: '1.7 GB'
+        time: 1710,
+        size: {
+          size: 1.7,
+          measure: 'GB'
+        }
       },
       {
-        title: "S01E05",
+        season: 1,
+        episode: 5,
         fileURL: '',
-        size: '1.7 GB'
+        time: 1710,
+        size: {
+          size: 1.7,
+          measure: 'GB'
+        }
       },
       {
-        title: "S01E06",
+        season: 1,
+        episode: 6,
         fileURL: '',
-        size: '1.7 GB'
+        time: 1710,
+        size: {
+          size: 1.7,
+          measure: 'GB'
+        }
       },
       {
-        title: "S01E07",
-        fileURL: ''
+        season: 1,
+        episode: 7,
+        fileURL: '',
+        time: 1710,
+        size: {
+          size: 1.7,
+          measure: 'GB'
+        }
       },
       {
-        title: "S01E08",
-        fileURL: ''
+        season: 1,
+        episode: 8,
+        fileURL: '',
+        time: 1710,
+        size: {
+          size: 1.7,
+          measure: 'GB'
+        }
       },
     ]
+  },
+  {
+    title: 'The Big Bang Theory',
+    type: 'TVShows',
+    episodes: [
+      {
+        season: 10,
+        episode: 2,
+        fileURL: '',
+        time: 1243,
+        size: {
+          size: 2.32,
+          measure: 'GB'
+        }
+      },
+      {
+        season: 10,
+        episode: 24,
+        fileURL: '',
+        time: 1243,
+        size: {
+          size: 2.31,
+          measure: 'GB'
+        }
+      },
+      {
+        season: 8,
+        episode: 23,
+        fileURL: '',
+        time: 1243,
+        size: {
+          size: 2.32,
+          measure: 'GB'
+        }
+      }
+    ]
+  },
+  {
+    title: 'Gone With the Wind',
+    type: 'Movies',
+    fileURL: '',
+    time: 25700,
+    size: {
+      size: 6.87,
+      measure: 'GB'
+    }
+  },
+  {
+    title: 'A Clockwork Orange',
+    type: 'Movies',
+    fileURL: '',
+    time: 14894,
+    size: {
+      size: 3.89,
+      measure: 'GB'
+    }
+  },
+  {
+    title: 'The Truman Show',
+    type: 'Movies',
+    fileURL: '',
+    time: 6180,
+    size: {
+      size: 6.11,
+      measure: 'GB'
+    }
   }
 ];
