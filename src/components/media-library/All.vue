@@ -71,10 +71,10 @@
               Preview
             </el-button>
           </template>
-          <el-button size="small" type="danger">
-            <i class="el-icon-delete2"></i> Delete
-          </el-button>
         </template>
+        <el-button size="small" type="danger">
+          <i class="el-icon-delete2"></i> Delete
+        </el-button>
       </el-table-column>
 
     </el-table>
