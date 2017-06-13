@@ -25,6 +25,9 @@
       <!-- Available Operations -->
       <el-table-column label="Operations">
         <template scope="scope">
+          <el-button type="primary" size="small">
+            Details
+          </el-button>
           <el-button size="small" type="primary">
             <i class="el-icon-upload2"></i> Download
           </el-button>
@@ -49,7 +52,11 @@
     },
     methods: {
       getTimeString (time) {
-        return `${Math.floor(time / 3600)} hrs ${Math.floor((time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
+        return `${Math.floor(time / 3600)} hrs ${Math.floor(
+          (time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
+      },
+      goDetails (id) {
+        this.$router.push({name: 'MediaDetails', params: {id}})
       }
     },
     computed: {

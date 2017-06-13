@@ -3,6 +3,7 @@ export default [
     id: 1,
     title: 'Silicon Valley',
     type: 'TVShows',
+    thumbnailURL: '/static/thumbnails/tvshows/silicon-valley.jpg',
     episodes: [
       {
         season: 1,
@@ -90,6 +91,7 @@ export default [
     id: 2,
     title: 'The Big Bang Theory',
     type: 'TVShows',
+    thumbnailURL: '/static/thumbnails/tvshows/the-big-bang-theory.jpg',
     episodes: [
       {
         season: 10,
@@ -126,6 +128,7 @@ export default [
   {
     id: 3,
     title: 'Gone With the Wind',
+    thumbnailURL: '/static/thumbnails/movies/gone-with-the-wind.jpg',
     type: 'Movies',
     year: '1975',
     fileURL: '',
@@ -138,6 +141,7 @@ export default [
   {
     id: 4,
     title: 'A Clockwork Orange',
+    thumbnailURL: '/static/thumbnails/movies/a-clockwork-orange.jpg',
     type: 'Movies',
     year: '1971',
     fileURL: '',
@@ -150,6 +154,7 @@ export default [
   {
     id: 5,
     title: 'The Truman Show',
+    thumbnailURL: '/static/thumbnails/movies/the-truman-show.jpg',
     type: 'Movies',
     year: '1995',
     fileURL: '',

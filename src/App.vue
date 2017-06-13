@@ -14,8 +14,7 @@
               <i class="el-icon-document"></i>Media Library
             </template>
             <!--<el-menu-item index="/media-library">All</el-menu-item>-->
-            <el-menu-item index="/media-library/tv-shows">TV Shows
-            </el-menu-item>
+            <el-menu-item index="/media-library/tv-shows">TV Shows</el-menu-item>
             <el-menu-item index="/media-library/movies">Movies</el-menu-item>
             <el-menu-item index="/media-library/music">Music</el-menu-item>
             <el-menu-item index="/media-library/photos">Photos</el-menu-item>

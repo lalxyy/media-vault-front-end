@@ -1,17 +1,17 @@
 <template>
   <div>
     <el-row style="margin-bottom: 10px">
-      <el-button type="text" size="large">
+      <el-button type="text" size="large" @click="this.$router.go(-1)">
         <i class="el-icon-arrow-left"></i> Back
       </el-button>
     </el-row>
     <el-row>
-      <el-col :span="6">
-        (pic)
+      <el-col :span="6" style="padding-right: 20px">
+        <img :src="exact.thumbnailURL" style="max-width: 100%" />
       </el-col>
       <el-col :span="18">
         <div class="row"><h2>{{exact.title}}</h2></div>
-        <div v-if="exact.year" class="row"><h6>{{exact.year}}</h6></div>
+        <div v-if="exact.year" class="row"><h4>{{exact.year}}</h4></div>
         <div class="row">{{exact.type}}</div>
         <div v-if="exact.episodes" class="row">{{exact.episodes.length}} episodes</div>
       </el-col>
@@ -57,6 +57,14 @@
           this.exact = element;
         }
       })
+    },
+    beforeRouteUpdate (to, from, next) {
+      tableData.forEach(element => {
+        if (element.id === to.params.id) {
+          this.exact = element;
+        }
+      })
+      next()
     },
     data () {
       return {
