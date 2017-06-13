@@ -10,7 +10,7 @@
       </el-table-column>
       <el-table-column label="Operations">
         <template scope="scope">
-          <el-button size="small" type="primary">Details</el-button>
+          <el-button size="small" type="primary" @click="goToDetails(scope.row.id)">Details</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -28,6 +28,11 @@
       return {
         tableData
       };
+    },
+    methods: {
+      goToDetails (id) {
+        this.$router.push({name: 'MediaDetails', params: {id}})
+      }
     },
     computed: {
       filterTableData () {

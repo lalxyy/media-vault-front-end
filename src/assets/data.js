@@ -7,7 +7,6 @@ export default [
       {
         season: 1,
         episode: 1,
-        year: '2010',
         fileURL: '',
         time: 1710, // seconds
         size: {
@@ -128,6 +127,7 @@ export default [
     id: 3,
     title: 'Gone With the Wind',
     type: 'Movies',
+    year: '1975',
     fileURL: '',
     time: 25700,
     size: {
@@ -139,6 +139,7 @@ export default [
     id: 4,
     title: 'A Clockwork Orange',
     type: 'Movies',
+    year: '1971',
     fileURL: '',
     time: 14894,
     size: {
@@ -150,6 +151,7 @@ export default [
     id: 5,
     title: 'The Truman Show',
     type: 'Movies',
+    year: '1995',
     fileURL: '',
     time: 6180,
     size: {
