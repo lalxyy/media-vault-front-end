@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row style="margin-bottom: 10px">
-      <el-button type="text" size="large" @click="this.$router.go(-1)">
+      <el-button type="text" size="large" @click="$router.go(-1)">
         <i class="el-icon-arrow-left"></i> Back
       </el-button>
     </el-row>
@@ -58,14 +58,6 @@
         }
       })
     },
-    beforeRouteUpdate (to, from, next) {
-      tableData.forEach(element => {
-        if (element.id === to.params.id) {
-          this.exact = element;
-        }
-      })
-      next()
-    },
     data () {
       return {
         id: parseInt(this.$route.params.id),
@@ -73,17 +65,20 @@
       };
     },
     methods: {
+      beforeRouteUpdate (to, from, next) {
+        tableData.forEach(element => {
+          if (element.id === to.params.id) {
+            this.exact = element;
+          }
+        })
+        next()
+      },
       getTimeString (time) {
         return `${Math.floor(time / 3600)} hrs ${Math.floor((time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
       }
     },
     computed: {
-      isTVShows () {
-        return this.exact.type === 'TVShows';
-      },
-      isMovies () {
-        return this.exact.type === 'Movies';
-      },
+      //
     }
   };
 </script>

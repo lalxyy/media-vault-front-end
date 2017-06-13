@@ -163,5 +163,17 @@ export default [
       size: 6.11,
       measure: 'GB'
     }
+  },
+  {
+    id: 6,
+    title: '',
+    type: 'Music',
+    year: '2008',
+    fileURL: '',
+    time: 2332, // duration
+    size: {
+      size: 10.23,
+      measure: 'MB'
+    }
   }
 ];

@@ -25,7 +25,7 @@
       <!-- Available Operations -->
       <el-table-column label="Operations">
         <template scope="scope">
-          <el-button type="primary" size="small">
+          <el-button type="primary" size="small" @click="goDetails(scope.row.id)">
             Details
           </el-button>
           <el-button size="small" type="primary">
