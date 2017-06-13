@@ -19,6 +19,9 @@
       <el-table-column label="Operations">
         <template scope="scope">
           <el-button size="small" type="primary" @click="goToDetails(scope.row.id)">Details</el-button>
+          <el-button size="small" type="danger" @click="deleteItem(scope.row.id)">
+            <i class="el-icon-delete2"></i> Delete
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -47,6 +50,18 @@
           totalSize += episode.size.size;
         })
         return totalSize;
+      },
+      deleteItem (id) {
+        this.$confirm('Are you sure to delete the item? ', 'Warning', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: 'Succeeded'
+          })
+        })
       }
     },
     computed: {

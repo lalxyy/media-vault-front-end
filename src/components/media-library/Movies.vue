@@ -31,6 +31,9 @@
           <el-button size="small" type="primary">
             <i class="el-icon-upload2"></i> Download
           </el-button>
+          <el-button size="small" type="danger" @click="deleteItem(scope.row.id)">
+            <i class="el-icon-delete2"></i> Delete
+          </el-button>
         </template>
       </el-table-column>
 
@@ -57,6 +60,18 @@
       },
       goDetails (id) {
         this.$router.push({name: 'MediaDetails', params: {id}})
+      },
+      deleteItem (id) {
+        this.$confirm('Are you sure to delete the item? ', 'Warning', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: 'Succeeded'
+          })
+        })
       }
     },
     computed: {
