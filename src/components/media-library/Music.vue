@@ -32,6 +32,8 @@
           <!-- Year -->
           <el-table-column prop="year" label="Year" width="100"></el-table-column>
 
+          <!-- TODO 感觉音乐应该用不着显示体积？都差不多 -->
+
           <!-- Available Operations -->
           <el-table-column label="Operations">
             <template scope="scope">
@@ -90,6 +92,12 @@
       return {
         data
       };
+    },
+    methods: {
+      getTimeString (time) {
+        return `${Math.floor(time / 3600)} hrs ${Math.floor(
+          (time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
+      }
     },
     computed: {
       // Only needs Music in this table
