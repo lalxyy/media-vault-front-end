@@ -6,7 +6,7 @@
       <el-table-column label="Title" width="300" prop="title"></el-table-column>
 
       <!-- Type -->
-      <el-table-column label="Type" width="200">
+      <el-table-column label="Type" width="100">
         <template scope="scope">
           {{scope.row.type}}
         </template>
@@ -21,8 +21,9 @@
           </template>
           <!-- Uses `v-else-if` -->
           <template v-else-if="scope.row.type === 'TVShows'">
-            <!-- Needs to compute the total size of the TV shows-->
-
+            <!-- TODO Needs to compute the total size of the TV shows-->
+            {{computeTotalSize(scope.row.episodes).toFixed(2)}}&nbsp;{{scope.row.episodes[0].size.measure}}
+            <!--{{computeTotalSize(scope.row.episodes).toFixed(2)}}&nbsp;{{'GB'}}-->
           </template>
 
         </template>
@@ -49,10 +50,6 @@
 </template>
 
 <script>
-  // Title
-  // Type
-  // Total File Size
-  // Operation
   import tableData from '@/assets/data'
 
   export default {
@@ -61,9 +58,15 @@
         tableData: tableData
       }
     },
-//    methods: {
-//
-//    }
+    methods: {
+      computeTotalSize(episodes) {
+        let totalSize = 0;
+        episodes.forEach(episode => {
+          totalSize += episode.size.size;
+        })
+        return totalSize;
+      }
+    }
   };
 </script>
 
