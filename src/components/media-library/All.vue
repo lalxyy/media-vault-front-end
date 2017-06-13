@@ -25,6 +25,9 @@
             {{computeTotalSize(scope.row.episodes).toFixed(2)}}&nbsp;{{scope.row.episodes[0].size.measure}}
             <!--{{computeTotalSize(scope.row.episodes).toFixed(2)}}&nbsp;{{'GB'}}-->
           </template>
+          <!-- Filter Music -->
+
+          <!-- Filter Photos -->
 
         </template>
       </el-table-column>
