@@ -29,7 +29,7 @@
         <div v-for="item in form.tvEpisodes" style="border: 2px">
           <el-row>
             <el-col :span="24" style="text-align: right; width: 700px">
-              <i style="color: #8492a6" class="el-icon-delete"></i>
+              <a @click=""><i style="color: #8492a6" class="el-icon-delete"></i></a>
             </el-col>
           </el-row>
           <el-form-item label="Season">
@@ -42,11 +42,10 @@
             <el-upload
               class="upload-demo"
               drag
-              action="https://jsonplaceholder.typicode.com/posts/"
-              multiple>
+              action="https://jsonplaceholder.typicode.com/posts/">
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">Drag Files Here or <em>Click to Upload</em></div>
-              <div class="el-upload__tip" slot="tip">Only in jpg / png format, &lt; 500kb</div>
+              <!--<div class="el-upload__tip" slot="tip">Only in jpg / png format, &lt; 500kb</div>-->
             </el-upload>
           </el-form-item>
         </div>
@@ -65,9 +64,7 @@
 </template>
 
 <script>
-  import ElInput from '../../node_modules/element-ui/packages/input/src/input';
   export default {
-    components: {ElInput},
     data () {
       return {
         form: {
@@ -84,6 +81,11 @@
           season: 0,
           episode: 0
         })
+      },
+      removeTVEpisode (index) {
+        if (index > -1) {
+          this.form.tvEpisodes.splice(index, 1);
+        }
       }
     }
   }

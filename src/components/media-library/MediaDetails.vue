@@ -45,7 +45,7 @@
         </el-table-column>
         <el-table-column label="Operation">
           <template scope="scope">
-            <el-button size="small" type="primary">
+            <el-button size="small" type="primary" @click="downloadFile(scope.row.fileURL)">
               <i class="el-icon-upload2"></i>&nbsp;Download
             </el-button>
             <el-button size="small" type="danger">
@@ -87,6 +87,9 @@
       },
       getTimeString (time) {
         return `${Math.floor(time / 3600)} hrs ${Math.floor((time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
+      },
+      downloadFile (fileURL) {
+        window.open(fileURL, '_blank');
       }
     },
     computed: {

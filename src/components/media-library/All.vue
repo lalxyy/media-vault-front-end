@@ -46,7 +46,7 @@
             </el-button>
           </template>
           <template v-if="scope.row.type === 'Movies'">
-            <el-button size="small" type="primary">
+            <el-button size="small" type="primary"  @click="downloadFile(scope.row.fileURL)">
               <i class="el-icon-upload2"></i> Download
             </el-button>
           </template>
@@ -55,13 +55,13 @@
             <!--<el-button size="small" type="primary">-->
               <!--Details-->
             <!--</el-button>-->
-            <el-button size="small" type="primary">
-              <i class="el-icon-upload2"></i> Download
-            </el-button>
+            <!--<el-button size="small" type="primary" @click="downloadFile(exact.fileURL)">-->
+              <!--<i class="el-icon-upload2"></i> Download-->
+            <!--</el-button>-->
           </template>
           <!-- Shows Music-->
           <template v-else-if="scope.row.type === 'Music'">
-            <el-button size="small" type="primary">
+            <el-button size="small" type="primary" @click="downloadFile(scope.row.fileURL)">
               <i class="el-icon-upload2"></i> Download
             </el-button>
           </template>
@@ -109,6 +109,9 @@
             message: 'Succeeded'
           })
         })
+      },
+      downloadFile (fileURL) {
+        window.open(fileURL, '_blank');
       }
     }
   };

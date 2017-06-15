@@ -13,9 +13,9 @@
     <!--</el-tabs>-->
 
     <!-- TODO Testing `Border-Card` Navigation -->
-    <el-tabs type="border-card">
-      <el-tab-pane>
-        <span slot="label"><i class="el-icon-date"></i> Test Mode 1</span>
+    <!--<el-tabs type="border-card">-->
+      <!--<el-tab-pane>-->
+        <!--<span slot="label"><i class="el-icon-date"></i> Test Mode 1</span>-->
 
         <!-- Uses a table to show the data if `Music` -->
         <el-table :data="filterTableData" stripe style="width: 100%">
@@ -32,23 +32,24 @@
           <!-- Year -->
           <el-table-column prop="year" label="Year" width="100"></el-table-column>
 
-          <!-- TODO 感觉音乐应该用不着显示体积？都差不多 -->
-
           <!-- Available Operations -->
           <el-table-column label="Operations">
             <template scope="scope">
-              <el-button size="small" type="primary">
+              <el-button size="small" type="primary" @click="downloadFile(scope.row.fileURL)">
                 <i class="el-icon-upload2"></i> Download
+              </el-button>
+              <el-button size="small" type="danger" @click="deleteItem(scope.row.id)">
+                <i class="el-icon-delete2"></i> Delete
               </el-button>
             </template>
           </el-table-column>
         </el-table>
 
-      </el-tab-pane>
-      <el-tab-pane label="消息中心">消息中心</el-tab-pane>
-      <el-tab-pane label="角色管理">角色管理</el-tab-pane>
-      <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
-    </el-tabs>
+      <!--</el-tab-pane>-->
+      <!--<el-tab-pane label="消息中心">消息中心</el-tab-pane>-->
+      <!--<el-tab-pane label="角色管理">角色管理</el-tab-pane>-->
+      <!--<el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>-->
+    <!--</el-tabs>-->
 
     <!-- Shown in List Mode-->
     <!--<template v-if="mode = 'list'">-->
@@ -97,7 +98,22 @@
       getTimeString (time) {
         return `${Math.floor(time / 3600)} hrs ${Math.floor(
           (time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
-      }
+      },
+      downloadFile (fileURL) {
+        window.open(fileURL, '_blank');
+      },
+      deleteItem (id) {
+        this.$confirm('Are you sure to delete the item? ', 'Warning', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: 'Succeeded'
+          })
+        })
+      },
     },
     computed: {
       // Only needs Music in this table

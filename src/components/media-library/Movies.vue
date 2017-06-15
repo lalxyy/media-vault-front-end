@@ -28,7 +28,7 @@
           <el-button type="primary" size="small" @click="goDetails(scope.row.id)">
             Details
           </el-button>
-          <el-button size="small" type="primary">
+          <el-button size="small" type="primary" @click="downloadFile(scope.row.fileURL)">
             <i class="el-icon-upload2"></i> Download
           </el-button>
           <el-button size="small" type="danger" @click="deleteItem(scope.row.id)">
@@ -72,6 +72,9 @@
             message: 'Succeeded'
           })
         })
+      },
+      downloadFile (fileURL) {
+        window.open(fileURL, '_blank');
       }
     },
     computed: {
