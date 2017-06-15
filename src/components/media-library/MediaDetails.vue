@@ -22,11 +22,11 @@
         <el-col style="text-align: left" :span="12">
           <h3>Episodes List</h3>
         </el-col>
-        <el-col style="text-align: right" :span="12">
-          <div style="margin-top: 19px">
-            Editable <el-switch v-model="tvShowsTableEditable"></el-switch>
-          </div>
-        </el-col>
+        <!--<el-col style="text-align: right" :span="12">-->
+          <!--<div style="margin-top: 19px">-->
+            <!--Editable <el-switch v-model="tvShowsTableEditable"></el-switch>-->
+          <!--</div>-->
+        <!--</el-col>-->
       </el-row>
       <el-table :data="exact.episodes" stripe style="width: 100%">
         <el-table-column v-if="tvShowsTableEditable" type="selection" width="55">
@@ -48,7 +48,7 @@
             <el-button size="small" type="primary" @click="downloadFile(scope.row.fileURL)">
               <i class="el-icon-upload2"></i>&nbsp;Download
             </el-button>
-            <el-button size="small" type="danger">
+            <el-button size="small" type="danger" @click="deleteItem(scope.row)">
               <i class="el-icon-delete2"></i>&nbsp;Delete
             </el-button>
           </template>
@@ -87,6 +87,18 @@
       },
       getTimeString (time) {
         return `${Math.floor(time / 3600)} hrs ${Math.floor((time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
+      },
+      deleteItem (id) {
+        this.$confirm('Are you sure to delete the item? ', 'Warning', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: 'Succeeded'
+          })
+        })
       },
       downloadFile (fileURL) {
         window.open(fileURL, '_blank');
