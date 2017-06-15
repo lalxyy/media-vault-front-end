@@ -52,9 +52,9 @@
           </template>
           <!-- Uses `v-else-if` to show TV shows -->
           <template v-else-if="scope.row.type === 'TVShows'">
-            <el-button size="small" type="primary">
-              Details
-            </el-button>
+            <!--<el-button size="small" type="primary">-->
+              <!--Details-->
+            <!--</el-button>-->
             <el-button size="small" type="primary">
               <i class="el-icon-upload2"></i> Download
             </el-button>
@@ -71,10 +71,10 @@
               Preview
             </el-button>
           </template>
+          <el-button size="small" type="danger" @click="deleteItem(scope.row.id)">
+            <i class="el-icon-delete2"></i> Delete
+          </el-button>
         </template>
-        <el-button size="small" type="danger">
-          <i class="el-icon-delete2"></i> Delete
-        </el-button>
       </el-table-column>
 
     </el-table>
@@ -97,6 +97,18 @@
           totalSize += episode.size.size;
         })
         return totalSize;
+      },
+      deleteItem (id) {
+        this.$confirm('Are you sure to delete the item? ', 'Warning', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: 'Succeeded'
+          })
+        })
       }
     }
   };
