@@ -8,7 +8,7 @@ export default [
       {
         season: 1,
         episode: 1,
-        fileURL: '',
+        fileURL: '/static/files/movies/Video1.mp4',
         time: 1710, // seconds
         size: {
           size: 1.71,
@@ -18,7 +18,7 @@ export default [
       {
         season: 1,
         episode: 2,
-        fileURL: '',
+        fileURL: '/static/files/movies/Video2.mp4',
         time: 1710,
         size: {
           size: 1.7,
@@ -28,7 +28,7 @@ export default [
       {
         season: 1,
         episode: 3,
-        fileURL: '',
+        fileURL: '/static/files/movies/Video3.mp4',
         time: 1710,
         size: {
           size: 1.72,
@@ -38,7 +38,7 @@ export default [
       {
         season: 1,
         episode: 4,
-        fileURL: '',
+        fileURL: '/static/files/movies/Video2.mp4',
         time: 1710,
         size: {
           size: 1.7,
@@ -48,7 +48,7 @@ export default [
       {
         season: 1,
         episode: 5,
-        fileURL: '',
+        fileURL: '/static/files/movies/Video1.mp4',
         time: 1710,
         size: {
           size: 1.7,
@@ -58,7 +58,7 @@ export default [
       {
         season: 1,
         episode: 6,
-        fileURL: '',
+        fileURL: '/static/files/movies/Video3.mp4',
         time: 1710,
         size: {
           size: 1.7,
@@ -68,7 +68,7 @@ export default [
       {
         season: 1,
         episode: 7,
-        fileURL: '',
+        fileURL: '/static/files/movies/Video3.mp4',
         time: 1710,
         size: {
           size: 1.7,
@@ -78,7 +78,7 @@ export default [
       {
         season: 1,
         episode: 8,
-        fileURL: '',
+        fileURL: '/static/files/movies/Video2.mp4',
         time: 1710,
         size: {
           size: 1.7,
@@ -96,7 +96,7 @@ export default [
       {
         season: 10,
         episode: 2,
-        fileURL: '',
+        fileURL: '/static/files/movies/Video3.mp4',
         time: 1243,
         size: {
           size: 2.32,
@@ -106,7 +106,7 @@ export default [
       {
         season: 10,
         episode: 24,
-        fileURL: '',
+        fileURL: '/static/files/movies/Video2.mp4',
         time: 1243,
         size: {
           size: 2.31,
@@ -116,7 +116,7 @@ export default [
       {
         season: 8,
         episode: 23,
-        fileURL: '',
+        fileURL: '/static/files/movies/Video3.mp4',
         time: 1243,
         size: {
           size: 2.32,
@@ -131,7 +131,7 @@ export default [
     thumbnailURL: '/static/thumbnails/movies/gone-with-the-wind.jpg',
     type: 'Movies',
     year: '1975',
-    fileURL: '',
+    fileURL: '/static/files/movies/Video3.mp4',
     time: 25700,
     size: {
       size: 6.87,
@@ -144,7 +144,7 @@ export default [
     thumbnailURL: '/static/thumbnails/movies/a-clockwork-orange.jpg',
     type: 'Movies',
     year: '1971',
-    fileURL: '',
+    fileURL: '/static/files/movies/Video2.mp4',
     time: 14894,
     size: {
       size: 3.89,
@@ -157,7 +157,7 @@ export default [
     thumbnailURL: '/static/thumbnails/movies/the-truman-show.jpg',
     type: 'Movies',
     year: '1995',
-    fileURL: '',
+    fileURL: '/static/files/movies/Video1.mp4',
     time: 6180,
     size: {
       size: 6.11,
@@ -171,7 +171,7 @@ export default [
     title: 'Test Music Title',
     type: 'Music',
     year: '2008',
-    fileURL: '',
+    fileURL: '/static/files/music/Music1.mp3',
     time: 2332, // duration
     size: {
       size: 10.23,
@@ -185,7 +185,7 @@ export default [
     title: 'First Photo',
     type: 'Photos',
     year: '2010',
-    fileURL: '',
+    fileURL: '/static/files/photos/Photo1.png',
     size: {
       size: 3.22,
       measure: 'MB'

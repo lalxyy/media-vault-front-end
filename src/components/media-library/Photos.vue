@@ -19,7 +19,7 @@
           <el-table-column label="Operations">
             <template scope="scope">
               <!--<el-button size="small" type="primary">-->
-                <!--<i class="el-icon-upload2"></i> Download-->
+              <!--<i class="el-icon-upload2"></i> Download-->
               <!--</el-button>-->
               <el-button :plain="true" type="info" size="small">Preview</el-button>
             </template>
@@ -44,7 +44,8 @@
           <el-col :span="8" v-for="(o, index) in 2" :key="o" :offset="index > 0 ? 2 : 0">
             <el-card :body-style="{ padding: '0px' }">
               <!--<img src="~examples/assets/images/hamburger.png" class="image">-->
-              <img src="../../../static/thumbnails/movies/a-clockwork-orange.jpg" class="image" width="200" height="200"/>
+              <!--<img src="../../../static/thumbnails/movies/a-clockwork-orange.jpg" class="image" width="200" height="200"/>-->
+              <img src="../../../static/thumbnails/movies/a-clockwork-orange.jpg" class="image"/>
               <div style="padding: 14px;">
                 <span>好吃的汉堡</span>
                 <div class="bottom clearfix">
@@ -120,7 +121,8 @@
   }
 
   .image {
-    max-width: 100%;
+    width: 100%;
+    /*max-width: 200px;*/
     display: block;
   }
 
