@@ -88,13 +88,13 @@
 </template>
 
 <script>
-  import tableData from '@/assets/data';
+//  import tableData from '@/assets/data';
 
   export default {
-    mounted () {
-      tableData.forEach(element => {
-        if (element.id === this.id) {
-          this.exact = element;
+    beforeMount () {
+      this.$axios.get('/api/tv-show').then(response => {
+        if (response.data.isSuccessful) {
+          this.tableData = response.data.data;
         }
       })
     },
@@ -102,8 +102,16 @@
       return {
         id: parseInt(this.$route.params.id),
         exact: {},
-        tvShowsTableEditable: false
+        tvShowsTableEditable: false,
+        tableData: []
       };
+    },
+    mounted () {
+      tableData.forEach(element => {
+        if (element.id === this.id) {
+          this.exact = element;
+        }
+      })
     },
     methods: {
       beforeRouteUpdate (to, from, next) {
@@ -146,7 +154,7 @@
 
   .el-row {
     /*margin-bottom: 20px;*/
-    margin-left: 40px;
+    /*margin-left: 40px;*/
   /*&:last-child {*/
      /*margin-bottom: 0;*/
    /*}*/

@@ -75,9 +75,10 @@
     // TODO Get data from GET request
     beforeMount () {
       this.$axios.get('/api/movie').then(response => {
-        this.tableData = response.data.data;
+        if (response.data.isSuccessful) {
+          this.tableData = response.data.data;
+        }
         window.console.log(response);
-        this.tableData = response.data.data;
       });
     },
 //    mounted () {
