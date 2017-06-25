@@ -132,7 +132,7 @@
       },
 
       goToDetails (id) {
-        this.$router.push({name: 'MediaDetails', params: {id}})
+        this.$router.push({name: 'TVShowDetails', params: {id}})
       },
 
       computeTotalSize(episodes) {

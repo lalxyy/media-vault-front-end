@@ -107,7 +107,7 @@
           (time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
       },
       goDetails (id) {
-        this.$router.push({name: 'MediaDetails', params: {id}})
+        this.$router.push({name: 'MovieDetails', params: {id}})
       },
       deleteItem (id) {
         // TODO ID 没用上啊。。。。

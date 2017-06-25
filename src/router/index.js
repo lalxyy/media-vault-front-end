@@ -37,12 +37,12 @@ export default new Router({
           component: AllLibrary
         },
         {
-          path: 'movies',
+          path: 'movie',
           name: 'Movies',
           component: Movies
         },
         {
-          path: 'tv-shows',
+          path: 'tv-show',
           name: "TVShows",
           component: TVShows
         },
@@ -52,15 +52,35 @@ export default new Router({
           component: Music
         },
         {
-          path: 'photos',
+          path: 'photo',
           name: 'Photos',
           component: Photos
         },
         {
-          path: ':id',
-          name: 'MediaDetails',
+          path: 'movie/:id',
+          name: 'MovieDetails',
+          component: MediaDetails
+        },
+        {
+          path: 'tv-show/:id',
+          name: 'TVShowDetails',
+          component: MediaDetails
+        },
+        {
+          path: 'music/:id',
+          name: 'MusicDetails',
+          component: MediaDetails
+        },
+        {
+          path: 'photo/:id',
+          name: 'PhotoDetails',
           component: MediaDetails
         }
+        // {
+        //   path: ':id',
+        //   name: 'MediaDetails',
+        //   component: MediaDetails
+        // }
       ]
     },
     {

@@ -36,13 +36,17 @@
         <div class="grid-content"></div>
         <el-row>
           <div class="row"><h2>{{exact.title}}</h2></div>
-          <div v-if="exact.year" class="row"><h4>{{exact.year}}</h4></div>
-          <div class="row">{{exact.type}}</div>
+          <!--<div v-if="exact.year" class="row"><h4>{{exact.year}}</h4></div>-->
+          <div class="row">{{type.replace('-', ' ')}}</div>
           <div v-if="exact.episodes" class="row">{{exact.episodes.length}} Episodes</div>
         </el-row>
 
+        <el-row v-if="exact.plot">
+          <h3>Plot</h3>
+          <p>{{exact.plot}}</p>
+        </el-row>
 
-        <template v-if="exact.type === 'TVShows'">
+        <template v-if="type === 'tv-show'">
           <el-row>
             <el-col style="text-align: left" :span="12">
               <h3>Episodes List</h3>
@@ -58,14 +62,14 @@
             </el-table-column>
             <el-table-column prop="season" label="Season" width="100"></el-table-column>
             <el-table-column prop="episode" label="Episode" width="100"></el-table-column>
-            <el-table-column label="Duration" width="200">
+            <el-table-column label="Duration" width="150">
               <template scope="scope">
-                {{getTimeString(scope.row.time)}}
+                <!--{{getTimeString(scope.row.time)}}-->
               </template>
             </el-table-column>
             <el-table-column label="File Size" width="150">
               <template scope="scope">
-                {{scope.row.size.size}}&nbsp;{{scope.row.size.measure}}
+                {{scope.row.size.size}}
               </template>
             </el-table-column>
             <el-table-column label="Operation">
@@ -92,35 +96,39 @@
 
   export default {
     beforeMount () {
-      this.$axios.get('/api/tv-show').then(response => {
-        if (response.data.isSuccessful) {
-          this.tableData = response.data.data;
-        }
-      })
+//      this.$axios.get('/api/tv-show').then(response => {
+//        if (response.data.isSuccessful) {
+//          this.tableData = response.data.data;
+//        }
+//      })
+      this.getData();
     },
     data () {
       return {
         id: parseInt(this.$route.params.id),
+        type: '',
         exact: {},
         tvShowsTableEditable: false,
         tableData: []
       };
     },
     mounted () {
-      tableData.forEach(element => {
-        if (element.id === this.id) {
-          this.exact = element;
-        }
-      })
+//      tableData.forEach(element => {
+//        if (element.id === this.id) {
+//          this.exact = element;
+//        }
+//      })
     },
     methods: {
-      beforeRouteUpdate (to, from, next) {
-        tableData.forEach(element => {
-          if (element.id === to.params.id) {
-            this.exact = element;
+      getData () {
+        this.type = this.$route.path.split('/')[2];
+        window.console.log(this.type);
+        window.console.log('/api/' + this.type + '/' + this.id);
+        this.$axios.get('/api/' + this.type + '/' + this.id).then(response => {
+          if (response.data.isSuccessful) {
+            this.exact = response.data.data;
           }
-        })
-        next()
+        });
       },
       getTimeString (time) {
         return `${Math.floor(time / 3600)} hrs ${Math.floor((time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
