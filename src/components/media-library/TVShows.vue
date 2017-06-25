@@ -11,7 +11,7 @@
       </el-table-column>
 
       <!-- Other Basic TV Show Information -->
-      <el-table-column prop="premiered" label="Premiered" width="100">
+      <el-table-column prop="premiered" label="Premiered" width="120">
 
       </el-table-column>
       <el-table-column prop="studio" label="Studio" width="100">

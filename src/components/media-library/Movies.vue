@@ -51,10 +51,10 @@
 
 <script>
   import tableData from '@/assets/data';
-  import ElTable from "../../../node_modules/element-ui/packages/table/src/table";
+//  import ElTable from "../../../node_modules/element-ui/packages/table/src/table";
 
   export default {
-    components: {ElTable},
+//    components: {ElTable},
     mounted () {
       window.console.log(tableData);
     },
