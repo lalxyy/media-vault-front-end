@@ -55,12 +55,18 @@
 
   export default {
     components: {ElTable},
+    beforeMount () {
+      this.$axios.get('/api/movie').then(response => {
+        this.data = response.data.data;
+      });
+    },
     mounted () {
       window.console.log(tableData);
     },
     data () {
       return {
-        tableData
+        tableData,
+        data: []
       };
     },
     methods: {
