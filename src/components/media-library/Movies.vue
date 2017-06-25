@@ -1,6 +1,14 @@
 <template>
   <div>
-    <h2>Movies</h2>
+    <!-- TODO Top Menu of Media -->
+    <!--<h2></h2>-->
+    <el-menu mode="horizontal" theme="white">
+      <h1>Movies</h1>
+
+      <!-- TODO Search 需要加！-->
+    </el-menu>
+
+    <!-- TODO Content -->
     <el-table :data="tableData" stripe style="width: 100%">
       <!-- Basic (extends from Media) -->
       <el-table-column prop="title" label="Title" width="300"></el-table-column>

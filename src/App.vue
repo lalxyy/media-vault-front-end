@@ -34,7 +34,6 @@
       <el-col :span="20">
         <!-- TODO Top -->
 
-
         <!-- TODO Media Library Contents -->
         <div style="padding: 10px">
           <router-view></router-view>
@@ -45,7 +44,9 @@
 </template>
 
 <script>
+  import ElRow from "element-ui/packages/row/src/row";
   export default {
+    components: {ElRow},
     name: 'app',
     data () {
       return {

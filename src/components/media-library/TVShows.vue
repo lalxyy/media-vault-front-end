@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2>TV Shows</h2>
-    <el-table :data="tableData" stripe style="width: 100%">
+    <h1>TV Shows</h1>
+    <el-table :data="filterTableData" stripe style="width: 100%">
       <!-- Basic (extends from Media) -->
       <el-table-column prop="title" label="Title" width="300">
         <template scope="scope">
@@ -87,7 +87,7 @@
 </template>
 
 <script>
-//  import tableData from '@/assets/data';
+  import tableData from '@/assets/data';
 
   export default {
     beforeMount () {
