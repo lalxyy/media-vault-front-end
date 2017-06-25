@@ -50,22 +50,23 @@
 </template>
 
 <script>
-  import tableData from '@/assets/data';
+//  import tableData from '@/assets/data';
 //  import ElTable from "../../../node_modules/element-ui/packages/table/src/table";
 
+
   export default {
+//    components: {ElTable},
+    // TODO Get data from GET request
     beforeMount () {
       this.$axios.get('/api/movie').then(response => {
-        this.data = response.data.data;
+        this.tableData = response.data.data;
       });
     },
-//    components: {ElTable},
     mounted () {
       window.console.log(tableData);
     },
     data () {
       return {
-        tableData,
         data: []
       };
     },
