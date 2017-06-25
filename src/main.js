@@ -15,7 +15,9 @@ Vue.config.productionTip = false
 
 Vue.use(Vuex)
 
-Vue.prototype.$axios = axios
+Vue.prototype.$axios = axios.create({
+  baseURL: 'http://localhost:8080/'
+})
 
 /* eslint-disable no-new */
 new Vue({

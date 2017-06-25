@@ -35,3 +35,9 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 - Other Videos
 - Photos
 - E-books
+
+## Separately run front-end web app
+
+Use `npm run dev`. But some details may be missing without back-end support.
+
+Just use the given .war in the root.
