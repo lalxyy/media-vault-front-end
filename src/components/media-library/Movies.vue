@@ -13,6 +13,7 @@
       <!-- Basic Media Information of Movie -->
       <el-table-column prop="duration" label="Duration" width="200">
         <template scope="scope">
+          <!-- TODO 需要改-->
           {{getTimeString(scope.row.time)}}
         </template>
       </el-table-column>
@@ -20,18 +21,21 @@
       <!-- The information of the content of the Movie -->
       <el-table-column prop="genres" label="Genres" width="300">
         <!-- TODO 多个按钮形式？或者文本用什么进行分隔？-->
+        {{getCommaSplitGenres(scope.row.genres)}}
       </el-table-column>
       <!-- Plot - Ignored in List Mode -->
 
       <!-- Size (extends from Media) -->
-      <el-table-column prop="size" label="File Size" width="100">\
+      <el-table-column prop="size" label="File Size" width="100">
         <template scope="scope">
-          {{scope.row.size.size}}&nbsp;{{scope.row.size.measure}}
+          {{getCommaSplitGenres(scope.row.genres)}}
+          <!-- 旧版 -->
+          <!--{{scope.row.size.size}}&nbsp;{{scope.row.size.measure}}-->
         </template>
       </el-table-column>
 
       <!-- Available Operations -->
-      <el-table-column label="Operations">
+      <el-table-column label="Operations" width="300">
         <template scope="scope">
           <el-button type="primary" size="small" @click="goDetails(scope.row.id)">
             Details
@@ -60,17 +64,30 @@
     beforeMount () {
       this.$axios.get('/api/movie').then(response => {
         this.tableData = response.data.data;
+        window.console.log(response);
+        this.tableData = response.data.data;
       });
     },
-    mounted () {
-      window.console.log(tableData);
-    },
+//    mounted () {
+//      window.console.log(tableData);
+//    },
     data () {
       return {
-        data: []
+        tableData: []
       };
     },
     methods: {
+      getCommaSplitGenres (genres) {
+        let str = "";
+        for (let i = 0; i < genres.length; ++i) {
+          if (i !== genres.length - 1) {
+            str += (genres[i] + ", ")
+          } else {
+            str += genres[i];
+          }
+        }
+        return str;
+      },
       getTimeString (time) {
         return `${Math.floor(time / 3600)} hrs ${Math.floor(
           (time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
@@ -95,9 +112,9 @@
       }
     },
     computed: {
-      filterTableData () {
-        return this.tableData.filter(element => element.type === 'Movies');
-      }
+//      filterTableData () {
+//        return this.tableData.filter(element => element.type === 'Movies');
+//      }
     }
   }
 </script>
