@@ -54,13 +54,19 @@
 //  import ElTable from "../../../node_modules/element-ui/packages/table/src/table";
 
   export default {
+    beforeMount () {
+      this.$axios.get('/api/movie').then(response => {
+        this.data = response.data.data;
+      });
+    },
 //    components: {ElTable},
     mounted () {
       window.console.log(tableData);
     },
     data () {
       return {
-        tableData
+        tableData,
+        data: []
       };
     },
     methods: {
