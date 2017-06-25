@@ -8,7 +8,8 @@ import Vuex from 'vuex'
 
 // Vendor
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
+// import 'element-ui/lib/theme-default/index.css'
+import '/src/assets/css/index.css'
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false

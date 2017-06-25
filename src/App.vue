@@ -1,8 +1,11 @@
 <template>
   <div id="app">
+    <!-- TODO Top Menu-->
     <el-menu class="top-menu" mode="horizontal">
       <div class="title">Media Vault</div>
     </el-menu>
+
+    <!-- TODO Left Navigation -->
     <el-row>
       <el-col :span="4">
         <el-menu class="side-menu" :router="true"
@@ -23,7 +26,7 @@
           </el-menu-item>
         </el-menu>
       </el-col>
-      <el-col :span="20">
+      <el-col :span="16">
         <div style="padding: 10px">
           <router-view></router-view>
         </div>
