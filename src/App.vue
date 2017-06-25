@@ -4,29 +4,73 @@
     <!--<el-menu class="top-menu" mode="horizontal">-->
     <el-menu mode="horizontal" theme="dark">
       <div class="title">
-          Media Vault
+        Media Vault
       </div>
     </el-menu>
+
+    <!--<el-menu theme="dark" :default-active="1" class="el-menu-demo" mode="horizontal">-->
+      <!--<el-row :gutter="20">-->
+
+        <!--<el-col :span="4">-->
+          <!--<div class="grid-content">-->
+            <!--<div class="title">-->
+              <!--Media Vault-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</el-col>-->
+
+        <!--&lt;!&ndash;<el-col :span="16">&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="grid-content">&ndash;&gt;-->
+            <!--&lt;!&ndash;<el-menu-item index="/media-library">测试1</el-menu-item>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</el-col>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<el-col :span="4">&ndash;&gt;-->
+          <!--&lt;!&ndash;<div class="grid-content">&ndash;&gt;-->
+            <!--&lt;!&ndash;<el-button index="/" type="primary" icon="search">Searching</el-button>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</el-col>&ndash;&gt;-->
+
+      <!--</el-row>-->
+      <!--&lt;!&ndash;<el-menu-item index="1">处理中心</el-menu-item>&ndash;&gt;-->
+      <!--&lt;!&ndash;<el-submenu index="2">&ndash;&gt;-->
+      <!--&lt;!&ndash;<template slot="title">我的工作台</template>&ndash;&gt;-->
+      <!--&lt;!&ndash;<el-menu-item index="2-1">选项1</el-menu-item>&ndash;&gt;-->
+      <!--&lt;!&ndash;<el-menu-item index="2-2">选项2</el-menu-item>&ndash;&gt;-->
+      <!--&lt;!&ndash;<el-menu-item index="2-3">选项3</el-menu-item>&ndash;&gt;-->
+      <!--&lt;!&ndash;</el-submenu>&ndash;&gt;-->
+      <!--&lt;!&ndash;<el-menu-item index="3"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>&ndash;&gt;-->
+    <!--</el-menu>-->
 
     <!-- TODO Add Gutter -->
     <el-row :gutter="30">
       <!-- TODO Left Navigation -->
       <el-col :span="4">
-        <el-menu class="side-menu" :router="true">
-          <el-menu-item index="/"><i class="el-icon-menu"></i>Home
-          </el-menu-item>
-          <el-submenu index="/media-library">
-            <template slot="title">
-              <i class="el-icon-document"></i>Media Library
-            </template>
-            <!--<el-menu-item index="/media-library">All</el-menu-item>-->
-            <el-menu-item index="/media-library/tv-show">TV Shows</el-menu-item>
-            <el-menu-item index="/media-library/movie">Movies</el-menu-item>
-            <el-menu-item index="/media-library/music">Music</el-menu-item>
-            <el-menu-item index="/media-library/photo">Photos</el-menu-item>
-          </el-submenu>
-          <el-menu-item index="/upload"><i class="el-icon-upload"></i>Upload
-          </el-menu-item>
+        <el-menu class="side-menu" :router="true" theme="dark">
+          <!--<el-menu class="side-menu" :router="true" theme="white">-->
+
+          <!-- TODO 标签组1 -->
+          <el-menu-item-group title="Home Page and Searching">
+            <el-menu-item index="/"><i class="el-icon-menu"></i>Home
+            </el-menu-item>
+          </el-menu-item-group>
+
+          <!-- TODO 标签组2 -->
+          <el-menu-item-group title="Media Library Navigation">
+            <el-submenu index="/media-library">
+              <template slot="title">
+                <i class="el-icon-document"></i>Media Library
+              </template>
+              <el-menu-item index="/media-library">Entire Media Library</el-menu-item>
+              <el-menu-item index="/media-library/tv-show">TV Shows</el-menu-item>
+              <el-menu-item index="/media-library/movie">Movies</el-menu-item>
+              <el-menu-item index="/media-library/music">Music</el-menu-item>
+              <el-menu-item index="/media-library/photo">Photos</el-menu-item>
+            </el-submenu>
+            <el-menu-item index="/upload"><i class="el-icon-upload"></i>Upload
+            </el-menu-item>
+          </el-menu-item-group>
+
         </el-menu>
       </el-col>
 
@@ -75,18 +119,49 @@
   }
 
   .title {
-    font-size: 24px;
-    padding-top: 15px;
+    font-size: 30px;
+    padding-top: 14px;
     padding-bottom: 15px;
     padding-left: 40px;
     color: #FAFAFA;
   }
 
   /*.top-menu {*/
-    /*!*margin-bottom: 5px;*!*/
+  /*!*margin-bottom: 5px;*!*/
   /*}*/
 
   .side-menu {
-    background-color: white;
+    /*background-color: white;*/
+    margin-top: 20px;
+  }
+
+  .el-row {
+    margin-bottom: 20px;
+  }
+
+  .el-col {
+    border-radius: 4px;
+  }
+
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+
+  .bg-purple {
+    background: #d3dce6;
+  }
+
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
   }
 </style>

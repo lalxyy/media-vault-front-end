@@ -1,11 +1,15 @@
 <template>
   <div>
-    <h1>Photos</h1>
+    <el-menu mode="horizontal" theme="dark" style="margin-top: 20px">
+      <div class="mediaTitle">
+        Photos
+      </div>
+    </el-menu>
 
     <!-- TODO Testing `Border-Card` Navigation -->
     <el-tabs type="border-card">
       <el-tab-pane>
-        <span slot="label">List</span>
+        <span slot="label"><i class="el-icon-information"></i> View in List Mode</span>
 
         <!-- Uses a table to show the data if `Music` -->
         <el-table :data="tableData" stripe style="width: 100%">
@@ -55,7 +59,9 @@
 
       </el-tab-pane>
 
-      <el-tab-pane label="Thumbnails">
+      <el-tab-pane>
+        <span slot="label"><i class="el-icon-menu"></i> View in Thumbnail Mode</span>
+
         <el-row style="margin: 10px">
           <el-col :span="24" v-if="tableData.length == 0" style="text-align: center; color: #8c939d">
             No Data
@@ -82,7 +88,7 @@
 
 <script>
   import ElCol from 'element-ui/packages/col/src/col';
-//  import data from '@/assets/data';
+  //  import data from '@/assets/data';
 
   export default {
     components: {ElCol},
@@ -137,10 +143,10 @@
     }
   };
   // TODO https://github.com/mzabriskie/axios
-//  let instance = axios.create({
-//    baseURL: '/api/',
-//    timeout: 500
-//  });
+  //  let instance = axios.create({
+  //    baseURL: '/api/',
+  //    timeout: 500
+  //  });
 
 
 </script>
@@ -193,5 +199,13 @@
 
   .clearfix:after {
     clear: both
+  }
+
+  .mediaTitle {
+    font-size: 26px;
+    padding-top: 14px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+    color: #FAFAFA;
   }
 </style>

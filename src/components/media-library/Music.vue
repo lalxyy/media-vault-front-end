@@ -1,11 +1,16 @@
 <template>
   <div>
-    <h1>Music</h1>
+    <!--<h1>Music</h1>-->
+    <el-menu mode="horizontal" theme="dark" style="margin-top: 20px">
+      <div class="mediaTitle">
+        Music
+      </div>
+    </el-menu>
 
     <!-- TODO Testing `Border-Card` Navigation -->
     <el-tabs type="border-card">
       <el-tab-pane>
-        <span slot="label"><i class="el-icon-date"></i> Test Mode 1</span>
+        <span slot="label"><i class="el-icon-information"></i> View in List Mode</span>
 
         <!-- Uses a table to show the data if `Music` -->
         <el-table :data="tableData" stripe style="width: 100%">
@@ -51,9 +56,11 @@
         </el-table>
 
       </el-tab-pane>
-      <!--<el-tab-pane label="消息中心">消息中心</el-tab-pane>-->
-      <!--<el-tab-pane label="角色管理">角色管理</el-tab-pane>-->
-      <!--<el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>-->
+
+      <el-tab-pane>
+        <span slot="label"><i class="el-icon-menu"></i> View in Thumbnail Mode</span>
+        <!--TODO-->
+      </el-tab-pane>
     </el-tabs>
 
     <!-- Shown in List Mode-->
@@ -128,3 +135,13 @@
     }
   };
 </script>
+
+<style>
+  .mediaTitle {
+    font-size: 26px;
+    padding-top: 14px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+    color: #FAFAFA;
+  }
+</style>

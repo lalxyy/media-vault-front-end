@@ -1,66 +1,84 @@
 <template>
   <div class="hello" style="padding: 10px">
     <!--<h1>{{ msg }}</h1>-->
-    <el-row>
-      <el-col :span="24">
-        <el-input v-model="input" placeholder="Search for the Entire Library..."></el-input>
-      </el-col>
-    </el-row>
-    <el-row style="margin-top: 20px">
-      <el-col :span="24">
-        <el-table :data="filteredTableData" stripe style="width: 100%">
-          <el-table-column prop="title" label="Title" width="300"></el-table-column>
-          <el-table-column prop="type" label="Type" width="200"></el-table-column>
-          <el-table-column label="Operations">
-            <template scope="scope">
-              <template v-if="scope.row.type !== 'Music' && scope.row.type !== 'Photos'">
-                <el-button size="small" type="primary"
-                           @click="openFullScreen(), $router.push({name: 'MediaDetails', params: {id: scope.row.id}})"
-                           v-loading.fullscreen.lock="fullScreenLoading">
-                  Details
-                </el-button>
-              </template>
-              <template v-if="scope.row.type === 'Movies'">
-                <el-button size="small" type="primary"
-                           @click="openFullScreen(), downloadFile(scope.row.fileURL)"
-                           v-loading.fullscreen.lock="fullScreenLoading">
-                  <i class="el-icon-upload2"></i> Download
-                </el-button>
-              </template>
-              <!-- Uses `v-else-if` to show TV shows -->
-              <template v-else-if="scope.row.type === 'TVShows'">
-                <!--<el-button size="small" type="primary">-->
-                <!--Details-->
-                <!--</el-button>-->
-                <!--<el-button size="small" type="primary" @click="downloadFile(exact.fileURL)">-->
-                <!--<i class="el-icon-upload2"></i> Download-->
-                <!--</el-button>-->
-              </template>
-              <!-- Shows Music-->
-              <template v-else-if="scope.row.type === 'Music'">
-                <!--<el-button size="small" type="primary"-->
-                           <!--@click="openFullScreen(), downloadFile(scope.row.fileURL)"-->
-                           <!--v-loading.fullscreen.lock="fullScreenLoading">-->
-                  <!--<i class="el-icon-upload2"></i> Download-->
-                <!--</el-button>-->
-              </template>
-              <!-- Shows Photos-->
-              <template v-else-if="scope.row.type === 'Photos'">
-                <el-button :plain="true" type="info" size="small"
-                           @click="openFullScreen()"
-                           v-loading.fullscreen.lock="fullScreenLoading">
-                  Preview
-                </el-button>
-              </template>
-              <!--<el-button size="small" type="danger"-->
-                         <!--@click="deleteItem(scope.row.id)">-->
-                <!--<i class="el-icon-delete2"></i> Delete-->
-              <!--</el-button>-->
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-col>
-    </el-row>
+
+    <template>
+      <el-tabs v-model="activeName">
+        <el-tab-pane label="Home" name="first">
+          <h3>
+            For Searching: Click the second tab.
+          </h3>
+          <h3>
+            For Browsing the whole media library: See the left navigation menu.
+          </h3>
+        </el-tab-pane>
+        <el-tab-pane label="Searching" name="second">
+
+
+          <el-row>
+            <el-col :span="24">
+              <el-input v-model="input" placeholder="Search for the Entire Library..."></el-input>
+            </el-col>
+          </el-row>
+          <el-row style="margin-top: 20px">
+            <el-col :span="24">
+              <el-table :data="filteredTableData" stripe style="width: 100%">
+                <el-table-column prop="title" label="Title" width="300"></el-table-column>
+                <el-table-column prop="type" label="Type" width="200"></el-table-column>
+                <el-table-column label="Operations">
+                  <template scope="scope">
+                    <template v-if="scope.row.type !== 'Music' && scope.row.type !== 'Photos'">
+                      <el-button size="small" type="primary"
+                                 @click="openFullScreen(), $router.push({name: 'MediaDetails', params: {id: scope.row.id}})"
+                                 v-loading.fullscreen.lock="fullScreenLoading">
+                        Details
+                      </el-button>
+                    </template>
+                    <template v-if="scope.row.type === 'Movies'">
+                      <el-button size="small" type="primary"
+                                 @click="openFullScreen(), downloadFile(scope.row.fileURL)"
+                                 v-loading.fullscreen.lock="fullScreenLoading">
+                        <i class="el-icon-upload2"></i> Download
+                      </el-button>
+                    </template>
+                    <!-- Uses `v-else-if` to show TV shows -->
+                    <template v-else-if="scope.row.type === 'TVShows'">
+                      <!--<el-button size="small" type="primary">-->
+                      <!--Details-->
+                      <!--</el-button>-->
+                      <!--<el-button size="small" type="primary" @click="downloadFile(exact.fileURL)">-->
+                      <!--<i class="el-icon-upload2"></i> Download-->
+                      <!--</el-button>-->
+                    </template>
+                    <!-- Shows Music-->
+                    <template v-else-if="scope.row.type === 'Music'">
+                      <!--<el-button size="small" type="primary"-->
+                      <!--@click="openFullScreen(), downloadFile(scope.row.fileURL)"-->
+                      <!--v-loading.fullscreen.lock="fullScreenLoading">-->
+                      <!--<i class="el-icon-upload2"></i> Download-->
+                      <!--</el-button>-->
+                    </template>
+                    <!-- Shows Photos-->
+                    <template v-else-if="scope.row.type === 'Photos'">
+                      <el-button :plain="true" type="info" size="small"
+                                 @click="openFullScreen()"
+                                 v-loading.fullscreen.lock="fullScreenLoading">
+                        Preview
+                      </el-button>
+                    </template>
+                    <!--<el-button size="small" type="danger"-->
+                    <!--@click="deleteItem(scope.row.id)">-->
+                    <!--<i class="el-icon-delete2"></i> Delete-->
+                    <!--</el-button>-->
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-col>
+          </el-row>
+
+        </el-tab-pane>
+      </el-tabs>
+    </template>
     <!--<h2>Essential Links</h2>-->
     <!--<ul>-->
       <!--<li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>-->
@@ -95,7 +113,8 @@ export default {
       msg: 'Welcome to Your Media Vault',
       entireData: [],
       input: '',
-      fullScreenLoading: false
+      fullScreenLoading: false,
+      activeName: 'second'
     }
   },
   methods: {

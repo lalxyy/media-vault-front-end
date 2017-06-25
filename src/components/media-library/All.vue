@@ -1,6 +1,13 @@
 <template>
   <div>
-    <h2>Entire Library</h2>
+    <!--<h2>Entire Library</h2>-->
+    <el-menu mode="horizontal" theme="dark" style="margin-top: 20px">
+      <div class="mediaTitle">
+        Entire Media Library (shows all types of media files in list mode)
+      </div>
+    </el-menu>
+
+
     <el-table :data="tableData" stripe style="width: 100%">
       <!-- Title -->
       <el-table-column label="Title" width="300" prop="title"></el-table-column>
@@ -153,5 +160,11 @@
 </script>
 
 <style>
-  /**/
+  .mediaTitle {
+    font-size: 26px;
+    padding-top: 14px;
+    padding-bottom: 15px;
+    padding-left: 30px;
+    color: #FAFAFA;
+  }
 </style>
