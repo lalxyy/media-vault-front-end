@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Photos</h2>
+    <h1>Photos</h1>
 
     <!-- TODO Testing `Border-Card` Navigation -->
     <el-tabs type="border-card">
