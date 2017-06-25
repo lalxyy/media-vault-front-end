@@ -13,6 +13,15 @@
           <el-option label="Music" value="Music"></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item v-if="form.type !== 'TVShows'" label="Size">
+        <el-input v-model="rawSize" style="width: 390px"></el-input>
+        <el-select v-model="calculateUnit" style="width: 100px" placeholder="Per...">
+          <el-option label="GB" value="GB"></el-option>
+          <el-option label="MB" value="MB"></el-option>
+          <el-option label="KB" value="KB"></el-option>
+          <el-option label="B" value="B"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="Thumbnail">
         <el-upload
           class="upload-demo"
@@ -26,15 +35,29 @@
           <!--<div class="el-upload__tip" slot="tip">Only in jpg / png format, &lt; 500kb</div>-->
         </el-upload>
       </el-form-item>
-      <template v-if="form.type !== 'TVShows'">
-        <el-form-item label="Year" prop="year">
-          <el-input v-model="form.year" style="width: 500px"></el-input>
+
+      <template v-if="form.type === 'Movies'">
+        <el-form-item label="Duration" prop="duration">
+          <el-input v-model="form.duration" style="width: 500px"></el-input>
         </el-form-item>
-        <!--<template v-if="form.type === 'Music' || form.type === 'Movies'">-->
-          <!--<el-form-item label="Duration">-->
-            <!---->
-          <!--</el-form-item>-->
-        <!--</template>-->
+        <el-form-item label="Genre">
+          <el-input v-model="rawGenres" style="width: 500px"></el-input>
+        </el-form-item>
+        <el-form-item label="Plot">
+          <el-input type="textarea" :rows="5" v-model="form.plot" style="width: 500px"></el-input>
+        </el-form-item>
+      </template>
+
+      <template v-if="form.type === 'Music'">
+        <el-form-item label="Duration" prop="duration">
+          <el-input v-model="form.duration" style="width: 500px"></el-input>
+        </el-form-item>
+      </template>
+
+      <template v-if="form.type !== 'Photos'">
+        <el-form-item label="Rating" prop="rating">
+          <el-input v-model="form.rating" style="width: 500px"></el-input>
+        </el-form-item>
       </template>
 
       <template v-if="form.type === 'TVShows'">
@@ -100,16 +123,18 @@
           title: '',
           type: '',
           tvEpisodes: [],
-          year: '',
-          thumbnailImageURL: ''
+          thumbnailImageURL: '',
+          size: 0,
+          duration: '',
+          plot: '',
+          rating: 0
         },
+        rawSize: 0,
+        calculateUnit: '',
+        rawGenres: '',
         rules: {
           title: [{
             validator: checkTitle,
-            trigger: 'blur'
-          }],
-          year: [{
-            validator: checkYear,
             trigger: 'blur'
           }]
         }
