@@ -33,15 +33,20 @@
           </el-table-column>
 
           <!-- Available Operations -->
+          <!-- TODO 没用加载界面 `, openFullScreen()` -->
           <el-table-column label="Operations">
             <template scope="scope">
               <!--<el-button size="small" type="primary">-->
               <!--<i class="el-icon-upload2"></i> Download-->
               <!--</el-button>-->
-              <el-button :plain="true" type="info" size="small" @click="downloadFile(scope.row.fileURL)">
+              <el-button :plain="true" type="info" size="small"
+                         @click="downloadFile(scope.row.fileURL)"
+                         v-loading.fullscreen.lock="fullScreenLoading">
                 Preview
               </el-button>
-              <el-button size="small" type="danger" @click="deleteItem(scope.row.id)">
+              <el-button size="small" type="danger"
+                         @click="deleteItem(scope.row.id)"
+                         v-loading.fullscreen.lock="fullScreenLoading">
                 <i class="el-icon-delete2"></i> Delete
               </el-button>
             </template>
@@ -51,14 +56,14 @@
       </el-tab-pane>
 
       <!--<el-tab-pane label="Theater-like">-->
-        <!--<template>-->
-          <!--<el-carousel :interval="4000" type="card" height="600px">-->
-            <!--<el-carousel-item v-for="item in filterTableData" :key="item">-->
-              <!--&lt;!&ndash;<h3>{{ item }}</h3>&ndash;&gt;-->
-              <!--<img style="width: 100%" :src="item.fileURL" class="image"/>-->
-            <!--</el-carousel-item>-->
-          <!--</el-carousel>-->
-        <!--</template>-->
+      <!--<template>-->
+      <!--<el-carousel :interval="4000" type="card" height="600px">-->
+      <!--<el-carousel-item v-for="item in filterTableData" :key="item">-->
+      <!--&lt;!&ndash;<h3>{{ item }}</h3>&ndash;&gt;-->
+      <!--<img style="width: 100%" :src="item.fileURL" class="image"/>-->
+      <!--</el-carousel-item>-->
+      <!--</el-carousel>-->
+      <!--</template>-->
       <!--</el-tab-pane>-->
 
       <el-tab-pane label="Thumbnails">
@@ -91,7 +96,8 @@
     data() {
       return {
         data: data,
-        currentDate: new Date() // TODO Test for 卡片显示
+        currentDate: new Date(), // TODO Test for 卡片显示
+        fullScreenLoading: false
       };
     },
     methods: {
@@ -115,6 +121,13 @@
           })
         })
       },
+
+      openFullScreen(){
+        this.fullScreenLoading = true;
+        setTimeout(() => {
+          this.fullScreenLoading = false;
+        }, 500);
+      }
     },
     computed: {
       // Only needs Music in this table
@@ -144,11 +157,11 @@
   }
 
   /*.el-carousel__item:nth-child(2n) {*/
-    /*background-color: #99a9bf;*/
+  /*background-color: #99a9bf;*/
   /*}*/
 
   /*.el-carousel__item:nth-child(2n+1) {*/
-    /*background-color: #d3dce6;*/
+  /*background-color: #d3dce6;*/
   /*}*/
 
   /* For 卡片式显示 测试 */

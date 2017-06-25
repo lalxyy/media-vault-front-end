@@ -68,11 +68,15 @@
 
       <el-table-column label="Operations">
         <template scope="scope">
-          <el-button size="small" type="primary" @click="goToDetails(scope.row.id)">
+          <el-button size="small" type="primary"
+                     @click="goToDetails(scope.row.id), openFullScreen()"
+                     v-loading.fullscreen.lock="fullScreenLoading">
             Details
           </el-button>
           <!-- Cannot Download all episodes directly -->
-          <el-button size="small" type="danger" @click="deleteItem(scope.row.id)">
+          <el-button size="small" type="danger"
+                     @click="deleteItem(scope.row.id), openFullScreen"
+                     v-loading.fullscreen.lock="fullScreenLoading">
             <i class="el-icon-delete2"></i> Delete
           </el-button>
         </template>
@@ -90,7 +94,8 @@
     },
     data () {
       return {
-        tableData
+        tableData,
+        fullScreenLoading: false
       };
     },
     methods: {
@@ -142,6 +147,13 @@
             message: 'Succeeded'
           })
         })
+      },
+
+      openFullScreen(){
+        this.fullScreenLoading = true;
+        setTimeout(() => {
+          this.fullScreenLoading = false;
+        }, 500);
       }
     },
     computed: {

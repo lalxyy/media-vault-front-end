@@ -41,37 +41,46 @@
         <template scope="scope">
           <!-- Uses `v-if` to judge the type of the operations-->
           <template v-if="scope.row.type !== 'Music' && scope.row.type !== 'Photos'">
-            <el-button size="small" type="primary" @click="$router.push({name: 'MediaDetails', params: {id: scope.row.id}})">
+            <el-button size="small" type="primary"
+                       @click="openFullScreen(), $router.push({name: 'MediaDetails', params: {id: scope.row.id}})"
+                       v-loading.fullscreen.lock="fullScreenLoading">
               Details
             </el-button>
           </template>
           <template v-if="scope.row.type === 'Movies'">
-            <el-button size="small" type="primary"  @click="downloadFile(scope.row.fileURL)">
+            <el-button size="small" type="primary"
+                       @click="openFullScreen(), downloadFile(scope.row.fileURL)"
+                       v-loading.fullscreen.lock="fullScreenLoading">
               <i class="el-icon-upload2"></i> Download
             </el-button>
           </template>
           <!-- Uses `v-else-if` to show TV shows -->
           <template v-else-if="scope.row.type === 'TVShows'">
             <!--<el-button size="small" type="primary">-->
-              <!--Details-->
+            <!--Details-->
             <!--</el-button>-->
             <!--<el-button size="small" type="primary" @click="downloadFile(exact.fileURL)">-->
-              <!--<i class="el-icon-upload2"></i> Download-->
+            <!--<i class="el-icon-upload2"></i> Download-->
             <!--</el-button>-->
           </template>
           <!-- Shows Music-->
           <template v-else-if="scope.row.type === 'Music'">
-            <el-button size="small" type="primary" @click="downloadFile(scope.row.fileURL)">
+            <el-button size="small" type="primary"
+                       @click="openFullScreen(), downloadFile(scope.row.fileURL)"
+                       v-loading.fullscreen.lock="fullScreenLoading">
               <i class="el-icon-upload2"></i> Download
             </el-button>
           </template>
           <!-- Shows Photos-->
           <template v-else-if="scope.row.type === 'Photos'">
-            <el-button :plain="true" type="info" size="small">
+            <el-button :plain="true" type="info" size="small"
+                       @click="openFullScreen()"
+                       v-loading.fullscreen.lock="fullScreenLoading">
               Preview
             </el-button>
           </template>
-          <el-button size="small" type="danger" @click="deleteItem(scope.row.id)">
+          <el-button size="small" type="danger"
+                     @click="deleteItem(scope.row.id)">
             <i class="el-icon-delete2"></i> Delete
           </el-button>
         </template>
@@ -83,11 +92,13 @@
 
 <script>
   import tableData from '@/assets/data'
+  import {Loading} from 'element-ui'
 
   export default {
     data () {
       return {
-        tableData: tableData
+        tableData: tableData,
+        fullScreenLoading: false
       }
     },
     methods: {
@@ -111,7 +122,21 @@
         })
       },
       downloadFile (fileURL) {
-        window.open(fileURL, '_blank');
+        // TODO Delay Loading Testing
+        this.fullScreenLoading = true;
+        setTimeout(() => {
+          this.fullScreenLoading = false;
+          window.open(fileURL, '_blank');
+        }, 800);
+
+//        window.open(fileURL, '_blank');
+      },
+
+      openFullScreen(){
+        this.fullScreenLoading = true;
+        setTimeout(() => {
+          this.fullScreenLoading = false;
+        }, 800);
       }
     }
   };

@@ -39,13 +39,19 @@
       <!-- Available Operations -->
       <el-table-column label="Operations" width="300">
         <template scope="scope">
-          <el-button type="primary" size="small" @click="goDetails(scope.row.id)">
+          <el-button type="primary" size="small"
+                     @click="goDetails(scope.row.id), openFullScreen()"
+                     v-loading.fullscreen.lock="fullScreenLoading">
             Details
           </el-button>
-          <el-button size="small" type="primary" @click="downloadFile(scope.row.fileURL)">
+          <el-button size="small" type="primary"
+                     @click="downloadFile(scope.row.fileURL), openFullScreen()"
+                     v-loading.fullscreen.lock="fullScreenLoading">
             <i class="el-icon-upload2"></i> Download
           </el-button>
-          <el-button size="small" type="danger" @click="deleteItem(scope.row.id)">
+          <el-button size="small" type="danger"
+                     @click="deleteItem(scope.row.id)"
+                     v-loading.fullscreen.lock="fullScreenLoading">
             <i class="el-icon-delete2"></i> Delete
           </el-button>
         </template>
@@ -56,8 +62,8 @@
 </template>
 
 <script>
-//  import tableData from '@/assets/data';
-//  import ElTable from "../../../node_modules/element-ui/packages/table/src/table";
+  //  import tableData from '@/assets/data';
+  //  import ElTable from "../../../node_modules/element-ui/packages/table/src/table";
 
 
   export default {
@@ -75,7 +81,8 @@
 //    },
     data () {
       return {
-        tableData: []
+        tableData: [],
+        fullScreenLoading: false
       };
     },
     methods: {
@@ -112,6 +119,13 @@
       },
       downloadFile (fileURL) {
         window.open(fileURL, '_blank');
+      },
+
+      openFullScreen(){
+        this.fullScreenLoading = true;
+        setTimeout(() => {
+          this.fullScreenLoading = false;
+        }, 500);
       }
     },
     computed: {

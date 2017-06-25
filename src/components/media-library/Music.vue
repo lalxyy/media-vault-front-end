@@ -52,7 +52,9 @@
           <!-- Available Operations -->
           <el-table-column label="Operations">
             <template scope="scope">
-              <el-button size="small" type="primary">
+              <el-button size="small" type="primary"
+                         @click="openFullScreen()"
+                         v-loading.fullscreen.lock="fullScreenLoading">
                 <i class="el-icon-upload2"></i> Download
               </el-button>
             </template>
@@ -105,13 +107,21 @@
   export default {
     data() {
       return {
-        data
+        data,
+        fullScreenLoading: false
       };
     },
     methods: {
       getTimeString (time) {
         return `${Math.floor(time / 3600)} hrs ${Math.floor(
           (time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
+      },
+
+      openFullScreen(){
+        this.fullScreenLoading = true;
+        setTimeout(() => {
+          this.fullScreenLoading = false;
+        }, 500);
       }
     },
     computed: {
