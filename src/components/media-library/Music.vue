@@ -21,10 +21,14 @@
         <el-table :data="filterTableData" stripe style="width: 100%">
           <!-- Basic (extends from Media) -->
           <el-table-column prop="title" label="Title" width="300">
-
+            <template scope="scope">
+              {{scope.row.title}}
+            </template>
           </el-table-column>
           <el-table-column prop="rating" label="Rating" width="100">
-
+            <template scope="scope">
+              {{scope.row.rating}}
+            </template>
           </el-table-column>
 
           <!-- Basic Media Information of Music -->
@@ -36,9 +40,11 @@
 
           <!-- TODO 感觉音乐应该用不着显示体积？都差不多 -->
           <!-- Size (extends from Media) -->
-          <el-table-column prop="size" label="File Size" width="100">\
+          <el-table-column prop="size" label="File Size" width="100">
             <template scope="scope">
-              {{scope.row.size.size}}&nbsp;{{scope.row.size.measure}}
+              {{scope.row.size}}
+              <!-- 旧版 -->
+              <!--{{scope.row.size.size}}&nbsp;{{scope.row.size.measure}}-->
             </template>
           </el-table-column>
 

@@ -21,14 +21,16 @@
       <!-- The information of the content of the Movie -->
       <el-table-column prop="genres" label="Genres" width="300">
         <!-- TODO 多个按钮形式？或者文本用什么进行分隔？-->
-        {{getCommaSplitGenres(scope.row.genres)}}
+        <template scope="scope">
+          {{getCommaSplitGenres(scope.row.genres)}}
+        </template>
       </el-table-column>
       <!-- Plot - Ignored in List Mode -->
 
       <!-- Size (extends from Media) -->
       <el-table-column prop="size" label="File Size" width="100">
         <template scope="scope">
-          {{getCommaSplitGenres(scope.row.genres)}}
+          {{scope.row.size}}
           <!-- 旧版 -->
           <!--{{scope.row.size.size}}&nbsp;{{scope.row.size.measure}}-->
         </template>
@@ -96,6 +98,7 @@
         this.$router.push({name: 'MediaDetails', params: {id}})
       },
       deleteItem (id) {
+        // TODO ID 没用上啊。。。。
         this.$confirm('Are you sure to delete the item? ', 'Warning', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',

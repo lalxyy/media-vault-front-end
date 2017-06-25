@@ -12,14 +12,25 @@
           <!-- TODO New Fields-->
           <!-- Basic (extends from Media) -->
           <el-table-column prop="title" label="Title" width="300">
-
+            <template scope="scope">
+              {{scope.row.title}}
+            </template>
           </el-table-column>
           <el-table-column prop="rating" label="Rating" width="100">
-
+            <template scope="scope">
+              {{scope.row.rating}}
+            </template>
           </el-table-column>
 
+
           <!-- Size (extends from Media) -->
-          <el-table-column prop="size" label="File Size" width="100"></el-table-column>
+          <el-table-column prop="size" label="File Size" width="100">
+            <template scope="scope">
+              {{scope.row.size}}
+              <!-- 旧版 -->
+              <!--{{scope.row.size.size}}&nbsp;{{scope.row.size.measure}}-->
+            </template>
+          </el-table-column>
 
           <!-- Available Operations -->
           <el-table-column label="Operations">
@@ -92,6 +103,7 @@
         window.open(fileURL, '_blank');
       },
       deleteItem (id) {
+        // TODO ID 没用上啊。。。。
         this.$confirm('Are you sure to delete the item? ', 'Warning', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
