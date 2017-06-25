@@ -8,7 +8,7 @@
     </el-row>
 
     <!-- TODO Content (Details) -->
-    <el-row :gutter="12">
+    <el-row :gutter="80">
       <!-- TODO Left -->
       <el-col :span="8">
         <div class="grid-content"></div>
@@ -38,7 +38,7 @@
           <div class="row"><h2>{{exact.title}}</h2></div>
           <div v-if="exact.year" class="row"><h4>{{exact.year}}</h4></div>
           <div class="row">{{exact.type}}</div>
-          <div v-if="exact.episodes" class="row">{{exact.episodes.length}} episodes</div>
+          <div v-if="exact.episodes" class="row">{{exact.episodes.length}} Episodes</div>
         </el-row>
 
 
@@ -141,19 +141,18 @@
 
 <style>
   .row {
-    /*margin-top: 10px;*/
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   .el-row {
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
+    margin-left: 40px;
   /*&:last-child {*/
      /*margin-bottom: 0;*/
    /*}*/
   }
   .el-col {
-    /*border-radius: 4px;*/
-    border-radius: 10px;
+    border-radius: 4px;
   }
   .bg-purple-dark {
     background: #99a9bf;
@@ -165,8 +164,7 @@
     background: #e5e9f2;
   }
   .grid-content {
-    /*border-radius: 4px;*/
-    border-radius: 10px;
+    border-radius: 4px;
     min-height: 36px;
   }
   .row-bg {

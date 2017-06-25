@@ -10,7 +10,8 @@
       <!-- TODO Search 需要加！-->
     </el-menu>
 
-    <el-row>
+    <!-- TODO Add Gutter -->
+    <el-row :gutter="30">
       <!-- TODO Left Navigation -->
       <el-col :span="4">
         <el-menu class="side-menu" :router="true"
@@ -80,6 +81,7 @@
     padding-top: 15px;
     padding-bottom: 15px;
     padding-left: 40px;
+    color: #FAFAFA;
   }
 
   /*.top-menu {*/
