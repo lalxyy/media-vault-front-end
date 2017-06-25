@@ -1,12 +1,17 @@
 <template>
   <div id="app">
     <!-- TODO Top Menu-->
-    <el-menu class="top-menu" mode="horizontal">
-      <div class="title">Media Vault</div>
+    <!--<el-menu class="top-menu" mode="horizontal">-->
+    <el-menu mode="horizontal" theme="dark">
+      <div class="title">
+          Media Vault
+      </div>
+
+      <!-- TODO Search 需要加！-->
     </el-menu>
 
-    <!-- TODO Left Navigation -->
     <el-row>
+      <!-- TODO Left Navigation -->
       <el-col :span="4">
         <el-menu class="side-menu" :router="true"
                  @open="goMediaLibrarySubmenu" @close="goMediaLibrarySubmenu">
@@ -26,7 +31,13 @@
           </el-menu-item>
         </el-menu>
       </el-col>
-      <el-col :span="16">
+
+      <!-- TODO Main Frame -->
+      <el-col :span="20">
+        <!-- TODO Top -->
+
+
+        <!-- TODO Media Library Contents -->
         <div style="padding: 10px">
           <router-view></router-view>
         </div>
@@ -71,9 +82,9 @@
     padding-left: 40px;
   }
 
-  .top-menu {
-    /*margin-bottom: 5px;*/
-  }
+  /*.top-menu {*/
+    /*!*margin-bottom: 5px;*!*/
+  /*}*/
 
   .side-menu {
     background-color: white;

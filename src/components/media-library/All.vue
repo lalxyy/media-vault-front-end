@@ -42,14 +42,14 @@
           <!-- Uses `v-if` to judge the type of the operations-->
           <template v-if="scope.row.type !== 'Music' && scope.row.type !== 'Photos'">
             <el-button size="small" type="primary"
-                       @click="openFullScreen(), $router.push({name: 'MediaDetails', params: {id: scope.row.id}})"
+                       @click="openDetails(scope.row.id)"
                        v-loading.fullscreen.lock="fullScreenLoading">
               Details
             </el-button>
           </template>
           <template v-if="scope.row.type === 'Movies'">
             <el-button size="small" type="primary"
-                       @click="openFullScreen(), downloadFile(scope.row.fileURL)"
+                       @click="downloadFile(scope.row.fileURL)"
                        v-loading.fullscreen.lock="fullScreenLoading">
               <i class="el-icon-upload2"></i> Download
             </el-button>
@@ -132,11 +132,21 @@
 //        window.open(fileURL, '_blank');
       },
 
+      openDetails(id) {
+        // TODO Delay Loading Testing
+        this.fullScreenLoading = true;
+        setTimeout(() => {
+          this.fullScreenLoading = false;
+          this.$router.push({name: 'MediaDetails', params: {id: id}})
+        }, 300);
+
+      },
+
       openFullScreen(){
         this.fullScreenLoading = true;
         setTimeout(() => {
           this.fullScreenLoading = false;
-        }, 800);
+        }, 300);
       }
     }
   };
