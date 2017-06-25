@@ -2,23 +2,13 @@
   <div>
     <h2>Music</h2>
 
-    <!--<el-tabs type="border-card">-->
-    <!--<el-tab-pane>-->
-    <!--<span slot="label"><i class="el-icon-date"></i> 我的行程</span>-->
-    <!--我的行程-->
-    <!--</el-tab-pane>-->
-    <!--<el-tab-pane label="消息中心">消息中心</el-tab-pane>-->
-    <!--<el-tab-pane label="角色管理">角色管理</el-tab-pane>-->
-    <!--<el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>-->
-    <!--</el-tabs>-->
-
     <!-- TODO Testing `Border-Card` Navigation -->
     <el-tabs type="border-card">
       <el-tab-pane>
         <span slot="label"><i class="el-icon-date"></i> Test Mode 1</span>
 
         <!-- Uses a table to show the data if `Music` -->
-        <el-table :data="filterTableData" stripe style="width: 100%">
+        <el-table :data="tableData" stripe style="width: 100%">
           <!-- Basic (extends from Media) -->
           <el-table-column prop="title" label="Title" width="300">
             <template scope="scope">
@@ -34,11 +24,10 @@
           <!-- Basic Media Information of Music -->
           <el-table-column prop="duration" label="Duration" width="200">
             <template scope="scope">
-              {{getTimeString(scope.row.time)}}
+              {{scope.row.duration}}
             </template>
           </el-table-column>
 
-          <!-- TODO 感觉音乐应该用不着显示体积？都差不多 -->
           <!-- Size (extends from Media) -->
           <el-table-column prop="size" label="File Size" width="100">
             <template scope="scope">
@@ -62,9 +51,9 @@
         </el-table>
 
       </el-tab-pane>
-      <el-tab-pane label="消息中心">消息中心</el-tab-pane>
-      <el-tab-pane label="角色管理">角色管理</el-tab-pane>
-      <el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>
+      <!--<el-tab-pane label="消息中心">消息中心</el-tab-pane>-->
+      <!--<el-tab-pane label="角色管理">角色管理</el-tab-pane>-->
+      <!--<el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>-->
     </el-tabs>
 
     <!-- Shown in List Mode-->
@@ -102,12 +91,19 @@
 </template>
 
 <script>
-  import data from '@/assets/data';
+//  import data from '@/assets/data';
 
   export default {
+    beforeMount () {
+      this.$axios.get('/api/music').then(response => {
+        if (response.data.isSuccessful) {
+          this.tableData = response.data.data;
+        }
+      })
+    },
     data() {
       return {
-        data,
+        tableData: [],
         fullScreenLoading: false
       };
     },
@@ -126,9 +122,9 @@
     },
     computed: {
       // Only needs Music in this table
-      filterTableData() {
-        return this.data.filter(element => element.type === 'Music')
-      }
+//      filterTableData() {
+//        return this.data.filter(element => element.type === 'Music')
+//      }
     }
   };
 </script>

@@ -8,7 +8,7 @@
         <span slot="label">List</span>
 
         <!-- Uses a table to show the data if `Music` -->
-        <el-table :data="filterTableData" stripe style="width: 100%">
+        <el-table :data="tableData" stripe style="width: 100%">
           <!-- TODO New Fields-->
           <!-- Basic (extends from Media) -->
           <el-table-column prop="title" label="Title" width="300">
@@ -55,20 +55,12 @@
 
       </el-tab-pane>
 
-      <!--<el-tab-pane label="Theater-like">-->
-      <!--<template>-->
-      <!--<el-carousel :interval="4000" type="card" height="600px">-->
-      <!--<el-carousel-item v-for="item in filterTableData" :key="item">-->
-      <!--&lt;!&ndash;<h3>{{ item }}</h3>&ndash;&gt;-->
-      <!--<img style="width: 100%" :src="item.fileURL" class="image"/>-->
-      <!--</el-carousel-item>-->
-      <!--</el-carousel>-->
-      <!--</template>-->
-      <!--</el-tab-pane>-->
-
       <el-tab-pane label="Thumbnails">
-        <el-row>
-          <el-col :span="6" v-for="item in filterTableData" :key="o" :offset="index > 0 ? 2 : 0">
+        <el-row style="margin: 10px">
+          <el-col :span="24" v-if="tableData.length == 0" style="text-align: center; color: #8c939d">
+            No Data
+          </el-col>
+          <el-col :span="6" v-for="item in tableData" :key="o" :offset="index > 0 ? 2 : 0">
             <el-card :body-style="{ padding: '0px' }">
               <!--<img src="~examples/assets/images/hamburger.png" class="image">-->
               <!--<img src="../../../static/thumbnails/movies/a-clockwork-orange.jpg" class="image" width="200" height="200"/>-->
@@ -89,13 +81,21 @@
 </template>
 
 <script>
-  import data from '@/assets/data';
-  import axios from 'axios';
+  import ElCol from 'element-ui/packages/col/src/col';
+//  import data from '@/assets/data';
 
   export default {
+    components: {ElCol},
+    beforeMount () {
+      this.$axios('/api/photo').then(response => {
+        if (response.data.isSuccessful) {
+          this.tableData = response.data.data;
+        }
+      });
+    },
     data() {
       return {
-        data: data,
+        tableData: [],
         currentDate: new Date(), // TODO Test for 卡片显示
         fullScreenLoading: false
       };
@@ -109,7 +109,6 @@
         window.open(fileURL, '_blank');
       },
       deleteItem (id) {
-        // TODO ID 没用上啊。。。。
         this.$confirm('Are you sure to delete the item? ', 'Warning', {
           confirmButtonText: 'Confirm',
           cancelButtonText: 'Cancel',
@@ -131,17 +130,17 @@
     },
     computed: {
       // Only needs Music in this table
-      filterTableData() {
-
-        return this.data.filter(element => element.type === 'Photos')
-      }
+//      filterTableData() {
+//
+//        return this.data.filter(element => element.type === 'Photos')
+//      }
     }
   };
   // TODO https://github.com/mzabriskie/axios
-  let instance = axios.create({
-    baseURL: '/api/',
-    timeout: 500
-  });
+//  let instance = axios.create({
+//    baseURL: '/api/',
+//    timeout: 500
+//  });
 
 
 </script>

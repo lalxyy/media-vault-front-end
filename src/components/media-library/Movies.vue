@@ -1,20 +1,16 @@
 <template>
   <div>
     <h2>Movies</h2>
-    <el-table :data="filterTableData" stripe style="width: 100%">
+    <el-table :data="tableData" stripe style="width: 100%">
       <!-- Basic (extends from Media) -->
-      <el-table-column prop="title" label="Title" width="300">
-
-      </el-table-column>
-      <el-table-column prop="rating" label="Rating" width="100">
-
-      </el-table-column>
+      <el-table-column prop="title" label="Title" width="300"></el-table-column>
+      <el-table-column prop="rating" label="Rating" width="100"></el-table-column>
 
       <!-- Basic Media Information of Movie -->
       <el-table-column prop="duration" label="Duration" width="200">
         <template scope="scope">
           <!-- TODO 需要改-->
-          {{getTimeString(scope.row.time)}}
+          {{scope.row.duration}}
         </template>
       </el-table-column>
 
