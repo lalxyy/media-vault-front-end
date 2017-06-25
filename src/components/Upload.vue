@@ -18,8 +18,10 @@
           class="upload-demo"
           list-type="picture-card"
           :show-file-list="false"
-          action="/api/files/add">
-          <i class="el-icon-plus"></i>
+          :on-success="thumbnailUploadFinish"
+          :action="baseURL + '/api/files/add'">
+          <img v-if="form.thumbnailImageURL" :src="form.thumbnailImageURL" style="width: 100%"/>
+          <i v-else class="el-icon-plus"></i>
           <!--<div class="el-upload__text">Drag Files Here or <em>Click to Upload</em></div>-->
           <!--<div class="el-upload__tip" slot="tip">Only in jpg / png format, &lt; 500kb</div>-->
         </el-upload>
@@ -58,7 +60,7 @@
               drag
               :on-success="item.onUploadFinish"
               :show-file-list="false"
-              action="http://localhost:8080/api/files/add">
+              :action="baseURL + '/api/files/add'">
               <i class="el-icon-upload"></i>
               <div class="el-upload__text">Drag Files Here or <em>Click to Upload</em></div>
               <div class="el-upload__tip" slot="tip">Video Format, &lt; 100 GB</div>
@@ -93,11 +95,13 @@
       }
 
       return {
+        baseURL: 'http://localhost:8080',
         form: {
           title: '',
           type: '',
           tvEpisodes: [],
-          year: ''
+          year: '',
+          thumbnailImageURL: ''
         },
         rules: {
           title: [{
@@ -112,6 +116,10 @@
       };
     },
     methods: {
+      thumbnailUploadFinish (res, file) {
+        window.console.log(res);
+        this.form.thumbnailImageURL = this.baseURL + res.data.url;
+      },
       addTVEpisode () {
         this.form.tvEpisodes.push({
           season: 0,
