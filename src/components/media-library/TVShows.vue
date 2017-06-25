@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>TV Shows</h2>
-    <el-table :data="filterTableData" stripe style="width: 100%">
+    <el-table :data="tableData" stripe style="width: 100%">
       <!-- Basic (extends from Media) -->
       <el-table-column prop="title" label="Title" width="300">
         <template scope="scope">
@@ -33,7 +33,7 @@
 
 
       <!-- The information of the content of the Movie -->
-      <el-table-column prop="genres" label="Genres" width="300">
+      <el-table-column label="Genres" width="300">
         <!-- TODO 多个按钮形式？或者文本用什么进行分隔？-->
         <template scope="scope">
           {{getCommaSplitGenres(scope.row.genres)}}
@@ -48,25 +48,26 @@
       </el-table-column>
 
 
-      <el-table-column prop label="Episodes" width="100">
-        <!-- TODO 这里是有多个episode啊！不可能直接显示长度啊！不过倒是可以显示数量！ -->
-        <template scope="scope">
-          <!--{{scope.row.episodes.length}}-->
-        </template>
-      </el-table-column>
+      <!--<el-table-column prop label="Episodes" width="100">-->
+        <!--&lt;!&ndash; TODO 这里是有多个episode啊！不可能直接显示长度啊！不过倒是可以显示数量！ &ndash;&gt;-->
+        <!--<template scope="scope">-->
+          <!--&lt;!&ndash;{{scope.row.episodes.length}}&ndash;&gt;-->
+        <!--</template>-->
+      <!--</el-table-column>-->
 
 
       <!-- Size (extends from Media) -->
-      <el-table-column prop="size" label="File Size" width="100">\
-        <template scope="scope">
-          <!-- Needs to compute the total size of the TV shows-->
-          <!-- TODO 这里要改一下了！ -->
-          {{computeTotalSize(scope.row.episodes).toFixed(2)}}&nbsp;{{scope.row.episodes[0].size.measure}}
-        </template>
-      </el-table-column>
+      <!--<el-table-column prop="size" label="File Size" width="100">\-->
+        <!--<template scope="scope">-->
+          <!--&lt;!&ndash; Needs to compute the total size of the TV shows&ndash;&gt;-->
+          <!--&lt;!&ndash; TODO 这里要改一下了！ &ndash;&gt;-->
+          <!--{{scope.row.size}}-->
+          <!--&lt;!&ndash;{{computeTotalSize(scope.row.episodes).toFixed(2)}}&nbsp;{{scope.row.episodes[0].size.measure}}&ndash;&gt;-->
+        <!--</template>-->
+      <!--</el-table-column>-->
 
 
-      <el-table-column label="Operations">
+      <el-table-column label="Operations" width="300">
         <template scope="scope">
           <el-button size="small" type="primary"
                      @click="goToDetails(scope.row.id), openFullScreen()"
@@ -86,15 +87,22 @@
 </template>
 
 <script>
-  import tableData from '@/assets/data';
+//  import tableData from '@/assets/data';
 
   export default {
+    beforeMount () {
+      this.$axios.get('/api/tv-show').then(response => {
+        if (response.data.isSuccessful) {
+          this.tableData = response.data.data;
+        }
+      })
+    },
     mounted() {
       window.console.log(tableData);
     },
     data () {
       return {
-        tableData,
+        tableData: [],
         fullScreenLoading: false
       };
     },
@@ -115,9 +123,9 @@
         let str = "";
         for (let i = 0; i < actors.length; ++i) {
           if (i !== actors.length - 1) {
-            str += (actors[i] + ", ")
+            str += (actors[i].name + ", ")
           } else {
-            str += actors[i];
+            str += actors[i].name;
           }
         }
         return str;
@@ -157,9 +165,9 @@
       }
     },
     computed: {
-      filterTableData () {
-        return this.tableData.filter(element => element.type === 'TVShows');
-      }
+//      filterTableData () {
+//        return this.tableData.filter(element => element.type === 'TVShows');
+//      }
     }
   }
 </script>

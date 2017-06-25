@@ -6,16 +6,13 @@
       <div class="title">
           Media Vault
       </div>
-
-      <!-- TODO Search 需要加！-->
     </el-menu>
 
     <!-- TODO Add Gutter -->
     <el-row :gutter="30">
       <!-- TODO Left Navigation -->
       <el-col :span="4">
-        <el-menu class="side-menu" :router="true"
-                 @open="goMediaLibrarySubmenu" @close="goMediaLibrarySubmenu">
+        <el-menu class="side-menu" :router="true">
           <el-menu-item index="/"><i class="el-icon-menu"></i>Home
           </el-menu-item>
           <el-submenu index="/media-library">
