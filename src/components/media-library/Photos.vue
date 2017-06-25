@@ -9,11 +9,17 @@
 
         <!-- Uses a table to show the data if `Music` -->
         <el-table :data="filterTableData" stripe style="width: 100%">
-          <!-- Title -->
-          <el-table-column prop="title" label="Title" width="300"></el-table-column>
+          <!-- TODO New Fields-->
+          <!-- Basic (extends from Media) -->
+          <el-table-column prop="title" label="Title" width="300">
 
-          <!-- Year -->
-          <el-table-column prop="year" label="Year" width="100"></el-table-column>
+          </el-table-column>
+          <el-table-column prop="rating" label="Rating" width="100">
+
+          </el-table-column>
+
+          <!-- Size (extends from Media) -->
+          <el-table-column prop="size" label="File Size" width="100"></el-table-column>
 
           <!-- Available Operations -->
           <el-table-column label="Operations">
@@ -63,6 +69,7 @@
 
 <script>
   import data from '@/assets/data';
+  import axios from 'axios';
 
   export default {
     data() {
@@ -80,10 +87,18 @@
     computed: {
       // Only needs Music in this table
       filterTableData() {
+
         return this.data.filter(element => element.type === 'Photos')
       }
     }
   };
+  // TODO https://github.com/mzabriskie/axios
+  let instance = axios.create({
+    baseURL: '/api/',
+    timeout: 500
+  });
+
+
 </script>
 
 <style>

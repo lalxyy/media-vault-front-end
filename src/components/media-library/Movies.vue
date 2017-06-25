@@ -2,21 +2,29 @@
   <div>
     <h2>Movies</h2>
     <el-table :data="filterTableData" stripe style="width: 100%">
-      <!-- Title -->
-      <el-table-column prop="title" label="Title" width="300"></el-table-column>
+      <!-- Basic (extends from Media) -->
+      <el-table-column prop="title" label="Title" width="300">
 
-      <!-- Duration -->
-      <el-table-column label="Duration" width="200">
+      </el-table-column>
+      <el-table-column prop="rating" label="Rating" width="100">
+
+      </el-table-column>
+
+      <!-- Basic Media Information of Movie -->
+      <el-table-column prop="duration" label="Duration" width="200">
         <template scope="scope">
           {{getTimeString(scope.row.time)}}
         </template>
       </el-table-column>
 
-      <!-- Year-->
-      <el-table-column prop="year" label="Year" width="100"></el-table-column>
+      <!-- The information of the content of the Movie -->
+      <el-table-column prop="genres" label="Genres" width="300">
+        <!-- TODO 多个按钮形式？或者文本用什么进行分隔？-->
+      </el-table-column>
+      <!-- Plot - Ignored in List Mode -->
 
-      <!-- File Size-->
-      <el-table-column label="File Size" width="100">
+      <!-- Size (extends from Media) -->
+      <el-table-column prop="size" label="File Size" width="100">\
         <template scope="scope">
           {{scope.row.size.size}}&nbsp;{{scope.row.size.measure}}
         </template>
@@ -43,8 +51,10 @@
 
 <script>
   import tableData from '@/assets/data';
+  import ElTable from "../../../node_modules/element-ui/packages/table/src/table";
 
   export default {
+    components: {ElTable},
     mounted () {
       window.console.log(tableData);
     },

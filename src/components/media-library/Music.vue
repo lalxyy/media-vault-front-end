@@ -3,13 +3,13 @@
     <h2>Music</h2>
 
     <!--<el-tabs type="border-card">-->
-      <!--<el-tab-pane>-->
-        <!--<span slot="label"><i class="el-icon-date"></i> 我的行程</span>-->
-        <!--我的行程-->
-      <!--</el-tab-pane>-->
-      <!--<el-tab-pane label="消息中心">消息中心</el-tab-pane>-->
-      <!--<el-tab-pane label="角色管理">角色管理</el-tab-pane>-->
-      <!--<el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>-->
+    <!--<el-tab-pane>-->
+    <!--<span slot="label"><i class="el-icon-date"></i> 我的行程</span>-->
+    <!--我的行程-->
+    <!--</el-tab-pane>-->
+    <!--<el-tab-pane label="消息中心">消息中心</el-tab-pane>-->
+    <!--<el-tab-pane label="角色管理">角色管理</el-tab-pane>-->
+    <!--<el-tab-pane label="定时任务补偿">定时任务补偿</el-tab-pane>-->
     <!--</el-tabs>-->
 
     <!-- TODO Testing `Border-Card` Navigation -->
@@ -19,20 +19,29 @@
 
         <!-- Uses a table to show the data if `Music` -->
         <el-table :data="filterTableData" stripe style="width: 100%">
-          <!-- Title -->
-          <el-table-column prop="title" label="Title" width="300"></el-table-column>
+          <!-- Basic (extends from Media) -->
+          <el-table-column prop="title" label="Title" width="300">
 
-          <!-- Duration -->
-          <el-table-column label="Duration" width="200">
+          </el-table-column>
+          <el-table-column prop="rating" label="Rating" width="100">
+
+          </el-table-column>
+
+          <!-- Basic Media Information of Music -->
+          <el-table-column prop="duration" label="Duration" width="200">
             <template scope="scope">
               {{getTimeString(scope.row.time)}}
             </template>
           </el-table-column>
 
-          <!-- Year -->
-          <el-table-column prop="year" label="Year" width="100"></el-table-column>
-
           <!-- TODO 感觉音乐应该用不着显示体积？都差不多 -->
+          <!-- Size (extends from Media) -->
+          <el-table-column prop="size" label="File Size" width="100">\
+            <template scope="scope">
+              {{scope.row.size.size}}&nbsp;{{scope.row.size.measure}}
+            </template>
+          </el-table-column>
+
 
           <!-- Available Operations -->
           <el-table-column label="Operations">
@@ -52,33 +61,33 @@
 
     <!-- Shown in List Mode-->
     <!--<template v-if="mode = 'list'">-->
-      <!--&lt;!&ndash; Uses a table to show the data if `Music` &ndash;&gt;-->
-      <!--<el-table :data="filterTableData" stripe style="width: 100%">-->
-        <!--&lt;!&ndash; Title &ndash;&gt;-->
-        <!--<el-table-column prop="title" label="Title" width="300"></el-table-column>-->
+    <!--&lt;!&ndash; Uses a table to show the data if `Music` &ndash;&gt;-->
+    <!--<el-table :data="filterTableData" stripe style="width: 100%">-->
+    <!--&lt;!&ndash; Title &ndash;&gt;-->
+    <!--<el-table-column prop="title" label="Title" width="300"></el-table-column>-->
 
-        <!--&lt;!&ndash; Duration &ndash;&gt;-->
-        <!--<el-table-column label="Duration" width="200">-->
-          <!--<template scope="scope">-->
-            <!--{{getTimeString(scope.row.time)}}-->
-          <!--</template>-->
-        <!--</el-table-column>-->
+    <!--&lt;!&ndash; Duration &ndash;&gt;-->
+    <!--<el-table-column label="Duration" width="200">-->
+    <!--<template scope="scope">-->
+    <!--{{getTimeString(scope.row.time)}}-->
+    <!--</template>-->
+    <!--</el-table-column>-->
 
-        <!--&lt;!&ndash; Year &ndash;&gt;-->
-        <!--<el-table-column prop="year" label="Year" width="100"></el-table-column>-->
+    <!--&lt;!&ndash; Year &ndash;&gt;-->
+    <!--<el-table-column prop="year" label="Year" width="100"></el-table-column>-->
 
-        <!--&lt;!&ndash; Available Operations &ndash;&gt;-->
-        <!--<el-table-column label="Operations">-->
-          <!--<template scope="scope">-->
-            <!--<el-button size="small" type="primary">-->
-              <!--<i class="el-icon-upload2"></i> Download-->
-            <!--</el-button>-->
-          <!--</template>-->
-        <!--</el-table-column>-->
-      <!--</el-table>-->
+    <!--&lt;!&ndash; Available Operations &ndash;&gt;-->
+    <!--<el-table-column label="Operations">-->
+    <!--<template scope="scope">-->
+    <!--<el-button size="small" type="primary">-->
+    <!--<i class="el-icon-upload2"></i> Download-->
+    <!--</el-button>-->
+    <!--</template>-->
+    <!--</el-table-column>-->
+    <!--</el-table>-->
     <!--</template>-->
     <!--<template v-else-if="mode = 'thumbnail'">-->
-      <!--&lt;!&ndash; some content of thumbnail mode&ndash;&gt;-->
+    <!--&lt;!&ndash; some content of thumbnail mode&ndash;&gt;-->
     <!--</template>-->
 
   </div>
@@ -102,7 +111,7 @@
     computed: {
       // Only needs Music in this table
       filterTableData() {
-          return this.data.filter(element => element.type === 'Music')
+        return this.data.filter(element => element.type === 'Music')
       }
     }
   };

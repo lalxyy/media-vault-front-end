@@ -2,19 +2,52 @@
   <div>
     <h2>TV Shows</h2>
     <el-table :data="filterTableData" stripe style="width: 100%">
-      <el-table-column prop="title" label="Title" width="300"></el-table-column>
+      <!-- Basic (extends from Media) -->
+      <el-table-column prop="title" label="Title" width="300">
+
+      </el-table-column>
+      <el-table-column prop="rating" label="Rating" width="100">
+
+      </el-table-column>
+
+      <!-- Other Basic TV Show Information -->
+      <el-table-column prop="premiered" label="Premiered" width="100">
+
+      </el-table-column>
+      <el-table-column prop="studio" label="Studio" width="100">
+
+      </el-table-column>
+      <el-table-column prop="mpaa" label="MPAA" width="100">
+
+      </el-table-column>
+
+
+      <!-- The information of the content of the Movie -->
+      <el-table-column prop="genres" label="Genres" width="300">
+        <!-- TODO 多个按钮形式？或者文本用什么进行分隔？-->
+      </el-table-column>
+      <!-- Plot - Ignored in List Mode -->
+      <el-table-column prop="actors" label="Actors" width="300">
+        <!-- TODO Actor 多个按钮形式？或者文本用什么进行分隔？-->
+      </el-table-column>
+
+
       <el-table-column label="Episodes" width="100">
         <template scope="scope">
           {{scope.row.episodes.length}}
         </template>
       </el-table-column>
 
-      <el-table-column label="File Size" width="100">
+
+      <!-- Size (extends from Media) -->
+      <el-table-column prop="size" label="File Size" width="100">\
         <template scope="scope">
           <!-- Needs to compute the total size of the TV shows-->
           {{computeTotalSize(scope.row.episodes).toFixed(2)}}&nbsp;{{scope.row.episodes[0].size.measure}}
         </template>
       </el-table-column>
+
+
 
       <el-table-column label="Operations">
         <template scope="scope">
