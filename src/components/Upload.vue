@@ -50,7 +50,7 @@
               <el-option label="B" value="B"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="Thumbnail">
+          <el-form-item v-if="form.type !== 'Photos'" label="Thumbnail">
             <div style="max-height: 700px">
               <el-upload
                 class="upload-demo"
@@ -60,7 +60,7 @@
                 :on-success="thumbnailUploadFinish"
                 style="max-height: 700px"
                 :action="baseURL + '/api/files/add'">
-                <img v-if="form.thumbnailImageURL" :src="form.thumbnailImageURL"
+                <img v-if="form.thumbnailImageURL" :src="baseURL + form.thumbnailImageURL"
                      style="height: 100%"/>
                 <i v-else class="el-icon-plus"></i>
                 <!--<div class="el-upload__text">Drag Files Here or <em>Click to Upload</em></div>-->
@@ -85,11 +85,11 @@
             </el-form-item>
           </template>
 
-          <template v-if="form.type === 'Music'">
-            <el-form-item label="Duration" prop="duration">
-              <el-input v-model="form.duration" style="width: 500px"></el-input>
-            </el-form-item>
-          </template>
+          <!--<template v-if="form.type === 'Music'">-->
+            <!--<el-form-item label="Duration" prop="duration">-->
+              <!--<el-input v-model="form.duration" style="width: 500px"></el-input>-->
+            <!--</el-form-item>-->
+          <!--</template>-->
 
           <template v-if="form.type !== 'Photos'">
             <el-form-item label="Rating" prop="rating">
@@ -121,6 +121,21 @@
                   </div>
                 </el-upload>
               </div>
+            </el-form-item>
+          </template>
+
+          <template v-if="form.type === 'TVShows'">
+            <el-form-item label="Runtime">
+              <el-input v-model="form.runtime" style="width: 500px"></el-input>
+            </el-form-item>
+            <el-form-item label="MPAA">
+              <el-input v-model="form.mpaa" style="width: 500px"></el-input>
+            </el-form-item>
+            <el-form-item label="Premiered">
+              <el-input v-model="form.premiered" style="width: 500px"></el-input>
+            </el-form-item>
+            <el-form-item label="Studio">
+              <el-input v-model="form.studio" style="width: 500px;"></el-input>
             </el-form-item>
           </template>
 
@@ -195,7 +210,7 @@
                   style="max-height: 700px; margin-left: 5px"
                   :action="baseURL + '/api/files/add'">
                   <img v-if="tvEpisodeForm.thumbnailURL"
-                       :src="tvEpisodeForm.thumbnailURL" style="height: 100%"/>
+                       :src="baseURL + tvEpisodeForm.thumbnailURL" style="height: 100%"/>
                   <i v-else class="el-icon-plus"></i>
                   <!--<div class="el-upload__text">Drag Files Here or <em>Click to Upload</em></div>-->
                 </el-upload>
@@ -298,8 +313,13 @@
 
 <script>
   import TypeConvert from '@/utils/TypeConvert';
+  import ElInput from '../../node_modules/element-ui/packages/input/src/input';
+  import ElFormItem from '../../node_modules/element-ui/packages/form/src/form-item';
 
   export default {
+    components: {
+      ElFormItem,
+      ElInput},
     data () {
       // Form Validator
       let checkTitle = (rule, value, callback) => {
@@ -332,7 +352,11 @@
           size: 0,
           duration: '',
           plot: '',
-          rating: 0
+          rating: 0,
+          runtime: 0,
+          premiered: '',
+          studio: '',
+          mpaa: ''
         },
         tvEpisodeForm: {
           title: '',
@@ -422,11 +446,11 @@
       },
       thumbnailUploadFinish (res, file) {
         window.console.log(res);
-        this.form.thumbnailImageURL = this.baseURL + res.data.url;
+        this.form.thumbnailImageURL = res.data.url;
       },
       episodeThumbnailUploadFinish (res) {
         window.console.log(res);
-        this.tvEpisodeForm.thumbnailURL = this.baseURL + res.data.url;
+        this.tvEpisodeForm.thumbnailURL = res.data.url;
       },
       addTVEpisode () {
         this.addEpisodeDialogVisible = true;
@@ -444,7 +468,7 @@
       },
       onEpisodeUploadFinish (res) {
         if (res.isSuccessful) {
-          this.tvEpisodeForm.fileURL = res.data.url;
+          this.tvEpisodeForm.uploadFileURL = res.data.url;
         }
       },
       fileUploadError (error, file, fileList) {
@@ -483,6 +507,10 @@
             rating: this.form.rating,
             genres: this.rawGenres.split(',').map(str => str.trim()),
             duration: this.totalDuration,
+            mpaa: this.form.mpaa,
+            studio: this.form.studio,
+            runtime: Number(this.form.runtime),
+            premiered: this.form.premiered,
             plot: this.form.plot,
 //                episodes: this.tvEpisodes.map(rawEpisode => {
 //                  return {
@@ -511,54 +539,55 @@
               'Error in uploading. Please refresh the page and try again.');
           }
         });
-      }
+      },
 //        });
-    },
-    episodeSubmit () {
-      this.$axios.post('/api/tv-show/' + this.activeTVShow + '/episode', {
-        title: this.tvEpisodeForm.title,
-        season: Number(this.tvEpisodeForm.season),
-        episode: Number(this.tvEpisodeForm.episode),
-        duration: Number(this.tvEpisodeForm.hour) * 3600 +
-        Number(this.tvEpisodeForm.minute) * 60 +
-        Number(this.tvEpisodeForm.second),
-        aired: this.tvEpisodeForm.aired,
-        fileURL: this.tvEpisodeForm.uploadFileURL,
-        thumbnailURL: this.tvEpisodeForm.thumbnailURL,
-        size: this.calculateTotalSize(this.tvEpisodeForm.rawSize,
-          this.tvEpisodeForm.sizeUnit),
-        director: this.tvEpisodeForm.director,
-        plot: this.tvEpisodeForm.plot,
-        credits: this.tvEpisodeForm.credits
-      }).then(response => {
-        if (response.data.isSuccessful) {
-          let title = this.tvEpisodeForm.title;
-          let season = this.tvEpisodeForm.season;
-          let episode = this.tvEpisodeForm.episode;
-          this.finishedEpisodes.push({title, season, episode});
-          this.$message({
-            type: 'success',
-            message: 'Added Episode'
-          });
-          this.addEpisodeDialogVisible = false;
 
-          this.tvEpisodeForm.season = 0;
-          this.tvEpisodeForm.episode = 0;
-          this.tvEpisodeForm.uploadFileURL = '';
-          this.tvEpisodeForm.thumbnailURL = '';
-          this.tvEpisodeForm.rawSize = 0;
-          this.tvEpisodeForm.sizeUnit = '';
-          this.tvEpisodeForm.plot = '';
-          this.tvEpisodeForm.credits = '';
-          this.tvEpisodeForm.hour = 0;
-          this.tvEpisodeForm.minute = 0;
-          this.tvEpisodeForm.second = 0;
-          this.tvEpisodeForm.aired = '';
-          this.tvEpisodeForm.director = ''
-        } else {
-          window.console.log(response);
-        }
-      })
+      episodeSubmit () {
+        this.$axios.post('/api/tv-show/' + this.activeTVShow + '/episode', {
+          title: this.tvEpisodeForm.title,
+          season: Number(this.tvEpisodeForm.season),
+          episode: Number(this.tvEpisodeForm.episode),
+          duration: Number(this.tvEpisodeForm.hour) * 3600 +
+          Number(this.tvEpisodeForm.minute) * 60 +
+          Number(this.tvEpisodeForm.second),
+          aired: this.tvEpisodeForm.aired,
+          fileURL: this.tvEpisodeForm.uploadFileURL,
+          thumbnailURL: this.tvEpisodeForm.thumbnailURL,
+          size: this.calculateTotalSize(this.tvEpisodeForm.rawSize,
+            this.tvEpisodeForm.sizeUnit),
+          director: this.tvEpisodeForm.director,
+          plot: this.tvEpisodeForm.plot,
+          credits: this.tvEpisodeForm.credits
+        }).then(response => {
+          if (response.data.isSuccessful) {
+            let title = this.tvEpisodeForm.title;
+            let season = this.tvEpisodeForm.season;
+            let episode = this.tvEpisodeForm.episode;
+            this.finishedEpisodes.push({title, season, episode});
+            this.$message({
+              type: 'success',
+              message: 'Added Episode'
+            });
+            this.addEpisodeDialogVisible = false;
+
+            this.tvEpisodeForm.season = 0;
+            this.tvEpisodeForm.episode = 0;
+            this.tvEpisodeForm.uploadFileURL = '';
+            this.tvEpisodeForm.thumbnailURL = '';
+            this.tvEpisodeForm.rawSize = 0;
+            this.tvEpisodeForm.sizeUnit = '';
+            this.tvEpisodeForm.plot = '';
+            this.tvEpisodeForm.credits = '';
+            this.tvEpisodeForm.hour = 0;
+            this.tvEpisodeForm.minute = 0;
+            this.tvEpisodeForm.second = 0;
+            this.tvEpisodeForm.aired = '';
+            this.tvEpisodeForm.director = ''
+          } else {
+            window.console.log(response);
+          }
+        })
+      }
     }
   }
 </script>
