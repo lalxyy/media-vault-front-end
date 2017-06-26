@@ -13,6 +13,8 @@
         <span slot="label"><i class="el-icon-information"></i> Upload (general) Media File</span>
 
         <el-form ref="form" :rules="rules" :model="form" label-width="80px">
+          <h3 style="margin-top: 5px">Upload Media File</h3>
+
           <el-form-item label="Title" prop="title">
             <el-input v-model="form.title" style="width: 500px"></el-input>
           </el-form-item>
@@ -122,11 +124,11 @@
             </el-form-item>
           </template>
 
-
-
           <template v-if="form.type === 'TVShows'">
             <h3>Episodes</h3>
-            Add episodes in the second tab.
+            <h4 style="margin-left: 20px">
+              The functionality is put in a separate tab. Please add episodes in the second tab.
+            </h4>
           </template>
 
           <el-form-item label="" style="margin-top: 30px">
