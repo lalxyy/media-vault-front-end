@@ -8,8 +8,8 @@
     </el-menu>
 
 
-    <el-tabs type="border-card">
-      <el-tab-pane>
+    <el-tabs type="border-card" v-model="activeTab" @tab-click="tabChange">
+      <el-tab-pane name="main">
         <span slot="label"><i class="el-icon-information"></i> Upload (general) Media File</span>
 
         <el-form ref="form" :rules="rules" :model="form" label-width="80px">
@@ -17,16 +17,31 @@
             <el-input v-model="form.title" style="width: 500px"></el-input>
           </el-form-item>
           <el-form-item label="Type">
-            <el-select v-model="form.type" style="width: 500px" placeholder="Movie / TV Shows / ...">
+            <el-select v-model="form.type" style="width: 500px"
+                       placeholder="Movie / TV Shows / ...">
               <el-option label="Movie" value="Movies"></el-option>
               <el-option label="TV Show" value="TVShows"></el-option>
               <el-option label="Photo" value="Photos"></el-option>
               <el-option label="Music" value="Music"></el-option>
             </el-select>
           </el-form-item>
+          <el-form-item v-if="form.type !== 'Photos'" label="Duration">
+            <el-input v-model="form.durationHour"
+                      style="width: 114px"></el-input>
+            Hour
+            &nbsp;&nbsp;
+            <el-input v-model="form.durationMinute"
+                      style="width: 114px"></el-input>
+            Minute
+            &nbsp;&nbsp;
+            <el-input v-model="form.durationSecond"
+                      style="width: 114px"></el-input>
+            Second
+          </el-form-item>
           <el-form-item v-if="form.type !== 'TVShows'" label="Size">
             <el-input v-model="rawSize" style="width: 390px"></el-input>
-            <el-select v-model="calculateUnit" style="width: 106px" placeholder="Per...">
+            <el-select v-model="calculateUnit" style="width: 106px"
+                       placeholder="Per...">
               <el-option label="GB" value="GB"></el-option>
               <el-option label="MB" value="MB"></el-option>
               <el-option label="KB" value="KB"></el-option>
@@ -43,24 +58,28 @@
                 :on-success="thumbnailUploadFinish"
                 style="max-height: 700px"
                 :action="baseURL + '/api/files/add'">
-                <img v-if="form.thumbnailImageURL" :src="form.thumbnailImageURL" style="height: 100%"/>
+                <img v-if="form.thumbnailImageURL" :src="form.thumbnailImageURL"
+                     style="height: 100%"/>
                 <i v-else class="el-icon-plus"></i>
                 <!--<div class="el-upload__text">Drag Files Here or <em>Click to Upload</em></div>-->
               </el-upload>
-              <div class="el-upload__tip">Only in jpg / png format, &lt; 500kb</div>
+              <div class="el-upload__tip">Only in jpg / png format, &lt; 500kb
+              </div>
             </div>
           </el-form-item>
 
           <template v-if="form.type === 'Movies'">
             <el-form-item label="Duration" prop="duration">
               <el-input v-model="form.duration" style="width: 500px"></el-input>
+
             </el-form-item>
             <el-form-item label="Genre">
               <el-input v-model="rawGenres" style="width: 500px"></el-input>
               <div class="el-upload__tip">Split by commas (,)</div>
             </el-form-item>
             <el-form-item label="Plot">
-              <el-input type="textarea" :rows="5" v-model="form.plot" style="width: 500px"></el-input>
+              <el-input type="textarea" :rows="5" v-model="form.plot"
+                        style="width: 500px"></el-input>
             </el-form-item>
           </template>
 
@@ -96,7 +115,8 @@
                   drag
                   :action="baseURL + '/api/files/add'">
                   <i class="el-icon-upload"></i>
-                  <div class="el-upload__text">Drag Files Here or <em>Click to Upload</em></div>
+                  <div class="el-upload__text">Drag Files Here or <em>Click to Upload</em>
+                  </div>
                 </el-upload>
               </div>
             </el-form-item>
@@ -104,38 +124,6 @@
 
           <template v-if="form.type === 'TVShows'">
             <h3>Episodes</h3>
-            <div v-for="(item, $index) in form.tvEpisodes" style="border: 2px">
-              <el-row>
-                <el-col :span="24" style="text-align: right; width: 700px">
-                  <a @click="removeTVEpisode(item)"><i style="color: #8492a6" class="el-icon-delete"></i></a>
-                </el-col>
-              </el-row>
-              <el-form-item :prop="'tvEpisodes[' + $index + '].season'" label="Season" :rules="[
-                {required: true, message: 'Season should be specified'}
-              ]">
-                <el-input v-model="item.season" style="width: 500px"></el-input>
-              </el-form-item>
-              <el-form-item :prop="'tvEpisodes[' + $index + '].episode'" label="Episode" :rules="[
-              {required: true, message: 'Episode should be specified'}
-          ]">
-                <el-input v-model="item.episode" style="width: 500px"></el-input>
-              </el-form-item>
-              <el-form-item label="File">
-                <el-upload
-                  drag
-                  :on-success="item.onUploadFinish"
-                  :on-error="fileUploadError"
-                  :show-file-list="false"
-                  :action="baseURL + '/api/files/add'">
-                  <i class="el-icon-upload"></i>
-                  <div class="el-upload__text">Drag Files Here or <em>Click to Upload</em></div>
-                  <div class="el-upload__tip" slot="tip">Video Format, &lt; 100 GB</div>
-                </el-upload>
-              </el-form-item>
-            </div>
-            <el-button type="text" @click="addTVEpisode">
-              <i class="el-icon-plus"></i>&nbsp;&nbsp;Add Episode
-            </el-button>
           </template>
 
           <el-form-item label="" style="margin-top: 30px">
@@ -144,7 +132,158 @@
         </el-form>
 
       </el-tab-pane>
-      <span slot="label"><i class="el-icon-menu"></i> Upload Episode to a Existing TV Show</span>
+      <el-tab-pane name="episodes">
+        <span slot="label"><i class="el-icon-menu"></i> Upload Episode to a Existing TV Show</span>
+
+        <div>
+          <h3>Step 1: Choose TV Show to add Episodes</h3>
+          <el-select v-model="activeTVShow" :disabled="tvShowChooseDisabled"
+                     :placeholder="tvShowChoosePlaceholder" style="width: 700px"
+                     @change="chooseTVShow">
+            <el-option v-for="item in tvShows" :key="item.id"
+                       :label="item.title" :value="item.id"></el-option>
+          </el-select>
+        </div>
+
+        <div v-if="tvShowStep1Finished" style="margin-top: 60px">
+          <h3>Step 2: Add Episodes</h3>
+
+          <el-dialog title="Add Episode"
+                     :visible.sync="addEpisodeDialogVisible">
+            <el-form ref="tvEpisodeForm" :model="tvEpisodeForm"
+                     label-width="80px">
+              <el-form-item label="Title" :rules="[{required: true, message: 'Title can\'t be empty', trigger: 'blur'}]">
+                <el-input v-model="tvEpisodeForm.title" style="width: 500px"></el-input>
+              </el-form-item>
+              <el-form-item label="Season"
+                            :rules="[{required: true, message: 'Season can\'t be empty', trigger: 'blur'}]">
+                <el-input v-model="tvEpisodeForm.season"
+                          style="width: 500px"></el-input>
+              </el-form-item>
+              <el-form-item label="Episode"
+                            :rules="[{required: true, message: 'Season can\'t be empty', trigger: 'blur'}]">
+                <el-input v-model="tvEpisodeForm.episode"
+                          style="width: 500px"></el-input>
+              </el-form-item>
+              <el-form-item label="Duration">
+                <el-input v-model="tvEpisodeForm.hour"
+                          style="width: 114px"></el-input>
+                Hour
+                &nbsp;&nbsp;
+                <el-input v-model="tvEpisodeForm.minute"
+                          style="width: 114px"></el-input>
+                Minute
+                &nbsp;&nbsp;
+                <el-input v-model="tvEpisodeForm.second"
+                          style="width: 114px"></el-input>
+                Second
+              </el-form-item>
+              <el-form-item label="Thumbnail">
+                <el-upload
+                  class="upload-demo"
+                  list-type="picture-card"
+                  :show-file-list="false"
+                  :on-error="fileUploadError"
+                  :on-success="episodeThumbnailUploadFinish"
+                  style="max-height: 700px; margin-left: 5px"
+                  :action="baseURL + '/api/files/add'">
+                  <img v-if="tvEpisodeForm.thumbnailURL"
+                       :src="tvEpisodeForm.thumbnailURL" style="height: 100%"/>
+                  <i v-else class="el-icon-plus"></i>
+                  <!--<div class="el-upload__text">Drag Files Here or <em>Click to Upload</em></div>-->
+                </el-upload>
+              </el-form-item>
+              <el-form-item label="File">
+                <el-upload
+                  drag
+                  :on-success="onEpisodeUploadFinish"
+                  :on-error="fileUploadError"
+                  :show-file-list="true"
+                  style="max-width: 700px"
+                  :action="baseURL + '/api/files/add'">
+                  <i class="el-icon-upload"></i>
+                  <div class="el-upload__text">Drag Files Here or <em>Click to Upload</em>
+                  </div>
+                  <div class="el-upload__tip" slot="tip">
+                    Video Format, &lt; 1 GB
+                  </div>
+                </el-upload>
+              </el-form-item>
+              <el-form-item label="Size">
+                <el-input v-model="tvEpisodeForm.rawSize"
+                          style="width: 390px"></el-input>
+                <el-select v-model="tvEpisodeForm.sizeUnit" style="width: 106px"
+                           placeholder="Per...">
+                  <el-option label="GB" value="GB"></el-option>
+                  <el-option label="MB" value="MB"></el-option>
+                  <el-option label="KB" value="KB"></el-option>
+                  <el-option label="B" value="B"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="Plot">
+                <el-input type="textarea" :rows="5" v-model="tvEpisodeForm.plot"
+                          style="width: 500px"></el-input>
+              </el-form-item>
+              <el-form-item label="Credits">
+                <el-input v-model="tvEpisodeForm.credits"
+                          style="width: 500px"></el-input>
+              </el-form-item>
+              <el-form-item label="Aired">
+                <el-input v-model="tvEpisodeForm.aired"
+                          style="width: 500px"></el-input>
+              </el-form-item>
+              <el-form-item label="Director">
+                <el-input v-model="tvEpisodeForm.director"
+                          style="width: 500px"></el-input>
+              </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+              <el-button type="primary"
+                         @click="episodeSubmit">Confirm</el-button>
+            </span>
+          </el-dialog>
+
+          <!--<el-form ref="tvEpisodesForm" :model="tvEpisodesForm" label-width="80px">-->
+          <!--<div v-for="(item, $index) in tvEpisodesForm.tvEpisodes" style="border: 2px">-->
+          <!--<el-row>-->
+          <!--<el-col :span="24" style="text-align: right; width: 700px">-->
+          <!--<a @click="removeTVEpisode(item)"><i style="color: #8492a6" class="el-icon-delete"></i></a>-->
+          <!--</el-col>-->
+          <!--</el-row>-->
+          <!--<el-form-item :prop="'tvEpisodes[' + $index + '].season'" label="Season" :rules="[-->
+          <!--{required: true, message: 'Season should be specified'}-->
+          <!--]">-->
+          <!--<el-input v-model="item.season" style="width: 500px"></el-input>-->
+          <!--</el-form-item>-->
+          <!--<el-form-item :prop="'tvEpisodes[' + $index + '].episode'" label="Episode" :rules="[-->
+          <!--{required: true, message: 'Episode should be specified'}-->
+          <!--]">-->
+          <!--<el-input v-model="item.episode" style="width: 500px"></el-input>-->
+          <!--</el-form-item>-->
+          <!--<el-form-item label="File">-->
+          <!--<el-upload-->
+          <!--drag-->
+          <!--:on-success="item.onUploadFinish"-->
+          <!--:on-error="fileUploadError"-->
+          <!--:show-file-list="false"-->
+          <!--:action="baseURL + '/api/files/add'">-->
+          <!--<i class="el-icon-upload"></i>-->
+          <!--<div class="el-upload__text">Drag Files Here or <em>Click to Upload</em></div>-->
+          <!--<div class="el-upload__tip" slot="tip">Video Format, &lt; 1 GB</div>-->
+          <!--</el-upload>-->
+          <!--</el-form-item>-->
+          <!--</div>-->
+          <!--</el-form>-->
+
+          <div v-for="item in finishedEpisodes">
+            <b>{{item.title}}</b> Season {{item.season}} Episode {{item.episode}}
+          </div>
+
+          <el-button type="text" @click="addTVEpisode" style="margin-top: 30px">
+            <i class="el-icon-plus"></i>&nbsp;&nbsp;Add Episode
+          </el-button>
+        </div>
+      </el-tab-pane>
 
     </el-tabs>
   </div>
@@ -169,10 +308,18 @@
 
       return {
         baseURL: 'http://localhost:8080',
+        activeTab: 'main',
+        tvShows: [],
+        activeTVShow: {},
+        addEpisodeDialogVisible: true,
+        tvShowChooseDisabled: true,
+        tvShowChoosePlaceholder: 'Fetching Data...',
+        tvShowStep1Finished: false,
+        finishedEpisodes: [],
         form: {
           title: '',
           type: '',
-          tvEpisodes: [],
+//          tvEpisodes: [],
           thumbnailImageURL: '',
           fileURL: '',
           size: 0,
@@ -180,14 +327,34 @@
           plot: '',
           rating: 0
         },
+        tvEpisodeForm: {
+          title: '',
+          season: 0,
+          episode: 0,
+          uploadFileURL: '',
+          thumbnailURL: '',
+          rawSize: 0,
+          sizeUnit: '',
+          plot: '',
+          credits: '',
+          hour: 0,
+          minute: 0,
+          second: 0,
+          aired: '',
+          director: ''
+        },
         rawSize: 0,
         calculateUnit: '',
         rawGenres: '',
+        durationSecond: 0,
+        durationMinute: 0,
+        durationHour: 0,
         rules: {
-          title: [{
-            validator: checkTitle,
-            trigger: 'blur'
-          }]
+          title: [
+            {
+              validator: checkTitle,
+              trigger: 'blur'
+            }]
         }
       };
     },
@@ -220,28 +387,47 @@
           default:
             return Number(this.rawSize);
         }
+      },
+      totalDuration () {
+        return Number(this.durationHour) * 3600 +
+          Number(this.durationMinute) * 60 + Number(this.durationSecond);
       }
     },
     methods: {
+      tabChange () {
+        window.console.log('tab change to ' + this.activeTab);
+        if (this.activeTab === 'episodes') {
+          this.getAllTVShows();
+        }
+        return this.activeTab;
+      },
+      getAllTVShows () {
+        this.$axios.get('/api/tv-show').then(response => {
+          if (response.data.isSuccessful) {
+            this.tvShows = response.data.data;
+            this.tvShowChooseDisabled = false;
+            this.tvShowChoosePlaceholder = 'TV Shows...'
+          }
+        })
+      },
+      chooseTVShow () {
+        this.tvShowStep1Finished = true;
+      },
       thumbnailUploadFinish (res, file) {
         window.console.log(res);
         this.form.thumbnailImageURL = this.baseURL + res.data.url;
       },
+      episodeThumbnailUploadFinish (res) {
+        window.console.log(res);
+        this.tvEpisodeForm.thumbnailURL = this.baseURL + res.data.url;
+      },
       addTVEpisode () {
-        this.form.tvEpisodes.push({
-          season: 0,
-          episode: 0,
-          uploadFileURL: '',
-          onUploadFinish: (res, file, fileList) => {
-            window.console.log(res);
-            this.uploadFileURL = res.data.url;
-          }
-        })
+        this.addEpisodeDialogVisible = true;
       },
       removeTVEpisode (item) {
-        let index = this.form.tvEpisodes.indexOf(item);
+        let index = this.tvEpisodesForm.tvEpisodes.indexOf(item);
         if (index > -1) {
-          this.form.tvEpisodes.splice(index, 1);
+          this.tvEpisodesForm.tvEpisodes.splice(index, 1);
         }
       },
       fileUploadFinish (res, file) {
@@ -249,12 +435,29 @@
           this.form.fileURL = res.data.url;
         }
       },
+      onEpisodeUploadFinish (res) {
+        if (res.isSuccessful) {
+          this.tvEpisodeForm.fileURL = res.data.url;
+        }
+      },
       fileUploadError (error, file, fileList) {
         this.$message.error('File Not Acceptable or Server Error');
       },
+      calculateTotalSize (size, unit) {
+        switch (unit) {
+          case 'MB':
+            return Number(size) * 1000 * 1000;
+          case 'KB':
+            return Number(size) * 1000;
+          case 'GB':
+            return Number(size) * 1000 * 1000 * 1000;
+          default:
+            return Number(size);
+        }
+      },
       submit () {
         window.console.log('submit');
-        this.form.tvEpisodes.forEach(item => {
+        this.tvEpisodesForm.tvEpisodes.forEach(item => {
           delete item.onUploadFinish;
         });
 
@@ -264,14 +467,29 @@
             window.console.log("validation failed");
           } else {
             window.console.log("start networking");
-            this.$axios.post('/api/' + TypeConvert.legalTypeToURLType(this.form.type), {
-              title: this.form.title,
-              size: this.exactSize,
-              thumbnailURL: this.form.thumbnailURL,
-              formURL: this.form.fileURL,
-              rating: this.form.rating,
-              genre: this.rawGenres.split(','),
-            }).then(response => {
+            this.$axios.post(
+              '/api/' + TypeConvert.legalTypeToURLType(this.form.type), {
+                title: this.form.title,
+                size: this.exactSize,
+                thumbnailURL: this.form.thumbnailURL,
+                formURL: this.form.fileURL,
+                rating: this.form.rating,
+                genres: this.rawGenres.split(',').map(str => str.trim()),
+                duration: this.totalDuration,
+                plot: this.form.plot,
+                episodes: this.tvEpisodes.map(rawEpisode => {
+                  return {
+                    season: rawEpisode.season,
+                    episode: rawEpisode.episode,
+                    fileURL: rawEpisode.fileURL,
+                    thumbnailURL: rawEpisode.thumbnailURL,
+                    aired: rawEpisode.aired,
+                    size: calculateTotalSize(rawEpisode.rawSize,
+                      rawEpisode.sizeUnit),
+
+                  };
+                })
+              }).then(response => {
               if (response.data.isSuccessful) {
                 this.$message({
                   message: 'Succeeded',
@@ -281,11 +499,58 @@
 //                  this.$router.push({name: 'Home'});
 //                }, 100);
               } else {
-                this.$message.error('Error in uploading. Please refresh the page and try again.');
+                this.$message.error(
+                  'Error in uploading. Please refresh the page and try again.');
               }
             });
           }
         });
+      },
+      episodeSubmit () {
+        this.$axios.post('/api/tv-show/' + this.activeTVShow + '/episode', {
+          title: this.tvEpisodeForm.title,
+          season: Number(this.tvEpisodeForm.season),
+          episode: Number(this.tvEpisodeForm.episode),
+          duration: Number(this.tvEpisodeForm.hour) * 3600 +
+          Number(this.tvEpisodeForm.minute) * 60 +
+          Number(this.tvEpisodeForm.second),
+          aired: this.tvEpisodeForm.aired,
+          fileURL: this.tvEpisodeForm.uploadFileURL,
+          thumbnailURL: this.tvEpisodeForm.thumbnailURL,
+          size: this.calculateTotalSize(this.tvEpisodeForm.rawSize,
+            this.tvEpisodeForm.sizeUnit),
+          director: this.tvEpisodeForm.director,
+          plot: this.tvEpisodeForm.plot,
+          credits: this.tvEpisodeForm.credits
+        }).then(response => {
+          if (response.data.isSuccessful) {
+            let title = this.tvEpisodeForm.title;
+            let season = this.tvEpisodeForm.season;
+            let episode = this.tvEpisodeForm.episode;
+            this.finishedEpisodes.push({title, season, episode});
+            this.$message({
+              type: 'success',
+              message: 'Added Episode'
+            });
+            this.addEpisodeDialogVisible = false;
+
+            this.tvEpisodeForm.season = 0;
+            this.tvEpisodeForm.episode = 0;
+            this.tvEpisodeForm.uploadFileURL = '';
+            this.tvEpisodeForm.thumbnailURL = '';
+            this.tvEpisodeForm.rawSize = 0;
+            this.tvEpisodeForm.sizeUnit = '';
+            this.tvEpisodeForm.plot = '';
+            this.tvEpisodeForm.credits = '';
+            this.tvEpisodeForm.hour = 0;
+            this.tvEpisodeForm.minute = 0;
+            this.tvEpisodeForm.second = 0;
+            this.tvEpisodeForm.aired = '';
+            this.tvEpisodeForm.director = ''
+          } else {
+            window.console.log(response);
+          }
+        })
       }
     }
   }
