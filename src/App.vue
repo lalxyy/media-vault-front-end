@@ -3,47 +3,65 @@
     <!-- TODO Top Menu-->
     <!--<el-menu class="top-menu" mode="horizontal">-->
     <el-menu mode="horizontal" theme="dark">
-      <div class="title">
-        Media Vault
-      </div>
+      <!-- TODO Modifying -->
+      <el-row :gutter="20">
+        <el-col :span="6">
+          <div class="title">
+            Media Vault
+          </div>
+        </el-col>
+        <!-- 6 + 2 + 16 = 24 ! -->
+        <el-col :span="2" :offset="16">
+          <!-- `:plain="true"` -->
+          <!-- TODO 这里要改一下！ -->
+          <el-button type="info" icon="search"
+                     style="margin-top: 22px"
+                     @click="this.$router.push({
+                     name: 'Home'
+                     })"
+          >Search
+          </el-button>
+        </el-col>
+      </el-row>
+
     </el-menu>
 
     <!--<el-menu theme="dark" :default-active="1" class="el-menu-demo" mode="horizontal">-->
-      <!--<el-row :gutter="20">-->
+    <!--<el-row :gutter="20">-->
 
-        <!--<el-col :span="4">-->
-          <!--<div class="grid-content">-->
-            <!--<div class="title">-->
-              <!--Media Vault-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</el-col>-->
+    <!--<el-col :span="4">-->
+    <!--<div class="grid-content">-->
+    <!--<div class="title">-->
+    <!--Media Vault-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</el-col>-->
 
-        <!--&lt;!&ndash;<el-col :span="16">&ndash;&gt;-->
-          <!--&lt;!&ndash;<div class="grid-content">&ndash;&gt;-->
-            <!--&lt;!&ndash;<el-menu-item index="/media-library">测试1</el-menu-item>&ndash;&gt;-->
-          <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;</el-col>&ndash;&gt;-->
+    <!--&lt;!&ndash;<el-col :span="16">&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="grid-content">&ndash;&gt;-->
+    <!--&lt;!&ndash;<el-menu-item index="/media-library">测试1</el-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</el-col>&ndash;&gt;-->
 
-        <!--&lt;!&ndash;<el-col :span="4">&ndash;&gt;-->
-          <!--&lt;!&ndash;<div class="grid-content">&ndash;&gt;-->
-            <!--&lt;!&ndash;<el-button index="/" type="primary" icon="search">Searching</el-button>&ndash;&gt;-->
-          <!--&lt;!&ndash;</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;</el-col>&ndash;&gt;-->
+    <!--&lt;!&ndash;<el-col :span="4">&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="grid-content">&ndash;&gt;-->
+    <!--&lt;!&ndash;<el-button index="/" type="primary" icon="search">Searching</el-button>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</el-col>&ndash;&gt;-->
 
-      <!--</el-row>-->
-      <!--&lt;!&ndash;<el-menu-item index="1">处理中心</el-menu-item>&ndash;&gt;-->
-      <!--&lt;!&ndash;<el-submenu index="2">&ndash;&gt;-->
-      <!--&lt;!&ndash;<template slot="title">我的工作台</template>&ndash;&gt;-->
-      <!--&lt;!&ndash;<el-menu-item index="2-1">选项1</el-menu-item>&ndash;&gt;-->
-      <!--&lt;!&ndash;<el-menu-item index="2-2">选项2</el-menu-item>&ndash;&gt;-->
-      <!--&lt;!&ndash;<el-menu-item index="2-3">选项3</el-menu-item>&ndash;&gt;-->
-      <!--&lt;!&ndash;</el-submenu>&ndash;&gt;-->
-      <!--&lt;!&ndash;<el-menu-item index="3"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>&ndash;&gt;-->
+    <!--</el-row>-->
+    <!--&lt;!&ndash;<el-menu-item index="1">处理中心</el-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<el-submenu index="2">&ndash;&gt;-->
+    <!--&lt;!&ndash;<template slot="title">我的工作台</template>&ndash;&gt;-->
+    <!--&lt;!&ndash;<el-menu-item index="2-1">选项1</el-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<el-menu-item index="2-2">选项2</el-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;<el-menu-item index="2-3">选项3</el-menu-item>&ndash;&gt;-->
+    <!--&lt;!&ndash;</el-submenu>&ndash;&gt;-->
+    <!--&lt;!&ndash;<el-menu-item index="3"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>&ndash;&gt;-->
     <!--</el-menu>-->
 
     <!-- TODO Add Gutter -->
-    <el-row :gutter="30">
+    <el-row :gutter="20">
       <!-- TODO Left Navigation -->
       <el-col :span="4">
         <el-menu class="side-menu" :router="true" theme="dark">
@@ -88,7 +106,9 @@
 </template>
 
 <script>
+  import ElRow from "element-ui/packages/row/src/row";
   export default {
+    components: {ElRow},
     name: 'app',
     data () {
       return {
@@ -118,8 +138,9 @@
 
   .title {
     font-size: 30px;
-    padding-top: 14px;
-    padding-bottom: 15px;
+    /*padding-top: 14px;*/
+    padding-top: 18px;
+    /*padding-bottom: 15px;*/
     padding-left: 40px;
     color: #FAFAFA;
   }
@@ -130,7 +151,7 @@
 
   .side-menu {
     /*background-color: white;*/
-    margin-top: 20px;
+    margin-top: 30px;
   }
 
   .el-row {
@@ -153,10 +174,10 @@
     background: #e5e9f2;
   }
 
-  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }
+  /*.grid-content {*/
+  /*border-radius: 4px;*/
+  /*min-height: 16px;*/
+  /*}*/
 
   .row-bg {
     padding: 10px 0;
