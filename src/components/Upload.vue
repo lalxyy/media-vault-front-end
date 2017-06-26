@@ -69,10 +69,10 @@
           </el-form-item>
 
           <template v-if="form.type === 'Movies'">
-            <el-form-item label="Duration" prop="duration">
-              <el-input v-model="form.duration" style="width: 500px"></el-input>
+            <!--<el-form-item label="Duration" prop="duration">-->
+            <!--<el-input v-model="form.duration" style="width: 500px"></el-input>-->
 
-            </el-form-item>
+            <!--</el-form-item>-->
             <el-form-item label="Genre">
               <el-input v-model="rawGenres" style="width: 500px"></el-input>
               <div class="el-upload__tip">Split by commas (,)</div>
@@ -122,8 +122,11 @@
             </el-form-item>
           </template>
 
+
+
           <template v-if="form.type === 'TVShows'">
             <h3>Episodes</h3>
+            Add episodes in the second tab.
           </template>
 
           <el-form-item label="" style="margin-top: 30px">
@@ -152,8 +155,10 @@
                      :visible.sync="addEpisodeDialogVisible">
             <el-form ref="tvEpisodeForm" :model="tvEpisodeForm"
                      label-width="80px">
-              <el-form-item label="Title" :rules="[{required: true, message: 'Title can\'t be empty', trigger: 'blur'}]">
-                <el-input v-model="tvEpisodeForm.title" style="width: 500px"></el-input>
+              <el-form-item label="Title"
+                            :rules="[{required: true, message: 'Title can\'t be empty', trigger: 'blur'}]">
+                <el-input v-model="tvEpisodeForm.title"
+                          style="width: 500px"></el-input>
               </el-form-item>
               <el-form-item label="Season"
                             :rules="[{required: true, message: 'Season can\'t be empty', trigger: 'blur'}]">
@@ -424,12 +429,12 @@
       addTVEpisode () {
         this.addEpisodeDialogVisible = true;
       },
-      removeTVEpisode (item) {
-        let index = this.tvEpisodesForm.tvEpisodes.indexOf(item);
-        if (index > -1) {
-          this.tvEpisodesForm.tvEpisodes.splice(index, 1);
-        }
-      },
+//      removeTVEpisode (item) {
+//        let index = this.tvEpisodesForm.tvEpisodes.indexOf(item);
+//        if (index > -1) {
+//          this.tvEpisodesForm.tvEpisodes.splice(index, 1);
+//        }
+//      },
       fileUploadFinish (res, file) {
         if (res.isSuccessful) {
           this.form.fileURL = res.data.url;
@@ -457,101 +462,101 @@
       },
       submit () {
         window.console.log('submit');
-        this.tvEpisodesForm.tvEpisodes.forEach(item => {
-          delete item.onUploadFinish;
-        });
+//        this.tvEpisodesForm.tvEpisodes.forEach(item => {
+//          delete item.onUploadFinish;
+//        });
 
-        this.$refs['form'].validate(valid => {
-          if (!valid) {
-            this.$message.error('Some of the fields are not finished');
-            window.console.log("validation failed");
-          } else {
-            window.console.log("start networking");
-            this.$axios.post(
-              '/api/' + TypeConvert.legalTypeToURLType(this.form.type), {
-                title: this.form.title,
-                size: this.exactSize,
-                thumbnailURL: this.form.thumbnailURL,
-                formURL: this.form.fileURL,
-                rating: this.form.rating,
-                genres: this.rawGenres.split(',').map(str => str.trim()),
-                duration: this.totalDuration,
-                plot: this.form.plot,
-                episodes: this.tvEpisodes.map(rawEpisode => {
-                  return {
-                    season: rawEpisode.season,
-                    episode: rawEpisode.episode,
-                    fileURL: rawEpisode.fileURL,
-                    thumbnailURL: rawEpisode.thumbnailURL,
-                    aired: rawEpisode.aired,
-                    size: calculateTotalSize(rawEpisode.rawSize,
-                      rawEpisode.sizeUnit),
+//        this.$refs['form'].validate(valid => {
+//          if (!valid) {
+//            this.$message.error('Some of the fields are not finished');
+//            window.console.log("validation failed");
+//          } else {
+        window.console.log("start networking");
+        this.$axios.post(
+          '/api/' + TypeConvert.legalTypeToURLType(this.form.type), {
+            title: this.form.title,
+            size: this.exactSize,
+            thumbnailURL: this.form.thumbnailImageURL,
+            fileURL: this.form.fileURL,
+            rating: this.form.rating,
+            genres: this.rawGenres.split(',').map(str => str.trim()),
+            duration: this.totalDuration,
+            plot: this.form.plot,
+//                episodes: this.tvEpisodes.map(rawEpisode => {
+//                  return {
+//                    season: rawEpisode.season,
+//                    episode: rawEpisode.episode,
+//                    fileURL: rawEpisode.fileURL,
+//                    thumbnailURL: rawEpisode.thumbnailURL,
+//                    aired: rawEpisode.aired,
+//                    size: calculateTotalSize(rawEpisode.rawSize,
+//                      rawEpisode.sizeUnit),
+//
+//                  };
+//                })
+          }).then(response => {
 
-                  };
-                })
-              }).then(response => {
-              if (response.data.isSuccessful) {
-                this.$message({
-                  message: 'Succeeded',
-                  type: 'success'
-                });
+          if (response.data.isSuccessful) {
+            this.$message({
+              message: 'Succeeded',
+              type: 'success'
+            });
 //                window.setTimeout(() => {
 //                  this.$router.push({name: 'Home'});
 //                }, 100);
-              } else {
-                this.$message.error(
-                  'Error in uploading. Please refresh the page and try again.');
-              }
-            });
+          } else {
+            this.$message.error(
+              'Error in uploading. Please refresh the page and try again.');
           }
         });
-      },
-      episodeSubmit () {
-        this.$axios.post('/api/tv-show/' + this.activeTVShow + '/episode', {
-          title: this.tvEpisodeForm.title,
-          season: Number(this.tvEpisodeForm.season),
-          episode: Number(this.tvEpisodeForm.episode),
-          duration: Number(this.tvEpisodeForm.hour) * 3600 +
-          Number(this.tvEpisodeForm.minute) * 60 +
-          Number(this.tvEpisodeForm.second),
-          aired: this.tvEpisodeForm.aired,
-          fileURL: this.tvEpisodeForm.uploadFileURL,
-          thumbnailURL: this.tvEpisodeForm.thumbnailURL,
-          size: this.calculateTotalSize(this.tvEpisodeForm.rawSize,
-            this.tvEpisodeForm.sizeUnit),
-          director: this.tvEpisodeForm.director,
-          plot: this.tvEpisodeForm.plot,
-          credits: this.tvEpisodeForm.credits
-        }).then(response => {
-          if (response.data.isSuccessful) {
-            let title = this.tvEpisodeForm.title;
-            let season = this.tvEpisodeForm.season;
-            let episode = this.tvEpisodeForm.episode;
-            this.finishedEpisodes.push({title, season, episode});
-            this.$message({
-              type: 'success',
-              message: 'Added Episode'
-            });
-            this.addEpisodeDialogVisible = false;
-
-            this.tvEpisodeForm.season = 0;
-            this.tvEpisodeForm.episode = 0;
-            this.tvEpisodeForm.uploadFileURL = '';
-            this.tvEpisodeForm.thumbnailURL = '';
-            this.tvEpisodeForm.rawSize = 0;
-            this.tvEpisodeForm.sizeUnit = '';
-            this.tvEpisodeForm.plot = '';
-            this.tvEpisodeForm.credits = '';
-            this.tvEpisodeForm.hour = 0;
-            this.tvEpisodeForm.minute = 0;
-            this.tvEpisodeForm.second = 0;
-            this.tvEpisodeForm.aired = '';
-            this.tvEpisodeForm.director = ''
-          } else {
-            window.console.log(response);
-          }
-        })
       }
+//        });
+    },
+    episodeSubmit () {
+      this.$axios.post('/api/tv-show/' + this.activeTVShow + '/episode', {
+        title: this.tvEpisodeForm.title,
+        season: Number(this.tvEpisodeForm.season),
+        episode: Number(this.tvEpisodeForm.episode),
+        duration: Number(this.tvEpisodeForm.hour) * 3600 +
+        Number(this.tvEpisodeForm.minute) * 60 +
+        Number(this.tvEpisodeForm.second),
+        aired: this.tvEpisodeForm.aired,
+        fileURL: this.tvEpisodeForm.uploadFileURL,
+        thumbnailURL: this.tvEpisodeForm.thumbnailURL,
+        size: this.calculateTotalSize(this.tvEpisodeForm.rawSize,
+          this.tvEpisodeForm.sizeUnit),
+        director: this.tvEpisodeForm.director,
+        plot: this.tvEpisodeForm.plot,
+        credits: this.tvEpisodeForm.credits
+      }).then(response => {
+        if (response.data.isSuccessful) {
+          let title = this.tvEpisodeForm.title;
+          let season = this.tvEpisodeForm.season;
+          let episode = this.tvEpisodeForm.episode;
+          this.finishedEpisodes.push({title, season, episode});
+          this.$message({
+            type: 'success',
+            message: 'Added Episode'
+          });
+          this.addEpisodeDialogVisible = false;
+
+          this.tvEpisodeForm.season = 0;
+          this.tvEpisodeForm.episode = 0;
+          this.tvEpisodeForm.uploadFileURL = '';
+          this.tvEpisodeForm.thumbnailURL = '';
+          this.tvEpisodeForm.rawSize = 0;
+          this.tvEpisodeForm.sizeUnit = '';
+          this.tvEpisodeForm.plot = '';
+          this.tvEpisodeForm.credits = '';
+          this.tvEpisodeForm.hour = 0;
+          this.tvEpisodeForm.minute = 0;
+          this.tvEpisodeForm.second = 0;
+          this.tvEpisodeForm.aired = '';
+          this.tvEpisodeForm.director = ''
+        } else {
+          window.console.log(response);
+        }
+      })
     }
   }
 </script>
