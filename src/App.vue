@@ -5,17 +5,23 @@
     <el-menu mode="horizontal" theme="dark">
       <!-- TODO Modifying -->
       <el-row :gutter="20">
-        <el-col :span="6">
+        <el-col :span="20">
           <div class="title">
             Media Vault
           </div>
         </el-col>
+
+        <!-- TODO For Offset -->
+        <!--<el-col :span="16"></el-col>-->
+
         <!-- 6 + 2 + 16 = 24 ! -->
-        <el-col :span="2" :offset="16">
+        <el-col :span="4">
+        <!--<el-col :span="2" :offset="16">-->
           <!-- `:plain="true"` -->
           <!-- TODO 这里要改一下！ -->
+
           <el-button type="info" icon="search"
-                     style="margin-top: 22px"
+                     style="margin-top: 22px; float: right; margin-right: 30px"
                      @click="this.$router.push({
                      name: 'Home'
                      })"
@@ -68,7 +74,7 @@
           <!--<el-menu class="side-menu" :router="true" theme="white">-->
 
           <!-- TODO 标签组1 -->
-          <el-menu-item-group title="Home Page and Searching">
+          <el-menu-item-group title="Home and Searching">
             <el-menu-item index="/"><i class="el-icon-menu"></i>Home
             </el-menu-item>
           </el-menu-item-group>
