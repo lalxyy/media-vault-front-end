@@ -79,8 +79,8 @@
           <!--</el-table-column>-->
 
 
-          <el-table-column label="Operations">
-            <!--<el-table-column label="Operations" width="300">-->
+          <!--<el-table-column label="Operations">-->
+          <el-table-column label="Operations" width="250">
             <template scope="scope">
               <el-button size="small" type="primary"
                          @click="goToDetails(scope.row.id), openFullScreen()"

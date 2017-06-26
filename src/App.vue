@@ -56,7 +56,7 @@
           </el-menu-item-group>
 
           <!-- TODO 标签组2 -->
-          <el-menu-item-group title="Media Library Navigation">
+          <el-menu-item-group title="Media Navigation">
             <el-submenu index="/media-library">
               <template slot="title">
                 <i class="el-icon-document"></i>Media Library
@@ -88,9 +88,7 @@
 </template>
 
 <script>
-  import ElRow from "element-ui/packages/row/src/row";
   export default {
-    components: {ElRow},
     name: 'app',
     data () {
       return {
