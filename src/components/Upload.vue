@@ -26,15 +26,15 @@
             </el-select>
           </el-form-item>
           <el-form-item v-if="form.type !== 'Photos'" label="Duration">
-            <el-input v-model="form.durationHour"
+            <el-input v-model="durationHour"
                       style="width: 114px"></el-input>
             Hour
             &nbsp;&nbsp;
-            <el-input v-model="form.durationMinute"
+            <el-input v-model="durationMinute"
                       style="width: 114px"></el-input>
             Minute
             &nbsp;&nbsp;
-            <el-input v-model="form.durationSecond"
+            <el-input v-model="durationSecond"
                       style="width: 114px"></el-input>
             Second
           </el-form-item>
@@ -437,8 +437,8 @@
         }
       },
       totalDuration () {
-        return Number(this.form.durationHour) * 3600 +
-          Number(this.form.durationMinute) * 60 + Number(this.form.durationSecond);
+        return Number(this.durationHour) * 3600 +
+          Number(this.durationMinute) * 60 + Number(this.durationSecond);
       }
     },
     methods: {
