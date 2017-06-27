@@ -26,7 +26,8 @@
           <!--</el-col>-->
         <!--</el-row>-->
 
-          <img :src="exact.thumbnailURL" style="max-width: 100%" />
+          <img v-if="type !== 'photo'" :src="baseURL + exact.thumbnailURL" style="max-width: 100%" />
+          <img v-else :src="baseURL + exact.fileURL" style="max-width: 100%" />
     </el-row>
 
       </el-col>
@@ -69,7 +70,7 @@
             </el-table-column>
             <el-table-column label="File Size" width="150">
               <template scope="scope">
-                {{scope.row.size.size}}
+                {{byteToFitUnit(scope.row.size)}}
               </template>
             </el-table-column>
             <el-table-column label="Operation">
@@ -92,6 +93,8 @@
 </template>
 
 <script>
+  import BaseURL from '@/utils/BaseURL';
+  import TypeConvert from '@/utils/TypeConvert';
 //  import tableData from '@/assets/data';
 
   export default {
@@ -105,6 +108,7 @@
     },
     data () {
       return {
+        baseURL: BaseURL,
         id: parseInt(this.$route.params.id),
         type: '',
         exact: {},
@@ -129,6 +133,9 @@
             this.exact = response.data.data;
           }
         });
+      },
+      byteToFitUnit (byte) {
+        return TypeConvert.byteToFitUnit(byte);
       },
       getTimeString (time) {
         return `${Math.floor(time / 3600)} hrs ${Math.floor((time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;

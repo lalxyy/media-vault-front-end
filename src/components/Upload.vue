@@ -333,6 +333,7 @@
 
 <script>
   import TypeConvert from '@/utils/TypeConvert';
+  import BaseURL from '@/utils/BaseURL';
 
   export default {
     data () {
@@ -349,7 +350,7 @@
       }
 
       return {
-        baseURL: 'http://localhost:8080',
+        baseURL: BaseURL,
         activeTab: 'main',
         tvShows: [],
         activeTVShow: {},

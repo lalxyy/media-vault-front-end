@@ -102,7 +102,19 @@
       <el-tab-pane>
         <span slot="label"><i
           class="el-icon-menu"></i> View in Thumbnail Mode</span>
-        <!--TODO-->
+        <el-row>
+          <el-col :span="6" v-for="(item, $index) in tableData" :key="item.id" :offset="1">
+            <el-card :body-style="{padding: 0}" style="margin-top: 10px">
+              <img :src="baseURL + item.thumbnailURL" style="width: 100%; display: block" />
+              <div style="padding: 14px">
+                <span>{{item.title}}</span>
+                <div class="bottom clearfix">
+                  <el-button type="text" class="button" @click="goToDetails(item.id)">Details</el-button>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -110,6 +122,7 @@
 
 <script>
   //  import tableData from '@/assets/data';
+  import BaseURL from '@/utils/BaseURL';
 
   export default {
     beforeMount () {
@@ -120,6 +133,7 @@
 //    },
     data () {
       return {
+        baseURL: BaseURL,
         tableData: [],
         fullScreenLoading: false
       };
@@ -203,12 +217,27 @@
   }
 </script>
 
-<style>
+<style scoped>
   .mediaTitle {
     font-size: 26px;
     padding-top: 14px;
     padding-bottom: 15px;
     padding-left: 30px;
     color: #FAFAFA;
+  }
+
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both
   }
 </style>

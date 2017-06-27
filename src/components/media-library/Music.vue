@@ -29,14 +29,14 @@
           <!-- Basic Media Information of Music -->
           <el-table-column prop="duration" label="Duration" width="200">
             <template scope="scope">
-              {{scope.row.duration}}
+              {{getTimeString(scope.row.duration)}}
             </template>
           </el-table-column>
 
           <!-- Size (extends from Media) -->
           <el-table-column prop="size" label="File Size" width="100">
             <template scope="scope">
-              {{scope.row.size}}
+              {{byteToFitUnit(scope.row.size)}}
               <!-- 旧版 -->
               <!--{{scope.row.size.size}}&nbsp;{{scope.row.size.measure}}-->
             </template>
@@ -64,7 +64,19 @@
 
       <el-tab-pane>
         <span slot="label"><i class="el-icon-menu"></i> View in Thumbnail Mode</span>
-        <!--TODO-->
+        <el-row>
+          <el-col :span="6" v-for="(item, $index) in tableData" :key="item.id" :offset="1">
+            <el-card :body-style="{padding: 0}" style="margin-top: 10px">
+              <img :src="baseURL + item.thumbnailURL" style="width: 100%; display: block" />
+              <div style="padding: 14px">
+                <span>{{item.title}}</span>
+                <div class="bottom clearfix">
+                  <el-button type="text" class="button" @click="goToDetails(item.id)">Details</el-button>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
       </el-tab-pane>
     </el-tabs>
 
@@ -103,6 +115,8 @@
 </template>
 
 <script>
+  import BaseURL from '@/utils/BaseURL';
+  import TypeConvert from '@/utils/TypeConvert';
 //  import data from '@/assets/data';
 
   export default {
@@ -111,6 +125,7 @@
     },
     data() {
       return {
+        baseURL: BaseURL,
         tableData: [],
         fullScreenLoading: false
       };
@@ -124,8 +139,10 @@
         })
       },
       getTimeString (time) {
-        return `${Math.floor(time / 3600)} hrs ${Math.floor(
-          (time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
+        return TypeConvert.durationToHMS(time);
+      },
+      byteToFitUnit (byte) {
+        return TypeConvert.byteToFitUnit(byte);
       },
 
       openFullScreen(){
@@ -133,6 +150,10 @@
         setTimeout(() => {
           this.fullScreenLoading = false;
         }, 500);
+      },
+
+      goToDetails (id) {
+        this.$router.push({name: 'MusicDetails', params: {id}})
       },
 
       deleteItem (id) {
@@ -158,12 +179,27 @@
   };
 </script>
 
-<style>
+<style scoped>
   .mediaTitle {
     font-size: 26px;
     padding-top: 14px;
     padding-bottom: 15px;
     padding-left: 30px;
     color: #FAFAFA;
+  }
+
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both
   }
 </style>
