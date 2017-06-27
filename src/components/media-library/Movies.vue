@@ -25,14 +25,14 @@
           <el-table-column prop="rating" label="Rating" width="100"></el-table-column>
 
           <!-- Basic Media Information of Movie -->
-          <el-table-column prop="duration" label="Duration" width="200">
+          <el-table-column prop="duration" label="Duration" width="100">
             <template scope="scope">
               {{getTimeString(scope.row.duration)}}
             </template>
           </el-table-column>
 
           <!-- The information of the content of the Movie -->
-          <el-table-column prop="genres" label="Genres" width="300">
+          <el-table-column prop="genres" label="Genres" width="150">
             <template scope="scope">
               {{getCommaSplitGenres(scope.row.genres)}}
             </template>

@@ -27,7 +27,7 @@
           </el-table-column>
 
           <!-- Basic Media Information of Music -->
-          <el-table-column prop="duration" label="Duration" width="200">
+          <el-table-column prop="duration" label="Duration" width="100">
             <template scope="scope">
               {{getTimeString(scope.row.duration)}}
             </template>
@@ -44,7 +44,7 @@
 
 
           <!-- Available Operations -->
-          <el-table-column label="Operations">
+          <el-table-column label="Operations" width="300">
             <template scope="scope">
               <el-button size="small" type="primary"
                          @click="openFullScreen()"

@@ -97,7 +97,7 @@
               <el-rate
                 v-model="form.rating"
                 style="margin-top: 8px"
-                :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
+                :colors="['#99A9BF', '#F7BA2A', '#FF9900']">1
               </el-rate>
             </el-form-item>
           </template>
