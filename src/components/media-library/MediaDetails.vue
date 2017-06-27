@@ -74,7 +74,7 @@
                 {{byteToFitUnit(scope.row.size)}}
               </template>
             </el-table-column>
-            <el-table-column label="Operation">
+            <el-table-column label="Operation" width="250">
               <template scope="scope">
                 <el-button size="small" type="primary" @click="downloadFile(scope.row.fileURL)">
                   <i class="el-icon-upload2"></i>&nbsp;Download
