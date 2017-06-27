@@ -78,7 +78,7 @@
                 <el-button size="small" type="primary" @click="downloadFile(scope.row.fileURL)">
                   <i class="el-icon-upload2"></i>&nbsp;Download
                 </el-button>
-                <el-button size="small" type="danger" @click="deleteItem(scope.row)">
+                <el-button size="small" type="danger" @click="deleteItem(scope.row.season, scope.row.episode)">
                   <i class="el-icon-delete2"></i>&nbsp;Delete
                 </el-button>
               </template>
@@ -140,20 +140,47 @@
       getTimeString (time) {
         return `${Math.floor(time / 3600)} hrs ${Math.floor((time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
       },
-      deleteItem (id) {
-        this.$confirm('Are you sure to delete the item? ', 'Warning', {
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: 'Succeeded'
-          })
-        })
+      deleteItem (season, episode) {
+        this.$axios.delete('/api/tv-show/' + this.exact.id + '/episode', {
+          params: {
+            season: season,
+            episode: episode
+          }
+        }).then(response => {
+          window.console.log(response);
+          if (response.data.isSuccessful) {
+            this.$message({
+              type: 'success',
+              message: "Succeed"
+            });
+          }
+        });
+//        this.$confirm('Are you sure to delete the item? ', 'Warning', {
+//          confirmButtonText: 'Confirm',
+//          cancelButtonText: 'Cancel',
+//          type: 'warning'
+//        }).then(() => {
+//          this.$message({
+//            type: 'success',
+//            message: 'Succeeded'
+//          });
+//          this.getData();
+//        })
       },
       downloadFile (fileURL) {
         window.open(fileURL, '_blank');
+      },
+      deleteExactItem (itemId) {
+        this.$axios.delete('/api/' + this.type + '/' + itemId).then(response => {
+          if (response.data.isSuccessful) {
+            this.$message({
+              type: 'success',
+              message: "Succeed"
+            });
+
+            this.$router.go(-1);
+          }
+        })
       }
     },
     computed: {
