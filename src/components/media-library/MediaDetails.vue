@@ -40,6 +40,7 @@
           <!--<div v-if="exact.year" class="row"><h4>{{exact.year}}</h4></div>-->
           <div class="row">{{type.replace('-', ' ')}}</div>
           <div v-if="exact.episodes" class="row">{{exact.episodes.length}} Episodes</div>
+          <div v-if="exact.duration" class="row">Duration: {{getTimeString(exact.duration)}}</div>
         </el-row>
 
         <el-row v-if="exact.plot">
