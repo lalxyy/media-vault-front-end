@@ -66,7 +66,7 @@
           <el-col :span="24" v-if="tableData.length == 0" style="text-align: center; color: #8c939d">
             No Data
           </el-col>
-          <el-col :span="6" v-for="item in tableData" :key="o" :offset="index > 0 ? 2 : 0">
+          <el-col :span="6" v-for="item in tableData" :key="item.id" :offset="1">
             <el-card :body-style="{ padding: '0px' }">
               <!--<img src="~examples/assets/images/hamburger.png" class="image">-->
               <!--<img src="../../../static/thumbnails/movies/a-clockwork-orange.jpg" class="image" width="200" height="200"/>-->
@@ -116,7 +116,7 @@
         return TypeConvert.byteToFitUnit(byte);
       },
       downloadFile (fileURL) {
-        window.open(baseURL + fileURL, '_blank');
+        window.open(this.baseURL + fileURL, '_blank');
       },
       deleteItem (id) {
         this.$axios.delete('/api/photo/' + id).then(response => {

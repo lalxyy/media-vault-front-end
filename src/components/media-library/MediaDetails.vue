@@ -168,7 +168,7 @@
 //        })
       },
       downloadFile (fileURL) {
-        window.open(baseURL + fileURL, '_blank');
+        window.open(this.baseURL + fileURL, '_blank');
       },
       deleteExactItem (itemId) {
         this.$axios.delete('/api/' + this.type + '/' + itemId).then(response => {
