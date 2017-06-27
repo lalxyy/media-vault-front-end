@@ -100,8 +100,21 @@
       </el-tab-pane>
 
       <el-tab-pane>
-        <span slot="label"><i class="el-icon-menu"></i> View in Thumbnail Mode</span>
-        <!--TODO-->
+        <span slot="label"><i
+          class="el-icon-menu"></i> View in Thumbnail Mode</span>
+        <el-row>
+          <el-col :span="6" v-for="(item, $index) in tableData" :key="item.id" :offset="1">
+            <el-card :body-style="{padding: 0}" style="margin-top: 10px">
+              <img :src="baseURL + item.thumbnailURL" style="width: 100%; display: block" />
+              <div style="padding: 14px">
+                <span>{{item.title}}</span>
+                <div class="bottom clearfix">
+                  <el-button type="text" class="button" @click="goToDetails(item.id)">Details</el-button>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -109,25 +122,30 @@
 
 <script>
   //  import tableData from '@/assets/data';
+  import BaseURL from '@/utils/BaseURL';
 
   export default {
     beforeMount () {
-      this.$axios.get('/api/tv-show').then(response => {
-        if (response.data.isSuccessful) {
-          this.tableData = response.data.data;
-        }
-      })
+      this.load();
     },
 //    mounted() {
 //      window.console.log(tableData);
 //    },
     data () {
       return {
+        baseURL: BaseURL,
         tableData: [],
         fullScreenLoading: false
       };
     },
     methods: {
+      load () {
+        this.$axios.get('/api/tv-show').then(response => {
+          if (response.data.isSuccessful) {
+            this.tableData = response.data.data;
+          }
+        })
+      },
       getCommaSplitGenres(genres) {
         let str = "";
         for (let i = 0; i < genres.length; ++i) {
@@ -165,17 +183,23 @@
       },
 
       deleteItem (id) {
-        // TODO ID 没用上啊。。。。
-        this.$confirm('Are you sure to delete the item? ', 'Warning', {
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: 'Succeeded'
-          })
-        })
+//        this.$confirm('Are you sure to delete the item? ', 'Warning', {
+//          confirmButtonText: 'Confirm',
+//          cancelButtonText: 'Cancel',
+//          type: 'warning'
+//        })
+//        .then(
+        this.$axios.delete('/api/tv-show/' + id).then(response => {
+          if (response.data.isSuccessful) {
+            this.$message({
+              type: 'success',
+              message: 'Delete Successful'
+            });
+            this.load();
+          }
+        }).catch(error => {
+          window.console.log(error);
+        });
       },
 
       openFullScreen(){
@@ -193,12 +217,27 @@
   }
 </script>
 
-<style>
+<style scoped>
   .mediaTitle {
     font-size: 26px;
     padding-top: 14px;
     padding-bottom: 15px;
     padding-left: 30px;
     color: #FAFAFA;
+  }
+
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both
   }
 </style>

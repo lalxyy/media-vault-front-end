@@ -30,7 +30,7 @@
           <!-- Size (extends from Media) -->
           <el-table-column prop="size" label="File Size" width="100">
             <template scope="scope">
-              {{scope.row.size}}
+              {{byteToFitUnit(scope.row.size)}}
               <!-- 旧版 -->
               <!--{{scope.row.size.size}}&nbsp;{{scope.row.size.measure}}-->
             </template>
@@ -70,12 +70,11 @@
             <el-card :body-style="{ padding: '0px' }">
               <!--<img src="~examples/assets/images/hamburger.png" class="image">-->
               <!--<img src="../../../static/thumbnails/movies/a-clockwork-orange.jpg" class="image" width="200" height="200"/>-->
-              <img :src="item.fileURL" class="image"/>
+              <img :src="baseURL + item.fileURL" class="image"/>
               <div style="padding: 14px;">
                 <span>{{item.title}}</span>
                 <div class="bottom clearfix">
-                  <time class="time">{{ item.year }}</time>
-                  <el-button type="text" class="button">Operations...</el-button>
+                  <el-button type="text" class="button" @click="goToDetails(item.id)">Details</el-button>
                 </div>
               </div>
             </el-card>
@@ -87,44 +86,54 @@
 </template>
 
 <script>
-  import ElCol from 'element-ui/packages/col/src/col';
-  //  import data from '@/assets/data';
+  import TypeConvert from '@/utils/TypeConvert';
+  import BaseURL from '@/utils/BaseURL';
 
   export default {
-    components: {ElCol},
     beforeMount () {
-      this.$axios('/api/photo').then(response => {
-        if (response.data.isSuccessful) {
-          this.tableData = response.data.data;
-        }
-      });
+      this.load();
     },
     data() {
       return {
+        baseURL: BaseURL,
         tableData: [],
         currentDate: new Date(), // TODO Test for 卡片显示
         fullScreenLoading: false
       };
     },
     methods: {
+      load () {
+        this.$axios('/api/photo').then(response => {
+          if (response.data.isSuccessful) {
+            this.tableData = response.data.data;
+          }
+        });
+      },
       getTimeString (time) {
-        return `${Math.floor(time / 3600)} hrs ${Math.floor(
-          (time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
+        return TypeConvert.durationToHMS(time);
+      },
+      byteToFitUnit (byte) {
+        return TypeConvert.byteToFitUnit(byte);
       },
       downloadFile (fileURL) {
         window.open(fileURL, '_blank');
       },
       deleteItem (id) {
-        this.$confirm('Are you sure to delete the item? ', 'Warning', {
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: 'Succeeded'
-          })
-        })
+        this.$axios.delete('/api/photo/' + id).then(response => {
+          if (response.data.isSuccessful) {
+            this.$message({
+              type: 'success',
+              message: 'Delete Successful'
+            });
+            this.load();
+          }
+        }).catch(error => {
+          window.console.log(error);
+        });
+      },
+
+      goToDetails (id) {
+        this.$router.push({name: 'PhotoDetails', params: {id}})
       },
 
       openFullScreen(){

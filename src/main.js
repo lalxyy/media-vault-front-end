@@ -6,12 +6,13 @@ import router from './router'
 import axios from 'axios'
 import Vuex from 'vuex'
 
+import BaseURL from '@/utils/BaseURL';
+
 // Vendor
 import ElementUI from 'element-ui'
 // import 'element-ui/lib/theme-default/index.css'
 // import '/src/assets/css/index.css'
 import 'element-ui/lib/theme-testing/index.css'
-// TODO CSS文件的导入问题，别忘了
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
@@ -19,7 +20,7 @@ Vue.config.productionTip = false
 Vue.use(Vuex)
 
 Vue.prototype.$axios = axios.create({
-  baseURL: 'http://localhost:8080/'
+  baseURL: BaseURL
 })
 
 /* eslint-disable no-new */

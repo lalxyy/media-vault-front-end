@@ -12,10 +12,10 @@
       <el-tab-pane name="main">
         <span slot="label"><i class="el-icon-information"></i> Upload (general) Media File</span>
 
-        <el-form ref="form" :rules="rules" :model="form" label-width="80px">
+        <el-form ref="form" :rules="rules" :model="form" label-width="100px">
           <h3 style="margin-top: 5px">Upload Media File</h3>
 
-          <el-form-item label="Title" prop="title">
+          <el-form-item label="Title">
             <el-input v-model="form.title" style="width: 500px"></el-input>
           </el-form-item>
           <el-form-item label="Type">
@@ -60,7 +60,8 @@
                 :on-success="thumbnailUploadFinish"
                 style="max-height: 700px"
                 :action="baseURL + '/api/files/add'">
-                <img v-if="form.thumbnailImageURL" :src="baseURL + form.thumbnailImageURL"
+                <img v-if="form.thumbnailImageURL"
+                     :src="baseURL + form.thumbnailImageURL"
                      style="height: 100%"/>
                 <i v-else class="el-icon-plus"></i>
                 <!--<div class="el-upload__text">Drag Files Here or <em>Click to Upload</em></div>-->
@@ -70,10 +71,9 @@
             </div>
           </el-form-item>
 
-          <template v-if="form.type === 'Movies'">
+          <template v-if="form.type === 'Movies' || form.type === 'TVShows'">
             <!--<el-form-item label="Duration" prop="duration">-->
             <!--<el-input v-model="form.duration" style="width: 500px"></el-input>-->
-
             <!--</el-form-item>-->
             <el-form-item label="Genre">
               <el-input v-model="rawGenres" style="width: 500px"></el-input>
@@ -132,7 +132,8 @@
               <el-input v-model="form.mpaa" style="width: 500px"></el-input>
             </el-form-item>
             <el-form-item label="Premiered">
-              <el-input v-model="form.premiered" style="width: 500px"></el-input>
+              <el-input v-model="form.premiered"
+                        style="width: 500px"></el-input>
             </el-form-item>
             <el-form-item label="Studio">
               <el-input v-model="form.studio" style="width: 500px;"></el-input>
@@ -144,6 +145,30 @@
             <h4 style="margin-left: 20px">
               The functionality is put in a separate tab. Please add episodes in the second tab.
             </h4>
+
+            <h3>Actors</h3>
+            <template v-for="(actor, $index) in form.actors">
+              <div style="text-align: right; max-width: 650px; margin-bottom: 10px">
+                <a @click="removeActor($index)"><i style="color: #8492a6"
+                                                   class="el-icon-delete"></i></a>
+              </div>
+              <el-form-item label="Name">
+                <el-input v-model="actor.name" style="width: 500px"></el-input>
+              </el-form-item>
+              <el-form-item label="Role">
+                <el-input v-model="actor.role" style="width: 500px"></el-input>
+              </el-form-item>
+              <el-form-item label="ThumbnailURL">
+                <el-input v-model="actor.thumbURL"
+                          style="width: 500px"></el-input>
+                <div class="el-upload__tip">
+                  The Link to the Avatar of the Actor
+                </div>
+              </el-form-item>
+            </template>
+            <el-button type="text" size="large" @click="addActor">
+              <i class="el-icon-plus"></i> Add Actor
+            </el-button>
           </template>
 
           <el-form-item label="" style="margin-top: 30px">
@@ -210,7 +235,8 @@
                   style="max-height: 700px; margin-left: 5px"
                   :action="baseURL + '/api/files/add'">
                   <img v-if="tvEpisodeForm.thumbnailURL"
-                       :src="baseURL + tvEpisodeForm.thumbnailURL" style="height: 100%"/>
+                       :src="baseURL + tvEpisodeForm.thumbnailURL"
+                       style="height: 100%"/>
                   <i v-else class="el-icon-plus"></i>
                   <!--<div class="el-upload__text">Drag Files Here or <em>Click to Upload</em></div>-->
                 </el-upload>
@@ -269,7 +295,6 @@
           <!--<div v-for="(item, $index) in tvEpisodesForm.tvEpisodes" style="border: 2px">-->
           <!--<el-row>-->
           <!--<el-col :span="24" style="text-align: right; width: 700px">-->
-          <!--<a @click="removeTVEpisode(item)"><i style="color: #8492a6" class="el-icon-delete"></i></a>-->
           <!--</el-col>-->
           <!--</el-row>-->
           <!--<el-form-item :prop="'tvEpisodes[' + $index + '].season'" label="Season" :rules="[-->
@@ -313,13 +338,9 @@
 
 <script>
   import TypeConvert from '@/utils/TypeConvert';
-  import ElInput from '../../node_modules/element-ui/packages/input/src/input';
-  import ElFormItem from '../../node_modules/element-ui/packages/form/src/form-item';
+  import BaseURL from '@/utils/BaseURL';
 
   export default {
-    components: {
-      ElFormItem,
-      ElInput},
     data () {
       // Form Validator
       let checkTitle = (rule, value, callback) => {
@@ -334,7 +355,7 @@
       }
 
       return {
-        baseURL: 'http://localhost:8080',
+        baseURL: BaseURL,
         activeTab: 'main',
         tvShows: [],
         activeTVShow: {},
@@ -356,7 +377,8 @@
           runtime: 0,
           premiered: '',
           studio: '',
-          mpaa: ''
+          mpaa: '',
+          actors: []
         },
         tvEpisodeForm: {
           title: '',
@@ -425,6 +447,13 @@
       }
     },
     methods: {
+      addActor () {
+        this.form.actors.push({
+          name: '',
+          role: '',
+          thumbURL: ''
+        })
+      },
       tabChange () {
         window.console.log('tab change to ' + this.activeTab);
         if (this.activeTab === 'episodes') {
@@ -455,12 +484,9 @@
       addTVEpisode () {
         this.addEpisodeDialogVisible = true;
       },
-//      removeTVEpisode (item) {
-//        let index = this.tvEpisodesForm.tvEpisodes.indexOf(item);
-//        if (index > -1) {
-//          this.tvEpisodesForm.tvEpisodes.splice(index, 1);
-//        }
-//      },
+      removeActor (index) {
+        this.form.actors.splice(index, 1);
+      },
       fileUploadFinish (res, file) {
         if (res.isSuccessful) {
           this.form.fileURL = res.data.url;
@@ -512,6 +538,7 @@
             runtime: Number(this.form.runtime),
             premiered: this.form.premiered,
             plot: this.form.plot,
+            actors: this.form.actors
 //                episodes: this.tvEpisodes.map(rawEpisode => {
 //                  return {
 //                    season: rawEpisode.season,

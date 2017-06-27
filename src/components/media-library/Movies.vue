@@ -27,14 +27,12 @@
           <!-- Basic Media Information of Movie -->
           <el-table-column prop="duration" label="Duration" width="200">
             <template scope="scope">
-              <!-- TODO 需要改-->
-              {{scope.row.duration}}
+              {{getTimeString(scope.row.duration)}}
             </template>
           </el-table-column>
 
           <!-- The information of the content of the Movie -->
           <el-table-column prop="genres" label="Genres" width="300">
-            <!-- TODO 多个按钮形式？或者文本用什么进行分隔？-->
             <template scope="scope">
               {{getCommaSplitGenres(scope.row.genres)}}
             </template>
@@ -44,14 +42,12 @@
           <!-- Size (extends from Media) -->
           <el-table-column prop="size" label="File Size" width="100">
             <template scope="scope">
-              {{scope.row.size}}
-              <!-- 旧版 -->
-              <!--{{scope.row.size.size}}&nbsp;{{scope.row.size.measure}}-->
+              {{byteToFitUnit(scope.row.size)}}
             </template>
           </el-table-column>
 
           <!-- Available Operations -->
-          <el-table-column label="Operations">
+          <el-table-column label="Operations" width="300">
             <!--<el-table-column label="Operations" width="300">-->
             <template scope="scope">
               <el-button type="primary" size="small"
@@ -77,7 +73,19 @@
 
       <el-tab-pane>
         <span slot="label"><i class="el-icon-menu"></i> View in Thumbnail Mode</span>
-<!--TODO-->
+        <el-row>
+          <el-col :span="6" v-for="(item, $index) in tableData" :key="item.id" :offset="1">
+            <el-card :body-style="{padding: 0}" style="margin-top: 10px">
+              <img :src="baseURL + item.thumbnailURL" style="width: 100%; display: block" />
+              <div style="padding: 14px">
+                <span>{{item.title}}</span>
+                <div class="bottom clearfix">
+                  <el-button type="text" class="button" @click="goDetails(item.id)">Details</el-button>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -86,29 +94,34 @@
 <script>
   //  import tableData from '@/assets/data';
   //  import ElTable from "../../../node_modules/element-ui/packages/table/src/table";
-
+  import BaseURL from '@/utils/BaseURL';
+  import TypeConvert from '@/utils/TypeConvert';
 
   export default {
 //    components: {ElTable},
     // TODO Get data from GET request
     beforeMount () {
-      this.$axios.get('/api/movie').then(response => {
-        if (response.data.isSuccessful) {
-          this.tableData = response.data.data;
-        }
-        window.console.log(response);
-      });
+      this.load();
     },
 //    mounted () {
 //      window.console.log(tableData);
 //    },
     data () {
       return {
+        baseURL: BaseURL,
         tableData: [],
         fullScreenLoading: false
       };
     },
     methods: {
+      load () {
+        this.$axios.get('/api/movie').then(response => {
+          if (response.data.isSuccessful) {
+            this.tableData = response.data.data;
+          }
+          window.console.log(response);
+        });
+      },
       getCommaSplitGenres (genres) {
         let str = "";
         for (let i = 0; i < genres.length; ++i) {
@@ -121,29 +134,30 @@
         return str;
       },
       getTimeString (time) {
-        return `${Math.floor(time / 3600)} hrs ${Math.floor(
-          (time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
+        return TypeConvert.durationToHMS(time);
       },
       goDetails (id) {
         this.$router.push({name: 'MovieDetails', params: {id}})
       },
       deleteItem (id) {
-        // TODO ID 没用上啊。。。。
-        this.$confirm('Are you sure to delete the item? ', 'Warning', {
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: 'Succeeded'
-          })
-        })
+        this.$axios.delete('/api/movie/' + id).then(response => {
+          if (response.data.isSuccessful) {
+            this.$message({
+              type: 'success',
+              message: 'Delete Successful'
+            });
+            this.load();
+          }
+        }).catch(error => {
+          window.console.log(error);
+        });
       },
       downloadFile (fileURL) {
         window.open(fileURL, '_blank');
       },
-
+      byteToFitUnit (byte) {
+        return TypeConvert.byteToFitUnit(byte);
+      },
       openFullScreen(){
         this.fullScreenLoading = true;
         setTimeout(() => {
@@ -159,12 +173,27 @@
   }
 </script>
 
-<style>
+<style scoped>
   .mediaTitle {
     font-size: 26px;
     padding-top: 14px;
     padding-bottom: 15px;
     padding-left: 30px;
     color: #FAFAFA;
+  }
+
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both
   }
 </style>
