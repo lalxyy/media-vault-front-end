@@ -20,11 +20,11 @@
               {{scope.row.title}}
             </template>
           </el-table-column>
-          <el-table-column prop="rating" label="Rating" width="100">
-            <template scope="scope">
-              {{scope.row.rating}}
-            </template>
-          </el-table-column>
+          <!--<el-table-column prop="rating" label="Rating" width="100">-->
+            <!--<template scope="scope">-->
+              <!--{{scope.row.rating}}-->
+            <!--</template>-->
+          <!--</el-table-column>-->
 
 
           <!-- Size (extends from Media) -->

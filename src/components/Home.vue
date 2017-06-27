@@ -13,6 +13,8 @@
           </h3>
         </el-tab-pane>
         <el-tab-pane label="Searching" name="second">
+          <!--<i class="el-icon-plus"></i>-->
+          <span slot="label"><i class="el-icon-search"></i>  Searching (all media files)</span>
 
 
           <el-row>

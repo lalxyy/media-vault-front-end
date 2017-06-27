@@ -2,7 +2,7 @@
   <div id="app">
     <!-- TODO Top Menu-->
     <!--<el-menu class="top-menu" mode="horizontal">-->
-    <el-menu mode="horizontal" theme="dark">
+    <el-menu mode="horizontal" theme="dark" style="border-radius: 5px">
       <!-- TODO Modifying -->
       <el-row :gutter="20">
         <el-col :span="20">
@@ -69,8 +69,8 @@
     <!-- TODO Add Gutter -->
     <el-row :gutter="20">
       <!-- TODO Left Navigation -->
-      <el-col :span="4">
-        <el-menu class="side-menu" :router="true" theme="dark">
+      <el-col :span="5">
+        <el-menu class="side-menu" :router="true" theme="dark" style="border-radius: 5px">
           <!--<el-menu class="side-menu" :router="true" theme="white">-->
 
           <!-- TODO 标签组1 -->
@@ -99,7 +99,7 @@
       </el-col>
 
       <!-- TODO Main Frame -->
-      <el-col :span="20">
+      <el-col :span="19">
         <!-- TODO Top -->
 
         <!-- TODO Media Library Contents -->

@@ -13,6 +13,8 @@
         <span slot="label"><i class="el-icon-information"></i> Upload (general) Media File</span>
 
         <el-form ref="form" :rules="rules" :model="form" label-width="100px">
+          <h3 style="margin-top: 5px">Upload Media File</h3>
+
           <el-form-item label="Title">
             <el-input v-model="form.title" style="width: 500px"></el-input>
           </el-form-item>
@@ -84,9 +86,9 @@
           </template>
 
           <!--<template v-if="form.type === 'Music'">-->
-          <!--<el-form-item label="Duration" prop="duration">-->
-          <!--<el-input v-model="form.duration" style="width: 500px"></el-input>-->
-          <!--</el-form-item>-->
+            <!--<el-form-item label="Duration" prop="duration">-->
+              <!--<el-input v-model="form.duration" style="width: 500px"></el-input>-->
+            <!--</el-form-item>-->
           <!--</template>-->
 
           <template v-if="form.type !== 'Photos'">
@@ -95,7 +97,7 @@
               <el-rate
                 v-model="form.rating"
                 style="margin-top: 8px"
-                :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
+                :colors="['#99A9BF', '#F7BA2A', '#FF9900']">1
               </el-rate>
             </el-form-item>
           </template>
@@ -140,7 +142,10 @@
 
           <template v-if="form.type === 'TVShows'">
             <h3>Episodes</h3>
-            Add episodes in the second tab (after submitting the tab here).
+            <h4 style="margin-left: 20px">
+              The functionality is put in a separate tab. Please add episodes in the second tab.
+            </h4>
+
             <h3>Actors</h3>
             <template v-for="(actor, $index) in form.actors">
               <div style="text-align: right; max-width: 650px; margin-bottom: 10px">
