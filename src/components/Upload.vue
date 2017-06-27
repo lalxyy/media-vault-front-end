@@ -54,6 +54,7 @@
             <div style="max-height: 700px">
               <el-upload
                 class="upload-demo"
+                ref="thumbnailUpload"
                 list-type="picture-card"
                 :show-file-list="false"
                 :on-error="fileUploadError"
@@ -108,6 +109,7 @@
                 <el-upload
                   class="upload-demo"
                   list-type="text"
+                  ref="fileUpload"
                   :show-file-list="true"
                   :on-success="fileUploadFinish"
                   :on-error="fileUploadError"
@@ -228,6 +230,7 @@
               <el-form-item label="Thumbnail">
                 <el-upload
                   class="upload-demo"
+                  ref="episodeThumbnailUpload"
                   list-type="picture-card"
                   :show-file-list="false"
                   :on-error="fileUploadError"
@@ -244,6 +247,7 @@
               <el-form-item label="File">
                 <el-upload
                   drag
+                  ref="episodeFileUpload"
                   :on-success="onEpisodeUploadFinish"
                   :on-error="fileUploadError"
                   :show-file-list="true"
@@ -609,7 +613,9 @@
             this.tvEpisodeForm.minute = 0;
             this.tvEpisodeForm.second = 0;
             this.tvEpisodeForm.aired = '';
-            this.tvEpisodeForm.director = ''
+            this.tvEpisodeForm.director = '';
+            this.$refs.episodeThumbnailUpload.clearFiles();
+            this.$refs.episodeFileUpload.clearFiles();
           } else {
             window.console.log(response);
           }
