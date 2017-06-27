@@ -47,7 +47,7 @@
           <el-table-column label="Operations" width="300">
             <template scope="scope">
               <el-button size="small" type="primary"
-                         @click="openFullScreen()"
+                         @click="openFullScreen(scope.row.fileURL)"
                          v-loading.fullscreen.lock="fullScreenLoading">
                 <i class="el-icon-upload2"></i> Download
               </el-button>
@@ -145,9 +145,10 @@
         return TypeConvert.byteToFitUnit(byte);
       },
 
-      openFullScreen(){
+      openFullScreen(fileURL){
         this.fullScreenLoading = true;
         setTimeout(() => {
+          window.open(baseURL + fileURL, '_blank');
           this.fullScreenLoading = false;
         }, 500);
       },

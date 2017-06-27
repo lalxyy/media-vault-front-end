@@ -116,7 +116,7 @@
         return TypeConvert.byteToFitUnit(byte);
       },
       downloadFile (fileURL) {
-        window.open(fileURL, '_blank');
+        window.open(baseURL + fileURL, '_blank');
       },
       deleteItem (id) {
         this.$axios.delete('/api/photo/' + id).then(response => {

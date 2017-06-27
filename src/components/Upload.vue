@@ -442,8 +442,8 @@
         }
       },
       totalDuration () {
-        return Number(this.durationHour) * 3600 +
-          Number(this.durationMinute) * 60 + Number(this.durationSecond);
+        return Number(this.form.durationHour) * 3600 +
+          Number(this.form.durationMinute) * 60 + Number(this.form.durationSecond);
       }
     },
     methods: {
