@@ -85,7 +85,7 @@
               <template slot="title">
                 <i class="el-icon-document"></i>Media Library
               </template>
-              <el-menu-item index="/media-library">Entire Media Library</el-menu-item>
+              <!--<el-menu-item index="/media-library">Entire Media Library</el-menu-item>-->
               <el-menu-item index="/media-library/tv-show">TV Shows</el-menu-item>
               <el-menu-item index="/media-library/movie">Movies</el-menu-item>
               <el-menu-item index="/media-library/music">Music</el-menu-item>

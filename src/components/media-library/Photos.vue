@@ -87,17 +87,9 @@
 </template>
 
 <script>
-  import ElCol from 'element-ui/packages/col/src/col';
-  //  import data from '@/assets/data';
-
   export default {
-    components: {ElCol},
     beforeMount () {
-      this.$axios('/api/photo').then(response => {
-        if (response.data.isSuccessful) {
-          this.tableData = response.data.data;
-        }
-      });
+      this.load();
     },
     data() {
       return {
@@ -107,6 +99,13 @@
       };
     },
     methods: {
+      load () {
+        this.$axios('/api/photo').then(response => {
+          if (response.data.isSuccessful) {
+            this.tableData = response.data.data;
+          }
+        });
+      },
       getTimeString (time) {
         return `${Math.floor(time / 3600)} hrs ${Math.floor(
           (time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
@@ -115,16 +114,17 @@
         window.open(fileURL, '_blank');
       },
       deleteItem (id) {
-        this.$confirm('Are you sure to delete the item? ', 'Warning', {
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: 'Succeeded'
-          })
-        })
+        this.$axios.delete('/api/photo/' + id).then(response => {
+          if (response.data.isSuccessful) {
+            this.$message({
+              type: 'success',
+              message: 'Delete Successful'
+            });
+            this.load();
+          }
+        }).catch(error => {
+          window.console.log(error);
+        });
       },
 
       openFullScreen(){

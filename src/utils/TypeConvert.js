@@ -13,5 +13,19 @@ export default {
       default:
         return '';
     }
+  },
+  legalTypeToRouteDetailType (type) {
+    switch (type) {
+      case 'TVShows':
+        return 'TVShowDetails';
+      case 'Movies':
+        return 'MovieDetails';
+      case 'Photos':
+        return 'PhotoDetails';
+      case 'Music':
+        return 'MusicDetails';
+      default:
+        return '';
+    }
   }
 }

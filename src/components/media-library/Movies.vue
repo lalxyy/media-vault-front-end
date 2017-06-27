@@ -92,12 +92,7 @@
 //    components: {ElTable},
     // TODO Get data from GET request
     beforeMount () {
-      this.$axios.get('/api/movie').then(response => {
-        if (response.data.isSuccessful) {
-          this.tableData = response.data.data;
-        }
-        window.console.log(response);
-      });
+      this.load();
     },
 //    mounted () {
 //      window.console.log(tableData);
@@ -109,6 +104,14 @@
       };
     },
     methods: {
+      load () {
+        this.$axios.get('/api/movie').then(response => {
+          if (response.data.isSuccessful) {
+            this.tableData = response.data.data;
+          }
+          window.console.log(response);
+        });
+      },
       getCommaSplitGenres (genres) {
         let str = "";
         for (let i = 0; i < genres.length; ++i) {
@@ -128,17 +131,17 @@
         this.$router.push({name: 'MovieDetails', params: {id}})
       },
       deleteItem (id) {
-        // TODO ID 没用上啊。。。。
-        this.$confirm('Are you sure to delete the item? ', 'Warning', {
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: 'Succeeded'
-          })
-        })
+        this.$axios.delete('/api/movie/' + id).then(response => {
+          if (response.data.isSuccessful) {
+            this.$message({
+              type: 'success',
+              message: 'Delete Successful'
+            });
+            this.load();
+          }
+        }).catch(error => {
+          window.console.log(error);
+        });
       },
       downloadFile (fileURL) {
         window.open(fileURL, '_blank');

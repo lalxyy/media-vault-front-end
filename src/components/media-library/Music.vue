@@ -51,6 +51,11 @@
                          v-loading.fullscreen.lock="fullScreenLoading">
                 <i class="el-icon-upload2"></i> Download
               </el-button>
+              <el-button size="small" type="danger"
+                         @click="deleteItem(scope.row.id)"
+                         v-loading.fullscreen.lock="fullScreenLoading">
+                <i class="el-icon-delete2"></i> Delete
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -102,11 +107,7 @@
 
   export default {
     beforeMount () {
-      this.$axios.get('/api/music').then(response => {
-        if (response.data.isSuccessful) {
-          this.tableData = response.data.data;
-        }
-      })
+      this.load()
     },
     data() {
       return {
@@ -115,6 +116,13 @@
       };
     },
     methods: {
+      load () {
+        this.$axios.get('/api/music').then(response => {
+          if (response.data.isSuccessful) {
+            this.tableData = response.data.data;
+          }
+        })
+      },
       getTimeString (time) {
         return `${Math.floor(time / 3600)} hrs ${Math.floor(
           (time % 3600) / 60)} mins ${(time % 3600) % 60} secs`;
@@ -125,6 +133,20 @@
         setTimeout(() => {
           this.fullScreenLoading = false;
         }, 500);
+      },
+
+      deleteItem (id) {
+        this.$axios.delete('/api/music/' + id).then(response => {
+          if (response.data.isSuccessful) {
+            this.$message({
+              type: 'success',
+              message: 'Delete Successful'
+            });
+            this.load();
+          }
+        }).catch(error => {
+          window.console.log(error);
+        });
       }
     },
     computed: {

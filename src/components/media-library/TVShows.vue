@@ -100,7 +100,8 @@
       </el-tab-pane>
 
       <el-tab-pane>
-        <span slot="label"><i class="el-icon-menu"></i> View in Thumbnail Mode</span>
+        <span slot="label"><i
+          class="el-icon-menu"></i> View in Thumbnail Mode</span>
         <!--TODO-->
       </el-tab-pane>
     </el-tabs>
@@ -112,11 +113,7 @@
 
   export default {
     beforeMount () {
-      this.$axios.get('/api/tv-show').then(response => {
-        if (response.data.isSuccessful) {
-          this.tableData = response.data.data;
-        }
-      })
+      this.load();
     },
 //    mounted() {
 //      window.console.log(tableData);
@@ -128,6 +125,13 @@
       };
     },
     methods: {
+      load () {
+        this.$axios.get('/api/tv-show').then(response => {
+          if (response.data.isSuccessful) {
+            this.tableData = response.data.data;
+          }
+        })
+      },
       getCommaSplitGenres(genres) {
         let str = "";
         for (let i = 0; i < genres.length; ++i) {
@@ -165,17 +169,23 @@
       },
 
       deleteItem (id) {
-        // TODO ID 没用上啊。。。。
-        this.$confirm('Are you sure to delete the item? ', 'Warning', {
-          confirmButtonText: 'Confirm',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: 'Succeeded'
-          })
-        })
+//        this.$confirm('Are you sure to delete the item? ', 'Warning', {
+//          confirmButtonText: 'Confirm',
+//          cancelButtonText: 'Cancel',
+//          type: 'warning'
+//        })
+//        .then(
+        this.$axios.delete('/api/tv-show/' + id).then(response => {
+          if (response.data.isSuccessful) {
+            this.$message({
+              type: 'success',
+              message: 'Delete Successful'
+            });
+            this.load();
+          }
+        }).catch(error => {
+          window.console.log(error);
+        });
       },
 
       openFullScreen(){
