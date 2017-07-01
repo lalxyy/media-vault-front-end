@@ -601,6 +601,7 @@
             });
             this.addEpisodeDialogVisible = false;
 
+            this.tvEpisodeForm.title = '';
             this.tvEpisodeForm.season = 0;
             this.tvEpisodeForm.episode = 0;
             this.tvEpisodeForm.uploadFileURL = '';

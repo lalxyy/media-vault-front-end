@@ -22,7 +22,7 @@
 
           <el-button type="info" icon="search"
                      style="margin-top: 22px; float: right; margin-right: 30px"
-                     @click="this.$router.push({
+                     @click="$router.push({
                      name: 'Home'
                      })"
           >Search

@@ -66,7 +66,7 @@
             <el-table-column prop="episode" label="Episode" width="100"></el-table-column>
             <el-table-column label="Duration" width="150">
               <template scope="scope">
-                <!--{{getTimeString(scope.row.time)}}-->
+                {{getTimeString(scope.row.duration)}}
               </template>
             </el-table-column>
             <el-table-column label="File Size" width="150">
@@ -74,7 +74,7 @@
                 {{byteToFitUnit(scope.row.size)}}
               </template>
             </el-table-column>
-            <el-table-column label="Operation" width="250">
+            <el-table-column label="Operation" style="min-width: 250px">
               <template scope="scope">
                 <el-button size="small" type="primary" @click="downloadFile(scope.row.fileURL)">
                   <i class="el-icon-upload2"></i>&nbsp;Download
@@ -85,6 +85,23 @@
               </template>
             </el-table-column>
           </el-table>
+
+          <el-row>
+            <el-col :span="12" style="text-align: left">
+              <h3>Actors</h3>
+            </el-col>
+          </el-row>
+          <el-row style="padding: 10px">
+            <el-col :span="8" v-for="(item, $index) in exact.actors" :key="item.id" :offset="0">
+              <el-card :body-style="{padding: '0'}" style="width: 230px">
+                <img :src="item.thumbURL" style="width: 230px" />
+                <div style="padding: 14px; margin-top: 10px">
+                  <span>{{item.name}}</span>
+                  <p style="color: #5e7382">{{item.role}}</p>
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
         </template>
 
       </el-col>
