@@ -67,7 +67,7 @@
                     <!-- Shows Photos-->
                     <template v-if="scope.row.type === 'Photos'">
                       <el-button :plain="true" type="info" size="small"
-                                 @click="openFullScreen()"
+                                 @click="openFullScreen(scope.row.fileURL)"
                                  v-loading.fullscreen.lock="fullScreenLoading">
                         Preview
                       </el-button>
@@ -106,6 +106,7 @@
 
 <script>
   import TypeConvert from '@/utils/TypeConvert';
+  import BaseURL from '@/utils/BaseURL';
 
   export default {
     name: 'hello',
@@ -122,7 +123,8 @@
         entireData: [],
         input: '',
         fullScreenLoading: false,
-        activeName: 'second'
+        activeName: 'second',
+        baseURL: BaseURL
       }
     },
     methods: {
@@ -151,6 +153,7 @@
       openFullScreen () {
         this.fullScreenLoading = true;
         setTimeout(() => {
+          window.open(baseURL + fileURL, '_blank');
           this.fullScreenLoading = false;
         }, 800);
       },
