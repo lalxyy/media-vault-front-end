@@ -35,7 +35,7 @@
                     <!--<template-->
                     <!--v-if="scope.row.type !== 'Music' && scope.row.type !== 'Photos'">-->
                     <el-button size="small" type="primary"
-                               @click="openFullScreen(), $router.push({name: convertRouteType(scope.row.type), params: {id: scope.row.id}})"
+                               @click="openDetails(scope.row.id, scope.row.type)"
                                v-loading.fullscreen.lock="fullScreenLoading">
                       Details
                     </el-button>
@@ -126,6 +126,19 @@
       }
     },
     methods: {
+      openDetails(id, type) {
+        // TODO Delay Loading Testing
+        this.fullScreenLoading = true;
+        setTimeout(() => {
+//          this.$router.push({name: 'MediaDetails', params: {id: id}})
+//          $router.push({name: convertRouteType(scope.row.type), params: {id: scope.row.id}})
+          this.$router.push({name: convertRouteType(type), params: {id: id}})
+
+          this.fullScreenLoading = false;
+        }, 500);
+
+      },
+
       searchForData (text) {
         let result = [];
         this.entireData.forEach(media => {

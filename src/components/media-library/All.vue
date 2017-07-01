@@ -143,9 +143,9 @@
         // TODO Delay Loading Testing
         this.fullScreenLoading = true;
         setTimeout(() => {
-          this.fullScreenLoading = false;
           this.$router.push({name: 'MediaDetails', params: {id: id}})
-        }, 300);
+          this.fullScreenLoading = false;
+        }, 500);
 
       },
 

@@ -44,7 +44,7 @@
 
 
           <!-- Available Operations -->
-          <el-table-column label="Operations" width="300">
+          <el-table-column label="Operations" style="min-width: 300px;">
             <template scope="scope">
               <el-button size="small" type="primary"
                          @click="openFullScreen(scope.row.fileURL)"
