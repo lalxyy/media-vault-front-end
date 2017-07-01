@@ -38,7 +38,7 @@
         <el-row>
           <div class="row"><h2>{{exact.title}}</h2></div>
           <!--<div v-if="exact.year" class="row"><h4>{{exact.year}}</h4></div>-->
-          <div class="row">{{type.replace('-', ' ')}}</div>
+          <div class="row">{{displayTypeString}}</div>
           <div v-if="exact.episodes" class="row">{{exact.episodes.length}} Episodes</div>
           <div v-if="exact.duration" class="row">Duration: {{getTimeString(exact.duration)}}</div>
         </el-row>
@@ -171,6 +171,8 @@
               type: 'success',
               message: "Succeed"
             });
+
+            this.getData();
           }
         });
 //        this.$confirm('Are you sure to delete the item? ', 'Warning', {
@@ -202,7 +204,20 @@
       }
     },
     computed: {
-      //
+      displayTypeString () {
+        switch (this.type) {
+          case 'movie':
+            return 'Movie';
+          case 'tv-show':
+            return 'TV Show';
+          case 'music':
+            return 'Music';
+          case 'photo':
+            return 'Photo';
+          default:
+            return '';
+        }
+      }
     }
   };
 </script>
