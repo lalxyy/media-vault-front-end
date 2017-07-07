@@ -128,19 +128,6 @@
       }
     },
     methods: {
-      openDetails(id, type) {
-        // TODO Delay Loading Testing
-        this.fullScreenLoading = true;
-        setTimeout(() => {
-//          this.$router.push({name: 'MediaDetails', params: {id: id}})
-//          $router.push({name: convertRouteType(scope.row.type), params: {id: scope.row.id}})
-          this.$router.push({name: convertRouteType(type), params: {id: id}})
-
-          this.fullScreenLoading = false;
-        }, 500);
-
-      },
-
       searchForData (text) {
         let result = [];
         this.entireData.forEach(media => {
@@ -159,6 +146,18 @@
       },
       convertRouteType (legalType) {
         return TypeConvert.legalTypeToRouteDetailType(legalType);
+      },
+      openDetails(id, type) {
+        // TODO Delay Loading Testing
+        this.fullScreenLoading = true;
+        setTimeout(() => {
+//          this.$router.push({name: 'MediaDetails', params: {id: id}})
+//          $router.push({name: convertRouteType(scope.row.type), params: {id: scope.row.id}})
+
+          this.$router.push({name: this.convertRouteType(type), params: {id: id}})
+          this.fullScreenLoading = false;
+        }, 500);
+
       }
     },
     computed: {

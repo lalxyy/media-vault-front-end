@@ -47,8 +47,8 @@
           </el-table-column>
 
           <!-- Available Operations -->
-          <el-table-column label="Operations" style="min-width: 300px;">
-          <!--<el-table-column label="Operations" width="300">-->
+          <!--<el-table-column label="Operations" style="min-width: 600px;">-->
+          <el-table-column label="Operations" width="300">
             <!--<el-table-column label="Operations" width="300">-->
             <template scope="scope">
               <el-button type="primary" size="small"
