@@ -30,7 +30,7 @@
                                  width="300"></el-table-column>
                 <el-table-column prop="type" label="Type"
                                  width="200"></el-table-column>
-                <el-table-column label="Operations">
+                <el-table-column label="Operations" fixed="right">
                   <template scope="scope">
                     <!--<template-->
                     <!--v-if="scope.row.type !== 'Music' && scope.row.type !== 'Photos'">-->
@@ -66,11 +66,11 @@
                     </template>
                     <!-- Shows Photos-->
                     <template v-if="scope.row.type === 'Photos'">
-                      <el-button :plain="true" type="info" size="small"
-                                 @click="openFullScreen(scope.row.fileURL)"
-                                 v-loading.fullscreen.lock="fullScreenLoading">
-                        Preview
-                      </el-button>
+                      <!--<el-button :plain="true" type="info" size="small"-->
+                                 <!--@click="openFullScreen(scope.row.fileURL)"-->
+                                 <!--v-loading.fullscreen.lock="fullScreenLoading">-->
+                        <!--Preview-->
+                      <!--</el-button>-->
                     </template>
                     <!--<el-button size="small" type="danger"-->
                     <!--@click="deleteItem(scope.row.id)">-->

@@ -2,13 +2,13 @@
   <div>
     <el-menu mode="horizontal" theme="dark" style="margin-top: 20px">
       <el-row :gutter="20">
-        <el-col :span="18">
+        <el-col :span="12">
           <div class="mediaTitle">
             Photos
           </div>
         </el-col>
 
-        <el-col :span="6">
+        <el-col :span="12">
           <!--<el-button type="info" icon="search"-->
           <!--style="margin-top: 22px; float: right; margin-right: 30px"-->
           <!--@click=" "-->
@@ -18,8 +18,13 @@
           <el-button-group style="margin-top: 15px; float: right; margin-right: 30px">
             <!--<el-button type="primary" icon="arrow-left">上一页</el-button>-->
             <!--<el-button type="primary">下一页<i class="el-icon-arrow-right el-icon&#45;&#45;right"></i></el-button>-->
-            <el-button type="primary" icon="delete">
+            <el-button type="primary" icon="delete" @click="deleteItems()">
               Delete Item(s)
+            </el-button>
+
+            <el-button type="primary" icon="circle-close" @click="$refs.infoTable.clearSelection()">
+              <!--<i class="el-icon-circle-close"></i>-->
+              Clear Selection
             </el-button>
           </el-button-group>
         </el-col>
@@ -32,7 +37,10 @@
         <span slot="label"><i class="el-icon-information"></i> View in List Mode</span>
 
         <!-- Uses a table to show the data if `Music` -->
-        <el-table :data="tableData" stripe style="width: 100%">
+        <el-table :data="tableData" stripe style="width: 100%"
+                  ref="infoTable"
+                  @selection-change="handleSelectionChange"
+        >
           <el-table-column type="selection" width="55"></el-table-column>
 
           <!-- TODO New Fields -->
@@ -43,9 +51,9 @@
             </template>
           </el-table-column>
           <!--<el-table-column prop="rating" label="Rating" width="100">-->
-            <!--<template scope="scope">-->
-              <!--{{scope.row.rating}}-->
-            <!--</template>-->
+          <!--<template scope="scope">-->
+          <!--{{scope.row.rating}}-->
+          <!--</template>-->
           <!--</el-table-column>-->
 
 
@@ -60,7 +68,8 @@
 
           <!-- Available Operations -->
           <!-- TODO 没用加载界面 `, openFullScreen()` -->
-          <el-table-column label="Operations">
+          <!--<el-table-column label="Operations">-->
+          <el-table-column label="Operations" width="200" fixed="right">
             <template scope="scope">
               <!--<el-button size="small" type="primary">-->
               <!--<i class="el-icon-upload2"></i> Download-->
@@ -111,9 +120,13 @@
   import TypeConvert from '@/utils/TypeConvert';
   import BaseURL from '@/utils/BaseURL';
   import ElButton from "../../../node_modules/element-ui/packages/button/src/button";
+  import ElAlert from "../../../node_modules/element-ui/packages/alert/src/main";
 
   export default {
-    components: {ElButton},
+    components: {
+      ElAlert,
+      ElButton
+    },
     beforeMount () {
       this.load();
     },
@@ -122,7 +135,9 @@
         baseURL: BaseURL,
         tableData: [],
         currentDate: new Date(), // TODO Test for 卡片显示
-        fullScreenLoading: false
+        fullScreenLoading: false,
+
+        multipleSelection: []
       };
     },
     methods: {
@@ -155,6 +170,41 @@
           window.console.log(error);
         });
       },
+
+      // TODO Delete Item(s)
+      deleteItems () {
+        let selectionList;
+        if (this.multipleSelection !== []) {
+          selectionList = [];
+
+          this.multipleSelection.forEach(row => {
+              // TODO ?? 是这样么
+              selectionList.push(row.id);
+//              this.deleteItem(row.id);
+            }
+          );
+
+          this.$axios.delete('/api/photo/' + selectionList).then(response => {
+            if (response.data.isSuccessful) {
+              this.$message({
+                type: 'success',
+                message: 'Delete Successful'
+              });
+              this.load();
+            }
+          }).catch(error => {
+            window.console.log(error);
+          });
+        }
+      },
+
+      // TODO Handling selection change events
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+        window.console.log(val);
+        window.console.log(val[0]);
+      },
+
 
       goToDetails (id) {
         this.$router.push({name: 'PhotoDetails', params: {id}})

@@ -67,7 +67,8 @@
 
 
           <!-- Available Operations -->
-          <el-table-column label="Operations" style="min-width: 300px;">
+          <!--<el-table-column label="Operations" style="min-width: 300px;">-->
+            <el-table-column label="Operations" width="230" fixed="right">
             <template scope="scope">
               <el-button size="small" type="primary"
                          @click="openFullScreen(scope.row.fileURL)"
@@ -192,7 +193,25 @@
         }).catch(error => {
           window.console.log(error);
         });
-      }
+      },
+
+      // TODO Delete Item(s)
+      deleteItems () {
+        if (this.multipleSelection !== []) {
+          this.multipleSelection.forEach(row => {
+              // TODO ?? 是这样么
+              this.deleteItem(row.id);
+            }
+          )
+        }
+      },
+
+      // TODO Handling selection change events
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+        window.console.log(val);
+        window.console.log(val[0]);
+      },
     },
     computed: {
       // Only needs Music in this table

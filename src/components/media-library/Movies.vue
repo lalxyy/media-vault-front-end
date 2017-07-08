@@ -71,7 +71,8 @@
 
           <!-- Available Operations -->
           <!--<el-table-column label="Operations" style="min-width: 600px;">-->
-          <el-table-column label="Operations" width="300">
+          <!--<el-table-column label="Operations" width="300">-->
+          <el-table-column label="Operations" width="300" fixed="right">
             <!--<el-table-column label="Operations" width="300">-->
             <template scope="scope">
               <el-button type="primary" size="small"
@@ -193,7 +194,25 @@
         setTimeout(() => {
           this.fullScreenLoading = false;
         }, 500);
-      }
+      },
+
+      // TODO Delete Item(s)
+      deleteItems () {
+        if (this.multipleSelection !== []) {
+          this.multipleSelection.forEach(row => {
+              // TODO ?? 是这样么
+              this.deleteItem(row.id);
+            }
+          )
+        }
+      },
+
+      // TODO Handling selection change events
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+        window.console.log(val);
+        window.console.log(val[0]);
+      },
     },
     computed: {
 //      filterTableData () {
