@@ -20,8 +20,12 @@
           <!--</el-button>-->
           <!-- TODO 测试使用按钮组 -->
           <el-button-group style="margin-top: 15px; float: right; margin-right: 30px">
-            <el-button type="primary" icon="arrow-left">上一页</el-button>
-            <el-button type="primary">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+            <!--<el-button type="primary" icon="arrow-left">上一页</el-button>-->
+            <!--<el-button type="primary">下一页<i class="el-icon-arrow-right el-icon&#45;&#45;right"></i></el-button>-->
+
+            <el-button type="primary" icon="delete">
+              Delete Item(s)
+            </el-button>
           </el-button-group>
         </el-col>
       </el-row>
