@@ -7,7 +7,6 @@
       </div>
     </el-menu>
 
-
     <el-tabs type="border-card" v-model="activeTab" @tab-click="tabChange">
       <el-tab-pane name="main">
         <span slot="label"><i class="el-icon-information"></i> Upload (general) Media File</span>
@@ -462,6 +461,7 @@
         window.console.log('tab change to ' + this.activeTab);
         if (this.activeTab === 'episodes') {
           this.getAllTVShows();
+          this.finishedEpisodes = [];
         }
         return this.activeTab;
       },
@@ -475,6 +475,7 @@
         })
       },
       chooseTVShow () {
+        this.finishedEpisodes = [];
         this.tvShowStep1Finished = true;
       },
       thumbnailUploadFinish (res, file) {

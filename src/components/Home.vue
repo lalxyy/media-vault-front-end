@@ -140,7 +140,6 @@
       openFullScreen () {
         this.fullScreenLoading = true;
         setTimeout(() => {
-          window.open(baseURL + fileURL, '_blank');
           this.fullScreenLoading = false;
         }, 800);
       },
