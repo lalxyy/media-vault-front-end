@@ -198,12 +198,25 @@
 
       // TODO Delete Item(s)
       deleteItems () {
+        let selectionList = [];
         if (this.multipleSelection !== []) {
+
           this.multipleSelection.forEach(row => {
-              // TODO ?? 是这样么
-              this.deleteItem(row.id);
+              selectionList.push(row.id);
             }
-          )
+          );
+
+          this.$axios.delete('/api/photo/' + selectionList).then(response => {
+            if (response.data.isSuccessful) {
+              this.$message({
+                type: 'success',
+                message: 'Delete Successful'
+              });
+              this.load();
+            }
+          }).catch(error => {
+            window.console.log(error);
+          });
         }
       },
 

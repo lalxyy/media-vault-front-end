@@ -173,14 +173,14 @@
 
       // TODO Delete Item(s)
       deleteItems () {
-        let selectionList;
+        let selectionList = [];
         if (this.multipleSelection !== []) {
-          selectionList = [];
 
           this.multipleSelection.forEach(row => {
               // TODO ?? 是这样么
               selectionList.push(row.id);
-//              this.deleteItem(row.id);
+//              this.deleteItem(row.i
+// d);
             }
           );
 
