@@ -40,13 +40,14 @@
           <!-- Plot - Ignored in List Mode -->
 
           <!-- Size (extends from Media) -->
-          <el-table-column prop="size" label="File Size" width="100">
+          <el-table-column prop="size" label="File Size" width="150">
             <template scope="scope">
               {{byteToFitUnit(scope.row.size)}}
             </template>
           </el-table-column>
 
           <!-- Available Operations -->
+          <!--<el-table-column label="Operations" style="min-width: 600px;">-->
           <el-table-column label="Operations" width="300">
             <!--<el-table-column label="Operations" width="300">-->
             <template scope="scope">
@@ -137,7 +138,13 @@
         return TypeConvert.durationToHMS(time);
       },
       goDetails (id) {
-        this.$router.push({name: 'MovieDetails', params: {id}})
+//        this.$router.push({name: 'MovieDetails', params: {id}})
+
+        this.fullScreenLoading = true;
+        setTimeout(() => {
+          this.$router.push({name: 'MovieDetails', params: {id}})
+          this.fullScreenLoading = false;
+        }, 500);
       },
       deleteItem (id) {
         this.$axios.delete('/api/movie/' + id).then(response => {

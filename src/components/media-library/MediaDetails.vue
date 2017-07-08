@@ -2,7 +2,8 @@
   <div>
     <!-- TODO Temporary Top Menu in-page -->
     <el-row style="margin-bottom: 10px">
-      <el-button type="text" size="large" @click="$router.go(-1)">
+      <el-button type="text" size="large" @click="goBack()"
+                 v-loading.fullscreen.lock="fullScreenLoading">
         <i class="el-icon-arrow-left"></i> Back
       </el-button>
     </el-row>
@@ -16,19 +17,19 @@
         <el-row>
           <!-- TODO 旧代码的缩略图和文字部分 -->
           <!--<el-col :span="6" style="padding-right: 20px">-->
-            <!--<img :src="exact.thumbnailURL" style="max-width: 100%" />-->
+          <!--<img :src="exact.thumbnailURL" style="max-width: 100%" />-->
           <!--</el-col>-->
           <!--<el-col :span="18">-->
-            <!--<div class="row"><h2>{{exact.title}}</h2></div>-->
-            <!--<div v-if="exact.year" class="row"><h4>{{exact.year}}</h4></div>-->
-            <!--<div class="row">{{exact.type}}</div>-->
-            <!--<div v-if="exact.episodes" class="row">{{exact.episodes.length}} episodes</div>-->
+          <!--<div class="row"><h2>{{exact.title}}</h2></div>-->
+          <!--<div v-if="exact.year" class="row"><h4>{{exact.year}}</h4></div>-->
+          <!--<div class="row">{{exact.type}}</div>-->
+          <!--<div v-if="exact.episodes" class="row">{{exact.episodes.length}} episodes</div>-->
           <!--</el-col>-->
-        <!--</el-row>-->
+          <!--</el-row>-->
 
-          <img v-if="type !== 'photo'" :src="baseURL + exact.thumbnailURL" style="max-width: 100%" />
-          <img v-else :src="baseURL + exact.fileURL" style="max-width: 100%" />
-    </el-row>
+          <img v-if="type !== 'photo'" :src="baseURL + exact.thumbnailURL" style="max-width: 100%"/>
+          <img v-else :src="baseURL + exact.fileURL" style="max-width: 100%"/>
+        </el-row>
 
       </el-col>
 
@@ -94,7 +95,7 @@
           <el-row style="padding: 10px">
             <el-col :span="8" v-for="(item, $index) in exact.actors" :key="item.id" :offset="0">
               <el-card :body-style="{padding: '0'}" style="width: 230px">
-                <img :src="item.thumbURL" style="width: 230px" />
+                <img :src="item.thumbURL" style="width: 230px"/>
                 <div style="padding: 14px; margin-top: 10px">
                   <span>{{item.name}}</span>
                   <p style="color: #5e7382">{{item.role}}</p>
@@ -113,7 +114,7 @@
 <script>
   import BaseURL from '@/utils/BaseURL';
   import TypeConvert from '@/utils/TypeConvert';
-//  import tableData from '@/assets/data';
+  //  import tableData from '@/assets/data';
 
   export default {
     beforeMount () {
@@ -126,6 +127,7 @@
     },
     data () {
       return {
+        fullScreenLoading: false,
         baseURL: BaseURL,
         id: parseInt(this.$route.params.id),
         type: '',
@@ -201,6 +203,14 @@
             this.$router.go(-1);
           }
         })
+      },
+      goBack() {
+        // TODO Delay Loading Testing
+        this.fullScreenLoading = true;
+        setTimeout(() => {
+          this.$router.go(-1)
+          this.fullScreenLoading = false;
+        }, 300);
       }
     },
     computed: {
@@ -230,26 +240,32 @@
   .el-row {
     /*margin-bottom: 20px;*/
     /*margin-left: 40px;*/
-  /*&:last-child {*/
-     /*margin-bottom: 0;*/
-   /*}*/
+    /*&:last-child {*/
+    /*margin-bottom: 0;*/
+    /*}*/
   }
+
   .el-col {
     border-radius: 4px;
   }
+
   .bg-purple-dark {
     background: #99a9bf;
   }
+
   .bg-purple {
     background: #d3dce6;
   }
+
   .bg-purple-light {
     background: #e5e9f2;
   }
+
   .grid-content {
     border-radius: 4px;
     min-height: 36px;
   }
+
   .row-bg {
     padding: 10px 0;
     background-color: #f9fafc;
