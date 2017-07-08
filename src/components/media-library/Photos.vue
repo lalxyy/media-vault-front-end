@@ -1,9 +1,26 @@
 <template>
   <div>
     <el-menu mode="horizontal" theme="dark" style="margin-top: 20px">
-      <div class="mediaTitle">
-        Photos
-      </div>
+      <el-row :gutter="20">
+        <el-col :span="18">
+          <div class="mediaTitle">
+            Photos
+          </div>
+        </el-col>
+
+        <el-col :span="6">
+          <!--<el-button type="info" icon="search"-->
+          <!--style="margin-top: 22px; float: right; margin-right: 30px"-->
+          <!--@click=" "-->
+          <!--&gt;Testing Operations-->
+          <!--</el-button>-->
+          <!-- TODO 测试使用按钮组 -->
+          <el-button-group style="margin-top: 15px; float: right; margin-right: 30px">
+            <el-button type="primary" icon="arrow-left">上一页</el-button>
+            <el-button type="primary">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+          </el-button-group>
+        </el-col>
+      </el-row>
     </el-menu>
 
     <!-- TODO Testing `Border-Card` Navigation -->
@@ -13,6 +30,8 @@
 
         <!-- Uses a table to show the data if `Music` -->
         <el-table :data="tableData" stripe style="width: 100%">
+          <el-table-column type="selection" width="55"></el-table-column>
+
           <!-- TODO New Fields-->
           <!-- Basic (extends from Media) -->
           <el-table-column prop="title" label="Title" width="300">

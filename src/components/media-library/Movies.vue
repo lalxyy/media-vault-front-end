@@ -5,9 +5,26 @@
     <!--<el-menu mode="horizontal">-->
     <!--<h1>Movies</h1>-->
     <el-menu mode="horizontal" theme="dark" style="margin-top: 20px">
-      <div class="mediaTitle">
-        Movies
-      </div>
+      <el-row :gutter="20">
+        <el-col :span="18">
+          <div class="mediaTitle">
+            Movies
+          </div>
+        </el-col>
+
+        <el-col :span="6">
+          <!--<el-button type="info" icon="search"-->
+          <!--style="margin-top: 22px; float: right; margin-right: 30px"-->
+          <!--@click=" "-->
+          <!--&gt;Testing Operations-->
+          <!--</el-button>-->
+          <!-- TODO 测试使用按钮组 -->
+          <el-button-group style="margin-top: 15px; float: right; margin-right: 30px">
+            <el-button type="primary" icon="arrow-left">上一页</el-button>
+            <el-button type="primary">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+          </el-button-group>
+        </el-col>
+      </el-row>
     </el-menu>
 
     <!-- TODO Search 需要加！-->
@@ -20,6 +37,8 @@
 
         <!-- TODO Content -->
         <el-table :data="tableData" stripe style="width: 100%">
+          <el-table-column type="selection" width="55"></el-table-column>
+
           <!-- Basic (extends from Media) -->
           <el-table-column prop="title" label="Title" width="300"></el-table-column>
           <el-table-column prop="rating" label="Rating" width="100"></el-table-column>
