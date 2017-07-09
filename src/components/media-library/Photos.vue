@@ -14,7 +14,6 @@
           <!--@click=" "-->
           <!--&gt;Testing Operations-->
           <!--</el-button>-->
-          <!-- TODO 测试使用按钮组 -->
           <el-button-group style="margin-top: 15px; float: right; margin-right: 30px">
             <!--<el-button type="primary" icon="arrow-left">上一页</el-button>-->
             <!--<el-button type="primary">下一页<i class="el-icon-arrow-right el-icon&#45;&#45;right"></i></el-button>-->
@@ -67,7 +66,6 @@
           </el-table-column>
 
           <!-- Available Operations -->
-          <!-- TODO 没用加载界面 `, openFullScreen()` -->
           <!--<el-table-column label="Operations">-->
           <el-table-column label="Operations" width="200" fixed="right">
             <template scope="scope">
@@ -128,7 +126,7 @@
       return {
         baseURL: BaseURL,
         tableData: [],
-        currentDate: new Date(), // TODO Test for 卡片显示
+        currentDate: new Date(),
         fullScreenLoading: false,
 
         multipleSelection: []
@@ -171,7 +169,6 @@
         if (this.multipleSelection !== []) {
 
           this.multipleSelection.forEach(row => {
-              // TODO ?? 是这样么
               selectionList.push(row.id);
 //              this.deleteItem(row.i
 // d);

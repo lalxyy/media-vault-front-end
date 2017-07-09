@@ -18,7 +18,6 @@
         <el-col :span="4">
         <!--<el-col :span="2" :offset="16">-->
           <!-- `:plain="true"` -->
-          <!-- TODO 这里要改一下！ -->
 
           <el-button type="info" icon="search"
                      style="margin-top: 22px; float: right; margin-right: 30px"
@@ -73,13 +72,11 @@
         <el-menu class="side-menu" :router="true" theme="dark" style="border-radius: 5px">
           <!--<el-menu class="side-menu" :router="true" theme="white">-->
 
-          <!-- TODO 标签组1 -->
           <el-menu-item-group title="Home and Searching">
             <el-menu-item index="/"><i class="el-icon-menu"></i>Home
             </el-menu-item>
           </el-menu-item-group>
 
-          <!-- TODO 标签组2 -->
           <el-menu-item-group title="Media Navigation">
             <el-submenu index="/media-library">
               <template slot="title">

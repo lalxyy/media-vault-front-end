@@ -15,7 +15,6 @@
         <div class="grid-content"></div>
 
         <el-row>
-          <!-- TODO 旧代码的缩略图和文字部分 -->
           <!--<el-col :span="6" style="padding-right: 20px">-->
           <!--<img :src="exact.thumbnailURL" style="max-width: 100%" />-->
           <!--</el-col>-->
