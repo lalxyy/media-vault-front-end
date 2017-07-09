@@ -34,10 +34,9 @@
         <span slot="label"><i class="el-icon-information"></i> View in List Mode</span>
 
         <!-- Uses a table to show the data if `Music` -->
-        <el-table :data="tableData" stripe style="width: 100%">
-          <el-table-column type="selection" width="55"></el-table-column>
-
+        <el-table ref="table" :data="tableData" stripe style="width: 100%">
           <!-- Basic (extends from Media) -->
+          <el-table-column type="selection" width="55"></el-table-column>
           <el-table-column prop="title" label="Title" width="300">
             <template scope="scope">
               {{scope.row.title}}

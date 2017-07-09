@@ -119,14 +119,8 @@
 <script>
   import TypeConvert from '@/utils/TypeConvert';
   import BaseURL from '@/utils/BaseURL';
-  import ElButton from "../../../node_modules/element-ui/packages/button/src/button";
-  import ElAlert from "../../../node_modules/element-ui/packages/alert/src/main";
 
   export default {
-    components: {
-      ElAlert,
-      ElButton
-    },
     beforeMount () {
       this.load();
     },

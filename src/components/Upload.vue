@@ -97,7 +97,7 @@
               <el-rate
                 v-model="form.rating"
                 style="margin-top: 8px"
-                :colors="['#99A9BF', '#F7BA2A', '#FF9900']">1
+                :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
               </el-rate>
             </el-form-item>
           </template>
@@ -127,7 +127,18 @@
 
           <template v-if="form.type === 'TVShows'">
             <el-form-item label="Runtime">
-              <el-input v-model="form.runtime" style="width: 500px"></el-input>
+              <!--<el-input v-model="form.runtime" style="width: 500px"></el-input>-->
+              <el-input v-model="runtime.hour"
+                        style="width: 114px"></el-input>
+              Hour
+              &nbsp;&nbsp;
+              <el-input v-model="runtime.minute"
+                        style="width: 114px"></el-input>
+              Minute
+              &nbsp;&nbsp;
+              <el-input v-model="runtime.second"
+                        style="width: 114px"></el-input>
+              Second
             </el-form-item>
             <el-form-item label="MPAA">
               <el-input v-model="form.mpaa" style="width: 500px"></el-input>
@@ -411,6 +422,11 @@
               validator: checkTitle,
               trigger: 'blur'
             }]
+        },
+        runtime: {
+          hour: 0,
+          minute: 0,
+          second: 0
         }
       };
     },
@@ -540,7 +556,7 @@
             duration: this.totalDuration,
             mpaa: this.form.mpaa,
             studio: this.form.studio,
-            runtime: Number(this.form.runtime),
+            runtime: Number(this.runtime.hour * 3600 + this.runtime.minute * 60 + this.runtime.second),
             premiered: this.form.premiered,
             plot: this.form.plot,
             actors: this.form.actors
