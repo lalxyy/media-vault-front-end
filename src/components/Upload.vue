@@ -26,7 +26,7 @@
               <el-option label="Music" value="Music"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item v-if="form.type !== 'Photos'" label="Duration">
+          <el-form-item v-if="form.type !== 'Photos'" :label="form.type === 'TVShows' ? 'Runtime' : 'Duration'">
             <el-input v-model="durationHour"
                       style="width: 114px"></el-input>
             Hour
@@ -126,20 +126,20 @@
           </template>
 
           <template v-if="form.type === 'TVShows'">
-            <el-form-item label="Runtime">
-              <!--<el-input v-model="form.runtime" style="width: 500px"></el-input>-->
-              <el-input v-model="runtime.hour"
-                        style="width: 114px"></el-input>
-              Hour
-              &nbsp;&nbsp;
-              <el-input v-model="runtime.minute"
-                        style="width: 114px"></el-input>
-              Minute
-              &nbsp;&nbsp;
-              <el-input v-model="runtime.second"
-                        style="width: 114px"></el-input>
-              Second
-            </el-form-item>
+            <!--<el-form-item label="Runtime">-->
+              <!--&lt;!&ndash;<el-input v-model="form.runtime" style="width: 500px"></el-input>&ndash;&gt;-->
+              <!--<el-input v-model="runtime.hour"-->
+                        <!--style="width: 114px"></el-input>-->
+              <!--Hour-->
+              <!--&nbsp;&nbsp;-->
+              <!--<el-input v-model="runtime.minute"-->
+                        <!--style="width: 114px"></el-input>-->
+              <!--Minute-->
+              <!--&nbsp;&nbsp;-->
+              <!--<el-input v-model="runtime.second"-->
+                        <!--style="width: 114px"></el-input>-->
+              <!--Second-->
+            <!--</el-form-item>-->
             <el-form-item label="MPAA">
               <el-input v-model="form.mpaa" style="width: 500px"></el-input>
             </el-form-item>
@@ -556,7 +556,8 @@
             duration: this.totalDuration,
             mpaa: this.form.mpaa,
             studio: this.form.studio,
-            runtime: Number(this.runtime.hour * 3600 + this.runtime.minute * 60 + this.runtime.second),
+            runtime: this.totalDuration,
+//            runtime: Number(this.runtime.hour * 3600 + this.runtime.minute * 60 + this.runtime.second),
             premiered: this.form.premiered,
             plot: this.form.plot,
             actors: this.form.actors

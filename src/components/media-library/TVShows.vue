@@ -128,7 +128,7 @@
           class="el-icon-menu"></i> View in Thumbnail Mode</span>
         <el-row>
           <el-col :span="6" v-for="(item, $index) in tableData" :key="item.id" :offset="1">
-            <el-card :body-style="{padding: 0}" style="margin-top: 10px; background-color: dodgerblue">
+            <el-card :body-style="{padding: 0}" style="margin-top: 10px">
               <img :src="baseURL + item.thumbnailURL" style="width: 100%; display: block" />
               <div style="padding: 14px">
                 <span>{{item.title}}</span>
